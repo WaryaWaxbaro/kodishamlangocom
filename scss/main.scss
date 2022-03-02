@@ -45,8 +45,8 @@
   height: 70px;
   width: 100%;
   //background-color: $primary;
-  @media (max-width: 575.98px) {
-    //height: 75px;
+  @media (max-width: 991.98px) {
+    height: 50px;
   }
 }
 
@@ -70,7 +70,7 @@
       border-color 0.15s ease-in-out;
     border-bottom: 2px solid transparent;
     font-weight: bolder;
-    font-size: 18px;
+    font-size: 16px;
     padding-left: 0;
     padding-right: 0;
 
@@ -294,5 +294,12 @@
     display: block;
     height: auto !important;
     visibility: visible;
+  }
+}
+
+.footer-links {
+  & a {
+    color: #fff;
+    text-decoration: none;
   }
 }

@@ -24,8 +24,10 @@ export default function MainLayout({ children }) {
   return (
     <>
       <Navbar navbarBg={navbarBg} />
-      <div ref={navRef} className="navbar-placeholder"></div>
-      {children}
+      <main className="min-80vh">
+        <div ref={navRef} className="navbar-placeholder"></div>
+        {children}
+      </main>
       <AppFooter />
     </>
   );

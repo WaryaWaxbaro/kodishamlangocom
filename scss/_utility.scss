@@ -191,6 +191,12 @@
   }
 }
 
+.w-lg-100 {
+  @media (max-width: 991.98px) {
+    width: 100% !important;
+  }
+}
+
 .w-280 {
   width: 280px;
 }
@@ -348,6 +354,13 @@
 }
 
 .cover-img-bottom {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: bottom;
+}
+
+.cover-img-bottom img {
   width: 100%;
   height: 100%;
   object-fit: cover;

@@ -5,14 +5,14 @@ import Logo from "../components/Logo";
 export default function Navbar({ navbarBg }) {
   const { pathname } = useRouter();
   const commonStyles = {
-    nav: "navbar navbar-light navbar-expand-lg flex-nowrap z-to-150 shadow-sm transition-2s",
+    nav: "navbar navbar-light navbar-expand-lg fixed-top flex-nowrap z-to-150 shadow-sm transition-2s",
     menu: "navbar-toggler border-2 outline-none no-shadow-btn p-1",
   };
   return (
     <nav
       className={
         navbarBg
-          ? `${commonStyles.nav} bg-primary fixed-top`
+          ? `${commonStyles.nav} bg-primary`
           : `${commonStyles.nav} bg-white`
       }
     >
@@ -67,13 +67,13 @@ export default function Navbar({ navbarBg }) {
                   </span>
                 </li>
               ))}
-              <li className="d-grid nav-item text-center">
-                <button className="btn btn-primary rounded-pill no-shadow-btn mb-2">
+              <li className="nav-item d-flex align-items-center px-lg-2">
+                <button className="btn btn-dark rounded-pill no-shadow-btn fs-14 h-34 w-lg-100 px-lg-4 my-3 my-lg-0">
                   Login
                 </button>
               </li>
-              <li className="d-grid nav-item text-center">
-                <button className="btn btn-primary rounded-pill no-shadow-btn mb-2">
+              <li className="nav-item d-flex align-items-center">
+                <button className="btn btn-dark rounded-pill no-shadow-btn fs-14 h-34 w-lg-100 px-lg-4">
                   Register
                 </button>
               </li>
