@@ -42,3 +42,8 @@ Kodishamlango is a property advertisement web application
 - Bootstrap
 - Bootstrap Icons
 -
+
+layouts
+https://preview.themeforest.net/item/find-houses-real-estate-html-template/full_screen_preview/21745328?_ga=2.67258324.438562095.1646339909-1381196239.1646339909
+
+https://code-theme.com/html/findhouses/index.html

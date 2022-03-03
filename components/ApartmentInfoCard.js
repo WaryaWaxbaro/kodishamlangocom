@@ -2,7 +2,6 @@ import Image from "next/image";
 import { formatPrice } from "../utils";
 import { useRouter } from "next/router";
 
-import { getApartmentPath } from "../utils";
 import Link from "next/link";
 
 export default function ApartmentInfoCard(props) {
@@ -136,7 +135,13 @@ export default function ApartmentInfoCard(props) {
               </span>
             </h5>
           </div>
-          <Link href={`/houses-for-rent/${apartment.slug}`}>show</Link>
+          <Link href={`/houses-for-rent/${apartment.slug}`}>
+            <span className="btn btn-primary rounded-circle ls-6 fs-16 square-50 d-flex align-items-center justify-content-center shadow-sm">
+              <span className="d-block">
+                <i className="bi bi-chevron-right"></i>
+              </span>
+            </span>
+          </Link>
         </div>
       </div>
     </div>
