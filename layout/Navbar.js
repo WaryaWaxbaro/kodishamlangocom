@@ -1,87 +1,60 @@
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { Router, useRouter } from "next/router";
 import Logo from "../components/Logo";
+import Image from "next/image";
+import NavbarLinks from "./NavbarLinks";
 
-export default function Navbar({ navbarBg }) {
+export default function Navbar(props) {
+  const [stickyNav, setStickyNav] = useState(false);
+  const navRef = useRef(null);
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const handleScroll = () => {
+    let elementBounds = navRef.current;
+    if (elementBounds) {
+      let { bottom } = elementBounds.getBoundingClientRect();
+      console.log("bottom ", bottom);
+      if (bottom < -50) {
+        setStickyNav(true);
+      } else {
+        setStickyNav(false);
+      }
+    }
+  };
   const { pathname } = useRouter();
   const commonStyles = {
     nav: "navbar navbar-light navbar-expand-lg fixed-top flex-nowrap z-to-150 shadow-sm transition-2s",
     menu: "navbar-toggler border-2 outline-none no-shadow-btn p-1",
   };
   return (
-    <nav
-      className={
-        navbarBg
-          ? `${commonStyles.nav} bg-primary`
-          : `${commonStyles.nav} bg-white`
-      }
-    >
-      <div className="container-lg">
-        <Logo
-          imgUrl={
-            navbarBg
-              ? "/images/logo_light_door.png"
-              : "/images/logo_orange_door.png"
-          }
-        />
-        <button
-          className={
-            navbarBg
-              ? `${commonStyles.menu} border-dark`
-              : `${commonStyles.menu} border-primary`
-          }
-          type="button"
-          data-bs-toggle="offcanvas"
-          data-bs-target="#offcanvasNavbar"
-          aria-controls="offcanvasNavbar"
-        >
-          <i className="bi bi-list text-dark fs-28"></i>
-        </button>
-        <div
-          className="offcanvas offcanvas-start drawer"
-          tabIndex="-1"
-          id="offcanvasNavbar"
-          aria-labelledby="offcanvasNavbarLabel"
-        >
-          <div className="offcanvas-header bg-primary p-2">
-            <Logo imgUrl="/images/logo_dark_door.png" />
-            <button
-              type="button"
-              className="btn-close text-reset"
-              data-bs-dismiss="offcanvas"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div className="offcanvas-body">
-            <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
-              {navbarLinks.map((link) => (
-                <li key={link.name} className="nav-item p-lg-2">
-                  <span
-                    className={
-                      link.url === pathname
-                        ? "main-nav-links active"
-                        : "main-nav-links"
-                    }
-                  >
-                    <Link href={link.url}>{link.name}</Link>
-                  </span>
-                </li>
-              ))}
-              <li className="nav-item d-flex align-items-center px-lg-2">
-                <button className="btn btn-dark rounded-pill no-shadow-btn fs-14 h-34 w-lg-100 px-lg-4 my-3 my-lg-0">
-                  Login
-                </button>
-              </li>
-              <li className="nav-item d-flex align-items-center">
-                <button className="btn btn-dark rounded-pill no-shadow-btn fs-14 h-34 w-lg-100 px-lg-4">
-                  Register
-                </button>
-              </li>
-            </ul>
-          </div>
+    <>
+      <nav
+        ref={navRef}
+        className="navbar navbar-expand-lg h-104 w-100 border-bottom border-gray-300"
+      >
+        <NavbarLinks />
+      </nav>
+      <nav
+        className="navbar navbar-expand-lg h-104 w-100 bg-light position-fixed start-0"
+        style={{
+          top: stickyNav ? "0" : "-105px",
+          left: stickyNav ? "0" : "-2px",
+          transition: stickyNav ? "top .4s ease-out" : "none",
+        }}
+      >
+        <NavbarLinks />
+      </nav>
+      <div className="position-fixed start-0 top-0 w-100 h-90-vh z-1">
+        <div className="position-relative w-100 h-100 cover-img-bottom">
+          <Image src="/bg-img.jpeg" layout="fill" alt="Kodishamlango.com" />
+          <div className="position-absolute start-0 top-0 w-100 h-100 hero-bg"></div>
         </div>
       </div>
-    </nav>
+    </>
   );
 }
 

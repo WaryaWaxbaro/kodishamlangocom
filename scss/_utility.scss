@@ -19,8 +19,20 @@
   height: 60px;
 }
 
+.h-104 {
+  height: 104px;
+}
+
 .h-72 {
   height: 72px;
+}
+
+.h-80-vh {
+  height: 80vh;
+}
+
+.h-90-vh {
+  height: 90vh;
 }
 
 .h-100-vh {
@@ -332,6 +344,10 @@
   letter-spacing: 0.6px;
 }
 
+.ls-1 {
+  letter-spacing: 1px;
+}
+
 // Text center
 .text-center-sm {
   @media (max-width: 576px) {
@@ -381,6 +397,14 @@
 
 .bg-dark-trans-3 {
   background-color: rgba(0, 0, 0, 0.35);
+}
+
+.hero-bg {
+  background: linear-gradient(
+    180deg,
+    rgba(173, 181, 189, 1) 0%,
+    transparent 100%
+  );
 }
 
 // Blog card

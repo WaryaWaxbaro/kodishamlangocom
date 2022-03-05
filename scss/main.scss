@@ -53,7 +53,7 @@
 .main-nav-links {
   &.active {
     & a {
-      border-bottom: 2px solid #000;
+      border-bottom: 2px solid #ffae19;
 
       @media (max-width: 991.98px) {
         border-bottom: 2px solid #ffae19;
@@ -69,8 +69,6 @@
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
       border-color 0.15s ease-in-out;
     border-bottom: 2px solid transparent;
-    font-weight: bolder;
-    font-size: 16px;
     padding-left: 0;
     padding-right: 0;
 
@@ -80,13 +78,24 @@
     }
 
     &:hover {
-      border-bottom-color: #000;
+      border-bottom-color: #ffae19;
 
       @media (max-width: 991.98px) {
         border-bottom-color: #ffae19;
       }
     }
   }
+}
+
+.nav-section-width {
+  width: 85%;
+  @media (max-width: 1199.98px) {
+    width: 100%;
+  }
+}
+
+.nav-dropdown-toggle.dropdown-toggle::after {
+  vertical-align: 1.4em;
 }
 
 .drawer {
@@ -298,6 +307,20 @@
 }
 
 .footer-links {
+  & a {
+    color: #fff;
+    text-decoration: none;
+  }
+}
+
+.dark-links {
+  & a {
+    color: #000;
+    text-decoration: none;
+  }
+}
+
+.light-links {
   & a {
     color: #fff;
     text-decoration: none;
