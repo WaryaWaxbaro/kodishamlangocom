@@ -7,5 +7,9 @@ import Pricing from "../components/Pricing";
 import SearchAgentInfo from "../components/SearchAgentInfo";
 
 export default function Home() {
-  return <></>;
+  return (
+    <>
+      <Hero />
+    </>
+  );
 }

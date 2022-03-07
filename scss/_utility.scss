@@ -254,6 +254,13 @@
   }
 }
 
+.max-width-lg-80p {
+  max-width: 80%;
+  @media (max-width: 991.98px) {
+    max-width: 100%;
+  }
+}
+
 // Navitem
 .navbar-item {
   border-bottom: 1px solid transparent;
@@ -402,7 +409,7 @@
 .hero-bg {
   background: linear-gradient(
     180deg,
-    rgba(173, 181, 189, 1) 0%,
+    rgba(155, 162, 170, 1) 0%,
     transparent 100%
   );
 }
@@ -576,4 +583,9 @@
   @media (max-width: 575.98px) {
     min-width: 130px;
   }
+}
+
+// Line height
+lh-12 {
+  line-height: 1.2;
 }
