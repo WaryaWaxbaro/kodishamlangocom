@@ -17,7 +17,7 @@ export default function Navbar(props) {
     let elementBounds = navRef.current;
     if (elementBounds) {
       let { bottom } = elementBounds.getBoundingClientRect();
-      console.log("bottom ", bottom);
+
       if (bottom < -50) {
         setStickyNav(true);
       } else {
@@ -25,11 +25,7 @@ export default function Navbar(props) {
       }
     }
   };
-  const { pathname } = useRouter();
-  const commonStyles = {
-    nav: "navbar navbar-light navbar-expand-lg fixed-top flex-nowrap z-to-150 shadow-sm transition-2s",
-    menu: "navbar-toggler border-2 outline-none no-shadow-btn p-1",
-  };
+
   return (
     <>
       <nav

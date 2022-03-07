@@ -32,52 +32,23 @@ export default function NavbarLinks() {
           ></button>
         </div>
         <div className="offcanvas-body">
-          <div className="h-100 nav-section-width d-flex flex-column flex-lg-row align-items-center justify-content-end justify-content-xl-between ms-xl-auto">
+          <div className="d-none h-100 nav-section-width d-lg-flex flex-column flex-lg-row align-items-center justify-content-end justify-content-xl-between ms-xl-auto">
             <ul className="navbar-nav">
-              <li className="nav-item ls-1 p-lg-3">
-                <span
-                  className={
-                    pathname === "/"
-                      ? "main-nav-links active"
-                      : "main-nav-links"
-                  }
-                >
-                  <Link href="/">Home</Link>
-                </span>
-              </li>
-              <li className="nav-item ls-1 p-lg-3">
-                <span
-                  className={
-                    pathname === "/listing"
-                      ? "main-nav-links active"
-                      : "main-nav-links"
-                  }
-                >
-                  <Link href="/listing">Listing</Link>
-                </span>
-              </li>
-              <li className="nav-item ls-1 p-lg-3">
-                <span
-                  className={
-                    pathname === "/property"
-                      ? "main-nav-links active"
-                      : "main-nav-links"
-                  }
-                >
-                  <Link href="/property">Property</Link>
-                </span>
-              </li>
-              <li className="nav-item ls-1 p-lg-3">
-                <span
-                  className={
-                    pathname === "/contact"
-                      ? "main-nav-links active"
-                      : "main-nav-links"
-                  }
-                >
-                  <Link href="/contact">Contact</Link>
-                </span>
-              </li>
+              {mainLinks.map((link) => (
+                <li key={link.name} className="nav-item ls-1 p-lg-3">
+                  <span
+                    className={
+                      link.url === pathname
+                        ? "main-nav-links active"
+                        : "main-nav-links"
+                    }
+                  >
+                    <Link href={link.url}>
+                      <a>{link.name}</a>
+                    </Link>
+                  </span>
+                </li>
+              ))}
             </ul>
             <ul className="navbar-nav align-items-center justify-content-end">
               <li className="nav-item dropdown">
@@ -102,31 +73,13 @@ export default function NavbarLinks() {
                   className="dropdown-menu dropdown-menu-dark dropdown-menu-end"
                   aria-labelledby="navbarDarkDropdownMenuLink"
                 >
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Dashboard
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Add property
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Edit profile
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Payments
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="#">
-                      Log Out
-                    </a>
-                  </li>
+                  {dropdownLinks.map((link) => (
+                    <li key={link.name}>
+                      <Link href={link.url}>
+                        <span className="dropdown-item">{link.name}</span>
+                      </Link>
+                    </li>
+                  ))}
                 </ul>
               </li>
               <li className="nav-item">
@@ -141,8 +94,125 @@ export default function NavbarLinks() {
               </li>
             </ul>
           </div>
+          <div className="h-100 nav-section-width d-lg-none">
+            <div className="w-100 mb-5 text-center">
+              <div className="square-96 mx-auto rounded-circle bg-danger border border-4 border-primary mb-3"></div>
+              <p>Shakur Hassan</p>
+            </div>
+            <ul className="list-unstyled px-3">
+              {dropdownLinks.map((link, index) => (
+                <li key={`${link.name}_${index}`} className="mb-2">
+                  <Link href={link.url}>
+                    <a
+                      className={
+                        link.url === pathname
+                          ? "dropdown-item active"
+                          : "dropdown-item"
+                      }
+                    >
+                      <span className="d-flex align-items-center">
+                        <span className="d-block me-3">
+                          <i className={link.icon}></i>
+                        </span>
+                        <span className="d-block">{link.name}</span>
+                      </span>
+                    </a>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <hr className="mx-3" />
+            <ul className="list-unstyled px-3">
+              {mainLinks.map((link, index) => (
+                <li key={`${link.name}_${index}`} className="mb-2">
+                  <Link href={link.url}>
+                    <a
+                      className={
+                        link.url === pathname
+                          ? "dropdown-item active"
+                          : "dropdown-item"
+                      }
+                    >
+                      <span className="d-flex align-items-center">
+                        <span className="d-block me-3">
+                          <i className={link.icon}></i>
+                        </span>
+                        <span className="d-block">{link.name}</span>
+                      </span>
+                    </a>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </div>
   );
 }
+
+const mainLinks = [
+  {
+    name: "Home",
+    url: "/",
+    icon: "bi bi-house-door-fill",
+  },
+  {
+    name: "Listings",
+    url: "/",
+    icon: "bi bi-card-list",
+  },
+  {
+    name: "Property",
+    url: "/",
+    icon: "bi bi-card-text",
+  },
+  {
+    name: "Contact",
+    url: "/",
+    icon: "bi bi-envelope-fill",
+  },
+];
+
+const dropdownLinks = [
+  {
+    name: "Dashboard",
+    url: "/",
+    icon: "bi bi-speedometer",
+  },
+  {
+    name: "Profile",
+    url: "/",
+    icon: "bi bi-person-fill",
+  },
+  {
+    name: "My properties",
+    url: "/",
+    icon: "bi bi-list-ul",
+  },
+  {
+    name: "Favorite Properties",
+    url: "/",
+    icon: "bi bi-heart-fill",
+  },
+  {
+    name: "Add Property",
+    url: "/",
+    icon: "bi bi-plus-circle-fill",
+  },
+  {
+    name: "Payments",
+    url: "/",
+    icon: "bi bi-credit-card-fill",
+  },
+  {
+    name: "Invoices",
+    url: "/",
+    icon: "bi bi-journals",
+  },
+  {
+    name: "Logout",
+    url: "/",
+    icon: "bi bi-box-arrow-right",
+  },
+];
