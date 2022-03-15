@@ -4,6 +4,7 @@
 @import "../node_modules/bootstrap/scss/bootstrap.scss";
 @import "../node_modules/bootstrap-icons/font/bootstrap-icons.scss";
 @import "./utility";
+@import "./rc-slider";
 
 .bg-primary-transparent-35 {
   background-color: rgba($dark, 0.35);
@@ -327,43 +328,15 @@
   }
 }
 
-.dynamic-texts {
-  margin-left: 15px;
-  overflow: hidden;
-}
-
-.dynamic-texts span {
-  color: #fc6d6d;
+.typewriter-container {
   position: relative;
-  top: 0;
-  animation: slide 12s steps(4) infinite;
-}
-
-@keyframes slide {
-  100% {
-    top: -360px;
-  }
-}
-.dynamic-texts span {
-  position: relative;
-  margin: 5px 0;
-}
-.dynamic-texts span::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  background: #343f4f;
-  border-left: 2px solid #fc6d6d;
-  animation: typing 3s steps(10) infinite;
-}
-@keyframes typing {
-  40%,
-  60% {
-    left: calc(100% + 30px);
-  }
-  100% {
+  &::after {
+    content: "";
+    position: absolute;
     left: 0;
+    bottom: 0;
+    height: 1px;
+    width: 100%;
+    background-color: #fff;
   }
 }

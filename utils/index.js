@@ -17,3 +17,7 @@ export const getApartmentPath = (category, id) => {
     return "";
   }
 };
+
+export const removeWhiteSpace = (str) => {
+  return typeof str === "string" ? str.replace(/ /g, "") : str;
+};

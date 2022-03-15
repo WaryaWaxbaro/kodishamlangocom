@@ -180,6 +180,10 @@
   width: 200px;
 }
 
+.min-w-96 {
+  min-width: 96px;
+}
+
 .min-w-200 {
   min-width: 200px;
 }
@@ -306,6 +310,14 @@
 
 .z-to-6 {
   z-index: 6;
+}
+
+.z-to-80 {
+  z-index: 80;
+}
+
+.z-to-100 {
+  z-index: 100;
 }
 
 .z-to-150 {
@@ -553,6 +565,12 @@
   &:hover {
     color: #fff;
     background-color: #2e2f30;
+  }
+}
+
+.hover-bg-primary {
+  &:hover {
+    background-color: $primary;
   }
 }
 

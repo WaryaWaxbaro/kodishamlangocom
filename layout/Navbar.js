@@ -30,12 +30,12 @@ export default function Navbar(props) {
     <>
       <nav
         ref={navRef}
-        className="navbar navbar-expand-lg h-104 w-100 border-bottom border-gray-300"
+        className="navbar navbar-expand-lg h-104 w-100 border-bottom border-gray-300 z-to-1000"
       >
         <NavbarLinks />
       </nav>
       <nav
-        className="navbar navbar-expand-lg h-104 w-100 bg-light position-fixed start-0"
+        className="navbar navbar-expand-lg h-104 w-100 bg-light position-fixed start-0 z-to-1000"
         style={{
           top: stickyNav ? "0" : "-105px",
           left: stickyNav ? "0" : "-2px",
@@ -47,22 +47,3 @@ export default function Navbar(props) {
     </>
   );
 }
-
-const navbarLinks = [
-  {
-    name: "Home",
-    url: "/",
-  },
-  {
-    name: "Rent",
-    url: "/houses-for-rent",
-  },
-  {
-    name: "Buy",
-    url: "/houses-for-sell",
-  },
-  {
-    name: "Short stay",
-    url: "/short-stay",
-  },
-];
