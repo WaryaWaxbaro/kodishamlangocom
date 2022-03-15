@@ -10,8 +10,9 @@ export default function AppDropdown(props) {
   const handleListItemSelection = (e) => {
     setShowPropertyList(!showPropertyList);
     let selectedItemText = e.target.textContent;
+    let itemVal = selectedItemText === defaultItem ? "" : selectedItemText;
     setSelectedItem(selectedItemText);
-    setSelectedListItem(selectedItemText);
+    setSelectedListItem(itemVal);
   };
 
   return (
@@ -30,13 +31,20 @@ export default function AppDropdown(props) {
           <span className="d-inline-block">{selectedItem}</span>
         </span>
         <span className="d-block">
-          <i className="bi bi-chevron-down"></i>
+          {showPropertyList ? (
+            <i className="bi bi-chevron-up"></i>
+          ) : (
+            <i className="bi bi-chevron-down"></i>
+          )}
         </span>
       </button>
       {showPropertyList && (
         <ul
-          className="position-absolute start-0 w-100 list-unstyled bg-light rounded-5 border border-1 border-gray-200 py-2 mt-2 overflow-auto z-to-100"
-          style={{ height: "auto", maxHeight: "180px" }}
+          className="position-absolute start-0 w-100 list-unstyled bg-light rounded-5 border border-1 border-gray-200 py-2 mt-2 overflow-auto z-to-100 transition-4s"
+          style={{
+            height: showPropertyList ? "auto" : "0",
+            maxHeight: "180px",
+          }}
         >
           <li
             onClick={(e) => handleListItemSelection(e)}

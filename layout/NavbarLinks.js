@@ -144,6 +144,7 @@ export default function NavbarLinks() {
                 </li>
               ))}
             </ul>
+            <div className="h-40 w-100 my-5"></div>
           </div>
         </div>
       </div>

@@ -3,7 +3,7 @@ import Range from "rc-slider";
 import { formatPrice } from "../utils";
 
 export default function AppSlider(props) {
-  const { minMax, labelName, unit, formatUnit } = props;
+  const { minMax, labelName, unit, formatUnit, setSelectedRange } = props;
   const mMax = minMax || [0, 100];
   const min = mMax[0];
   const max = mMax[1];
@@ -11,6 +11,7 @@ export default function AppSlider(props) {
   const handleRangeChange = (value) => {
     console.log(value);
     setRangeMinMax(value);
+    setSelectedRange(value);
   };
   return (
     <div className="w-100 p-2 fs-14">
