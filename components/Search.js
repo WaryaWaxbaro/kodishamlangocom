@@ -6,6 +6,7 @@ import AppSlider from "./AppSlider";
 import cities from "../utils/cities";
 
 export default function Search(props) {
+  const { setActiveSearchValues } = props;
   const [selectedPropertyType, setSelectedPropertyType] = useState("");
   const [selectedPropertyStatus, setSelectedPropertyStatus] = useState("");
   const [selectedBedrooms, setSelectedBedrooms] = useState("");
@@ -102,6 +103,8 @@ export default function Search(props) {
         }
       })
       .filter((sv) => sv);
+
+    setActiveSearchValues(activeValues);
   };
   return (
     <div className="position-relative w-100 rounded-10 border border-5 border-bg-light bg-light py-3 px-2">

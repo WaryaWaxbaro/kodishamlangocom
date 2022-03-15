@@ -5,6 +5,8 @@ import Typewriter from "typewriter-effect";
 import Search from "./Search";
 
 export default function Hero() {
+  const [activeSearchValues, setActiveSearchValues] = useState([]);
+
   return (
     <>
       <div className="position-fixed start-0 top-0 w-100 h-90-vh z-1">
@@ -52,7 +54,7 @@ export default function Hero() {
                   </Link>
                 ))}
               </div>
-              <Search />
+              <Search setActiveSearchValues={setActiveSearchValues} />
             </div>
           </div>
         </div>
