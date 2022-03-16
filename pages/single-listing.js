@@ -1,6 +1,9 @@
+import Image from "next/image";
 import React from "react";
 import HeadingWithLine from "../components/HeadingWithLine";
 import ImageSlider from "../components/ImageSlider";
+import Reviews from "../components/Reviews";
+import ReviewForm from "../components/ReviewForm";
 
 export default function singleListing() {
   return (
@@ -100,6 +103,37 @@ export default function singleListing() {
                 <span>Internet</span>
               </li>
             </ul>
+          </div>
+          {/* Floor Plans */}
+          <div className="w-100 bg-white shadow p-3 mt-3">
+            <HeadingWithLine
+              text="Floor Plans"
+              classNames="text-dark fs-18 fw-bold ls-6"
+            />
+            <div className="w-100 position-relative">
+              <Image
+                src="/images/cover/floor-plan-1.png"
+                layout="responsive"
+                width={450}
+                height={250}
+              />
+            </div>
+          </div>
+          {/* Reviews */}
+          <div className="w-100 bg-white shadow p-3 mt-3">
+            <HeadingWithLine
+              text="3 Reviews"
+              classNames="text-dark fs-18 fw-bold ls-6"
+            />
+            <Reviews />
+          </div>
+          {/* Review Form */}
+          <div className="w-100 bg-white shadow p-3 mt-3">
+            <HeadingWithLine
+              text="Add Review"
+              classNames="text-dark fs-18 fw-bold ls-6"
+            />
+            <ReviewForm />
           </div>
         </div>
         <div className="col-12 col-md-4">
