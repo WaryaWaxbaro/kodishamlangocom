@@ -138,6 +138,7 @@ export default function singleListing() {
           </div>
         </div>
         <div className="col-12 col-md-4">
+          {/* Agent Information */}
           <div className="w-100 bg-white shadow p-3 mb-3">
             <h3 className="fs-18 fw-bold ls-6">Agent Information</h3>
             <hr />
@@ -174,6 +175,25 @@ export default function singleListing() {
             <div className="w-100">
               <h5 className="fs-16 fw-bold ls-6">Request Inquiry</h5>
               <ContactRequestForm />
+            </div>
+          </div>
+          {/* Recent Properties */}
+          <div className="w-100 bg-white shadow p-3 mb-3">
+            <h3 className="fs-18 fw-bold ls-6">Recent Properties</h3>
+            <hr />
+            <div className="w-100">
+              <div className="d-flex">
+                <div
+                  className="position-relative cover-img-img me-3"
+                  style={{ height: "70px", width: "140px" }}
+                >
+                  <Image src="/images/cover/nairobi.png" layout="fill" />
+                </div>
+                <div className="w-100">
+                  <h3 className="fs-16 fw-normal">Family Home</h3>
+                  <p className="fs-14">Kshs 230,000</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
