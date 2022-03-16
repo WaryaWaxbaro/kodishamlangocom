@@ -357,3 +357,42 @@
     flex: 1;
   }
 }
+
+.img-slider-thumbnail,
+.img-slider-thumbnail-container {
+  height: 64px !important;
+  @media (max-width: 575.98px) {
+    height: 48px !important;
+  }
+}
+
+.img-slider-thumbnail {
+  width: 16% !important;
+}
+
+.slider-icon {
+  background-color: $primary;
+  opacity: 1 !important;
+  padding: 5px !important;
+  border-radius: 50%;
+  & svg {
+    width: 1.6rem !important;
+    height: 1.6rem !important;
+    color: white;
+    opacity: 1;
+    transform: scale(0.8);
+  }
+}
+
+.heading-with-line {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -8px;
+    width: 40px;
+    height: 4px;
+    background-color: $primary;
+  }
+}
