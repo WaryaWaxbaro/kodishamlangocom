@@ -83,7 +83,7 @@ export default function ImageSlider() {
           data-bs-target="#SingleListingCarousel"
           data-bs-slide="prev"
         >
-          <span className="square-35 d-block bg-primary bg-opacity-75 rounded-pill d-flex align-items-center justify-content-center">
+          <span className="square-35 d-block bg-primary bg-opacity-50 rounded-pill d-flex align-items-center justify-content-center">
             <span className="d-block">
               <i className="bi bi-chevron-left text-white"></i>
             </span>
