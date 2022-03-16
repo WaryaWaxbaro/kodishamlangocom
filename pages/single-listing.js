@@ -4,6 +4,7 @@ import HeadingWithLine from "../components/HeadingWithLine";
 import ImageSlider from "../components/ImageSlider";
 import Reviews from "../components/Reviews";
 import ReviewForm from "../components/ReviewForm";
+import ContactRequestForm from "../components/ContactRequestForm";
 
 export default function singleListing() {
   return (
@@ -137,7 +138,44 @@ export default function singleListing() {
           </div>
         </div>
         <div className="col-12 col-md-4">
-          <div className="w-100 bg-primary" style={{ height: "400px" }}></div>
+          <div className="w-100 bg-white shadow p-3 mb-3">
+            <h3 className="fs-18 fw-bold ls-6">Agent Information</h3>
+            <hr />
+            <div className="d-flex my-4">
+              <div className="position-relative square-75 overflow-hidden rounded-circle cover-img-img me-4">
+                <Image src="/images/cover/ts-5.jpeg" layout="fill" />
+              </div>
+              <div>
+                <h4 className="fs-16 fw-bold ls-6">Lisa Clark</h4>
+                <p className="fs-14">Agent of Property</p>
+              </div>
+            </div>
+            <div>
+              <p className="d-flex fs-14">
+                <span className="d-block text-primary me-3">
+                  <i className="bi bi-geo-alt-fill"></i>
+                </span>
+                <span className="d-block">302 Av Park, New York</span>
+              </p>
+              <p className="d-flex fs-14">
+                <span className="d-block text-primary me-3">
+                  <i className="bi bi-telephone-fill"></i>
+                </span>
+                <span className="d-block">(234) 0200 17813</span>
+              </p>
+              <p className="d-flex fs-14">
+                <span className="d-block text-primary me-3">
+                  <i className="bi bi-envelope-fill"></i>
+                </span>
+                <span className="d-block">lisa@gmail.com</span>
+              </p>
+            </div>
+            <hr />
+            <div className="w-100">
+              <h5 className="fs-16 fw-bold ls-6">Request Inquiry</h5>
+              <ContactRequestForm />
+            </div>
+          </div>
         </div>
       </div>
     </div>
