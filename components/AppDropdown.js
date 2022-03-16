@@ -28,7 +28,7 @@ export default function AppDropdown(props) {
               dangerouslySetInnerHTML={{ __html: icon }}
             ></span>
           )}
-          <span className="d-inline-block">{selectedItem}</span>
+          <span className="d-inline-block me-2">{selectedItem}</span>
         </span>
         <span className="d-block">
           {showPropertyList ? (
