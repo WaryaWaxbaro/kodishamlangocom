@@ -21,3 +21,46 @@ export const getApartmentPath = (category, id) => {
 export const removeWhiteSpace = (str) => {
   return typeof str === "string" ? str.replace(/ /g, "") : str;
 };
+
+export const property_types = [
+  "Apartment",
+  "Bungalow",
+  "House",
+  "Mansion",
+  "Villa",
+  "Flat",
+  "Mini Flat",
+  "Duplex",
+  "Shop",
+  "Business Space",
+  "Business Center",
+  "Plot",
+  "Commercial",
+  "Residential",
+];
+
+export const property_features = [
+  "AC",
+  "Fan",
+  "Swimming Pool",
+  "Central Heating",
+  "Laundry Room",
+  "Gym",
+  "Alarm",
+  "Window Covering",
+  "WiFi",
+  "TV",
+  "Dryer",
+  "Microwave",
+  "Washer",
+  "Refrigerator",
+  "Outdoor Shower",
+  "Parking",
+  "Lift",
+  "Balcony",
+  "Fully Furnished",
+  "Play Ground",
+  "Breakfast",
+  "Arrival Pickup",
+  "Departure Pickup",
+];

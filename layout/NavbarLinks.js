@@ -89,7 +89,7 @@ export default function NavbarLinks() {
               </li>
               <li className="nav-item ls-1 p-lg-3">
                 <span className="btn btn-primary rounded-8 dark-links text-nowrap">
-                  <Link href="/contact">Add Listing</Link>
+                  <Link href="/new-listing">Add Listing</Link>
                 </span>
               </li>
             </ul>
@@ -160,7 +160,7 @@ const mainLinks = [
   },
   {
     name: "Listings",
-    url: "/",
+    url: "/new-listing",
     icon: "bi bi-card-list",
   },
   {
@@ -198,7 +198,7 @@ const dropdownLinks = [
   },
   {
     name: "Add Property",
-    url: "/",
+    url: "/new-listing",
     icon: "bi bi-plus-circle-fill",
   },
   {
