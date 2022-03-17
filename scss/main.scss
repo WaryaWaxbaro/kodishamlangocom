@@ -396,3 +396,10 @@
     background-color: $primary;
   }
 }
+
+.thumbnail-img {
+  & img {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+}

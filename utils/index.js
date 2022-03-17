@@ -22,6 +22,14 @@ export const removeWhiteSpace = (str) => {
   return typeof str === "string" ? str.replace(/ /g, "") : str;
 };
 
+export const toUnderscoreKey = (str) => {
+  if (typeof str === "string") {
+    return str.toLowerCase().split(" ").join("_");
+  }
+
+  return str;
+};
+
 export const property_types = [
   "Apartment",
   "Bungalow",
