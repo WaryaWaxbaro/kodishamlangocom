@@ -1,9 +1,9 @@
 import { useState } from "react";
-import Search from "../components/Search";
-import AppDropdown from "../components/AppDropdown";
-import SmallCard from "../components/SmallCard";
+import Search from "./Search";
+import AppDropdown from "./AppDropdown";
+import SmallCard from "./SmallCard";
 
-export default function listings() {
+export default function Listings() {
   const [sortBy, setSortBy] = useState(null);
   return (
     <div className="container-lg">

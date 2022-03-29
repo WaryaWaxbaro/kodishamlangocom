@@ -159,18 +159,18 @@ const mainLinks = [
     icon: "bi bi-house-door-fill",
   },
   {
-    name: "Listings",
-    url: "/new-listing",
+    name: "For Rent",
+    url: "/for-rent",
     icon: "bi bi-card-list",
   },
   {
-    name: "Property",
-    url: "/",
+    name: "For Sale",
+    url: "/for-sale",
     icon: "bi bi-card-text",
   },
   {
     name: "Contact",
-    url: "/",
+    url: "/contact",
     icon: "bi bi-envelope-fill",
   },
 ];
@@ -178,22 +178,22 @@ const mainLinks = [
 const dropdownLinks = [
   {
     name: "Dashboard",
-    url: "/",
+    url: "/admin",
     icon: "bi bi-speedometer",
   },
   {
     name: "Profile",
-    url: "/",
+    url: "/admin/profile",
     icon: "bi bi-person-fill",
   },
   {
     name: "My properties",
-    url: "/",
+    url: "/admin/my-properties",
     icon: "bi bi-list-ul",
   },
   {
     name: "Favorite Properties",
-    url: "/",
+    url: "/admin/favorite-properties",
     icon: "bi bi-heart-fill",
   },
   {
@@ -203,12 +203,12 @@ const dropdownLinks = [
   },
   {
     name: "Payments",
-    url: "/",
+    url: "/admin/payments",
     icon: "bi bi-credit-card-fill",
   },
   {
     name: "Invoices",
-    url: "/",
+    url: "/admin/invoices",
     icon: "bi bi-journals",
   },
   {
