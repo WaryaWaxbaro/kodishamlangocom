@@ -398,8 +398,11 @@
 }
 
 .thumbnail-img {
+  width: 125px;
+  height: 110px;
   & img {
-    max-width: 100% !important;
-    height: auto !important;
+    object-fit: contain;
+    width: 100% !important;
+    height: unset !important;
   }
 }

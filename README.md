@@ -49,3 +49,61 @@ https://preview.themeforest.net/item/find-houses-real-estate-html-template/full_
 https://code-theme.com/html/findhouses/index.html
 
 https://themeforest.net/category/site-templates?term=real%20estate
+
+Property Description And Price
+Property Title
+Property Description
+property_status (sale, rent, holiday)
+property_type "Apartment", "Bungalow", "House", "Mansion", "Villa", "Flat", "Mini Flat", "Duplex", "Shop", "Business Space", "Business Center", "Plot", "Commercial", "Residential"]
+bedrooms
+price
+price_duration
+area
+guest
+
+Property Media
+Property Location
+Street
+post code
+sub city
+City
+Province
+Country
+Google Maps Latitude
+Google Maps Longitude
+Extra Information
+Select Age
+Select rooms
+Select Bathrooms
+badge
+is_featured
+is_published
+is_reserved
+Slug
+Property Features
+Air Conditioning
+Swimming Pool
+Central Heating
+Laundry Room
+Gym
+Alarm
+Window Covering
+Refrigerator
+TV Cable & WIFI
+Microwave
+
+Contact Information
+Name
+Username
+Email
+Phone
+
+street,
+postcode
+sub_city
+city
+province
+country
+name
+email
+phone

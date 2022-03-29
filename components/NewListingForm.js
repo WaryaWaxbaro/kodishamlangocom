@@ -59,6 +59,7 @@ export default function NewListingForm(props) {
   };
 
   const handleOpenFileDialog = () => {
+    console.log("opening dialog ");
     fileField.current.click();
   };
 
@@ -66,28 +67,33 @@ export default function NewListingForm(props) {
     setUploadMessage("");
     console.log("triggered");
     let files = uploadedFiles;
+    console.log("files ", files);
     if (files && files.length > 0) {
-      for (let i = 0; i < files.length; i++) {
-        let file = files[i];
+      let currentFiles = [];
+      Array.from(files).forEach((file) => {
         let is_uploaded = propertyImages.find((img) => img.name === file.name);
         if (is_uploaded) {
           setUploadMessage(
             `File (${is_uploaded.name}) has been already uploaded.`
           );
         } else {
-          if (maxUploads + propertyImages.length > 5) {
+          if (propertyImages.length > 5) {
             setUploadMessage("Uploaded maximum photos allowed.");
             return;
           } else {
-            setPropertyImages([file, ...propertyImages]);
-            console.log("property Images", propertyImages);
+            currentFiles.push(file);
           }
         }
-      }
+      });
+      console.log("result ", [...currentFiles, ...propertyImages]);
+      setPropertyImages([...currentFiles, ...propertyImages]);
+      console.log("property Images", propertyImages);
+      fileField.current.value = null;
     }
   }, [uploadedFiles]);
 
   const handleImageUpload = (event) => {
+    console.log("events --> ", event.target.files);
     setUploadedFiles(event.target.files);
   };
 
@@ -101,9 +107,17 @@ export default function NewListingForm(props) {
     let url = URL.createObjectURL(file);
     return url;
   };
+
+  const removeImageFile = (imageFile) => {
+    let filtered = propertyImages.filter((img) => img.name !== imageFile.name);
+    setPropertyImages(filtered);
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
   return (
     <div className="w-100 p-2 p-sm-4 shadow">
-      <form>
+      <form onSubmit={handleSubmit}>
         <h3 className="fs-16 fw-bold text-primary mb-3">Property Details</h3>
         <div className="mb-3">
           <label htmlFor="property_title" className="form-label">
@@ -537,20 +551,25 @@ export default function NewListingForm(props) {
             {propertyImages.map((img, index) => (
               <div
                 key={index}
-                className="position-relative thumbnail-img"
-                style={{ width: "120px" }}
+                className="position-relative thumbnail-img me-3 border border-primary rounded-5"
               >
                 <Image src={getFileUrl(img)} layout="fill" />
+                <span
+                  onClick={() => removeImageFile(img)}
+                  className="btn btn-danger bg-opacity-75 border-0 rounded-circle d-block position-absolute d-flex align-items-center justify-content-center p-0"
+                  style={{
+                    width: "20px",
+                    height: "20px",
+                    right: "-5px",
+                    top: "-5px",
+                  }}
+                >
+                  <span className="d-block text-light">
+                    <i className="bi bi-x"></i>
+                  </span>
+                </span>
               </div>
             ))}
-            <div
-              className="bg-warning me-3"
-              style={{ width: "120px", height: "64px" }}
-            ></div>
-            <div
-              className="bg-warning me-3"
-              style={{ width: "120px", height: "64px" }}
-            ></div>
           </div>
           {uploadMessage && (
             <p className="text-danger fs-14">{uploadMessage}</p>
@@ -565,6 +584,11 @@ export default function NewListingForm(props) {
             </div>
             <p className="mb-0 fs-14">Click here to add Property pictures</p>
           </div>
+        </div>
+        <div className="d-grid my-5">
+          <button type="submit" className="btn btn-primary btn-lg rounded-pill">
+            Save
+          </button>
         </div>
       </form>
     </div>

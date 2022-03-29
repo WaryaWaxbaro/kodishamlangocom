@@ -637,6 +637,12 @@
   border-radius: 10px;
 }
 
+.rounded-img-5 {
+  & img {
+    border-radius: 5px;
+  }
+}
+
 // Fontsize
 .fs-16-14 {
   font-size: 16px;
