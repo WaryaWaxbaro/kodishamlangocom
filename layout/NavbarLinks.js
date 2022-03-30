@@ -1,9 +1,11 @@
+import { useState } from "react";
 import Logo from "../components/Logo";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
 export default function NavbarLinks() {
   const { pathname } = useRouter();
+  const [currentUser, setCurrentUser] = useState(null);
   return (
     <div className="container-xl h-100">
       <Logo imgUrl="/images/logo_dark_door.png" />
@@ -51,37 +53,47 @@ export default function NavbarLinks() {
               ))}
             </ul>
             <ul className="navbar-nav align-items-center justify-content-end">
-              <li className="nav-item dropdown">
-                <button
-                  className="btn btn-transparent nav-dropdown-toggle dropdown-toggle text-nowrap rounded-0 no-shadow-btn"
-                  type="button"
-                  id="dropdownMenuButton1"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  <span
-                    className="d-inline-block"
-                    style={{ marginTop: "10px" }}
+              {currentUser ? (
+                <li className="nav-item dropdown">
+                  <button
+                    className="btn btn-transparent nav-dropdown-toggle dropdown-toggle text-nowrap rounded-0 no-shadow-btn"
+                    type="button"
+                    id="dropdownMenuButton1"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
                   >
-                    <span className="d-flex align-items-center">
-                      <span className="d-block square-50 bg-danger rounded-circle me-3"></span>
-                      <span className="d-block">Hello Abdishakur!</span>
+                    <span
+                      className="d-inline-block"
+                      style={{ marginTop: "10px" }}
+                    >
+                      <span className="d-flex align-items-center">
+                        <span className="d-block square-50 bg-danger rounded-circle me-3"></span>
+                        <span className="d-block">Hello Abdishakur!</span>
+                      </span>
                     </span>
+                  </button>
+                  <ul
+                    className="dropdown-menu dropdown-menu-dark dropdown-menu-end"
+                    aria-labelledby="navbarDarkDropdownMenuLink"
+                  >
+                    {dropdownLinks.map((link) => (
+                      <li key={link.name}>
+                        <Link href={link.url}>
+                          <span className="dropdown-item">{link.name}</span>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+              ) : (
+                <li className="nav-item ls-1 p-lg-3">
+                  <span className="main-nav-links">
+                    <Link href="/login">
+                      <a>Login</a>
+                    </Link>
                   </span>
-                </button>
-                <ul
-                  className="dropdown-menu dropdown-menu-dark dropdown-menu-end"
-                  aria-labelledby="navbarDarkDropdownMenuLink"
-                >
-                  {dropdownLinks.map((link) => (
-                    <li key={link.name}>
-                      <Link href={link.url}>
-                        <span className="dropdown-item">{link.name}</span>
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </li>
+                </li>
+              )}
               <li className="nav-item">
                 <div className="d-flex" style={{ height: "40px" }}>
                   <div className="vr" style={{ opacity: "1" }}></div>
