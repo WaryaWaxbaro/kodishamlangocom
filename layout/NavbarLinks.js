@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function NavbarLinks() {
   const { pathname } = useRouter();
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState(true);
   return (
     <div className="container-xl h-100">
       <Logo imgUrl="/images/logo_dark_door.png" />
@@ -77,7 +77,7 @@ export default function NavbarLinks() {
                     aria-labelledby="navbarDarkDropdownMenuLink"
                   >
                     {dropdownLinks.map((link) => (
-                      <li key={link.name}>
+                      <li key={link.name} className="cursor-pointer">
                         <Link href={link.url}>
                           <span className="dropdown-item">{link.name}</span>
                         </Link>
