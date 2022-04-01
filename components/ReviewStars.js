@@ -10,13 +10,13 @@ export default function ReviewStars(props) {
   return (
     <div className="text-primary">
       {Array.from({ length: 5 }).map((_, i) => (
-        <>
+        <span key={i}>
           {i < rating ? (
             <i className="bi bi-star-fill me-1"></i>
           ) : (
-            <i className="bi bi-star"></i>
+            <i className="bi bi-star me-1"></i>
           )}
-        </>
+        </span>
       ))}
       {count && (
         <span className="d-inline-block ms-3 text-dark fs-14">

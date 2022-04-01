@@ -329,6 +329,15 @@
   }
 }
 
+.light-links-primary {
+  transition: color 0.4s ease-out;
+  & a {
+    &:hover {
+      color: #ffae19;
+    }
+  }
+}
+
 .typewriter-container {
   position: relative;
   &::after {
