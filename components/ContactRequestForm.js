@@ -41,7 +41,7 @@ export default function ContactRequestForm() {
           <label htmlFor="message">Message</label>
         </div>
         <div className="d-grid">
-          <button className="btn btn-primary text-light fs-14 rounded-0">
+          <button className="btn btn-primary text-light fs-18 rounded-0">
             Submit Request
           </button>
         </div>

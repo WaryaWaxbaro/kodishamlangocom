@@ -78,7 +78,10 @@ export default function AppFooter() {
               <div className="h-100 w-100 d-flex align-items-center">
                 <p className="mb-0 text-light fs-12 footer-links light-links-primary">
                   Copyright &copy; {new Date().getFullYear()}{" "}
-                  <Link href="/">Kodishamlango.com</Link> All rights reserved
+                  <Link href="/">Kodishamlango.com</Link>.{" "}
+                  <span className="d-inline-block ms-2">
+                    All rights reserved
+                  </span>
                 </p>
               </div>
             </div>
@@ -89,7 +92,7 @@ export default function AppFooter() {
                     <a
                       href="mailto: info@kodishamlango.com"
                       rel="no-referer"
-                      className="text-light light-links-primary d-inline-block text-decoration-none"
+                      className="whatsapp-icon d-inline-block text-decoration-none"
                     >
                       <i className="bi bi-whatsapp"></i>
                     </a>
@@ -98,9 +101,18 @@ export default function AppFooter() {
                     <a
                       href="mailto: info@kodishamlango.com"
                       rel="no-referer"
-                      className="text-light light-links-primary d-inline-block text-decoration-none"
+                      className="facebook-icon d-inline-block text-decoration-none"
                     >
                       <i className="bi bi-facebook"></i>
+                    </a>
+                  </li>
+                  <li className="me-3">
+                    <a
+                      href="mailto: info@kodishamlango.com"
+                      rel="no-referer"
+                      className="twitter-icon d-inline-block text-decoration-none"
+                    >
+                      <i className="bi bi-twitter"></i>
                     </a>
                   </li>
                 </ul>

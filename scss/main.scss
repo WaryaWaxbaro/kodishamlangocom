@@ -444,3 +444,30 @@
 .leaflet-popup-content {
   margin: 10px;
 }
+
+.whatsapp-icon {
+  color: #fff;
+  transition: color 0.2s ease-out;
+
+  &:hover {
+    color: #25d366;
+  }
+}
+
+.facebook-icon {
+  color: #fff;
+  transition: color 0.2s ease-out;
+
+  &:hover {
+    color: #3b5998;
+  }
+}
+
+.twitter-icon {
+  color: #fff;
+  transition: color 0.2s ease-out;
+
+  &:hover {
+    color: #1da1f2;
+  }
+}
