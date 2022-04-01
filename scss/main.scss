@@ -408,6 +408,16 @@
   }
 }
 
+.responsive-img {
+  width: 130px;
+  height: 100px;
+  & img {
+    object-fit: contain;
+    width: 100% !important;
+    height: unset !important;
+  }
+}
+
 // Leaflet
 .leaflet-container {
   width: 100%;

@@ -1,4 +1,5 @@
 import React from "react";
+import ReviewStars from "../../components/ReviewStars";
 
 const lists = [
   {
@@ -165,17 +166,7 @@ export default function dashboard() {
               rerum soluta perferendis iusto ipsa commodi earum quidem natus
               maiores itaque voluptate?
             </p>
-            <div className="text-primary">
-              {Array.from({ length: 5 }).map((_, i) => (
-                <>
-                  {i < 3 ? (
-                    <i className="bi bi-star-fill"></i>
-                  ) : (
-                    <i className="bi bi-star"></i>
-                  )}
-                </>
-              ))}
-            </div>
+            <ReviewStars />
           </div>
         </div>
         <div className="py-3 text-end">
