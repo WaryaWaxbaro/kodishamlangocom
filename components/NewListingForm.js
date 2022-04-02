@@ -9,12 +9,13 @@ import {
 } from "../utils";
 
 const fieldValues = {
-  property_title: "",
-  propery_description: "",
+  title: "",
+  description: "",
   property_status_sale: false,
   property_status_rent: false,
   property_status_short_stay: false,
-  property_type: "",
+  status: [],
+  apartment_type: "",
   bedrooms: "",
   bathroom: "",
   area: "",
@@ -120,28 +121,28 @@ export default function NewListingForm(props) {
       <form onSubmit={handleSubmit}>
         <h3 className="fs-16 fw-bold text-primary mb-3">Property Details</h3>
         <div className="mb-3">
-          <label htmlFor="property_title" className="form-label">
+          <label htmlFor="title" className="form-label">
             Property Title <span className="text-primary">*</span>
           </label>
           <input
             type="text"
             className="form-control"
-            id="property_title"
-            name="property_title"
-            value={formFields.property_title}
+            id="title"
+            name="title"
+            value={formFields.title}
             onChange={handleChange}
             placeholder="Luxury Villa House"
           />
         </div>
         <div className="mb-3">
-          <label htmlFor="propery_description" className="form-label">
+          <label htmlFor="description" className="form-label">
             Property Description <span className="text-primary">*</span>
           </label>
           <textarea
             className="form-control"
-            id="propery_description"
-            name="propery_description"
-            value={formFields.propery_description}
+            id="description"
+            name="description"
+            value={formFields.description}
             onChange={handleChange}
             rows="4"
           ></textarea>
@@ -196,14 +197,14 @@ export default function NewListingForm(props) {
         <div className="row">
           <div className="col-sm-12 col-md-6 col-lg-4">
             <div className="mb-3">
-              <label htmlFor="property_type" className="form-label">
+              <label htmlFor="apartment_type" className="form-label">
                 Property Type <span className="text-primary">*</span>
               </label>
               <select
                 className="form-select"
-                id="property_type"
+                id="apartment_type"
                 name="propery_type"
-                value={formFields.property_type}
+                value={formFields.apartment_type}
                 onChange={handleChange}
                 aria-label="Property Type"
               >

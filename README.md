@@ -50,37 +50,52 @@ https://code-theme.com/html/findhouses/index.html
 
 https://themeforest.net/category/site-templates?term=real%20estate
 
-Property Description And Price
-Property Title
-Property Description
-property_status (sale, rent, holiday)
-property_type "Apartment", "Bungalow", "House", "Mansion", "Villa", "Flat", "Mini Flat", "Duplex", "Shop", "Business Space", "Business Center", "Plot", "Commercial", "Residential"]
+## DATABASE ROWS
+
+- apartments
+- agent_contact_information
+- apartment_contact_information
+- likes
+- reviews
+- users
+- contacts
+- photos
+
+### Apartments
+
+## Description & Price
+
+Title
+Description
+Status (sale, rent, holiday, lodge)
+apartment_type "Apartment", "Bungalow", "House", "Mansion", "Villa", "Flat", "Mini Flat", "Duplex", "Shop", "Business Space", "Business Center", "Plot", "Commercial", "Residential"]
 bedrooms
 price
 price_duration
 area
 guest
 
-Property Media
-Property Location
+## Property Media
+
+## Property Location
+
 Street
-post code
-sub city
+Postcode
+Sub city
 City
 Province
 Country
 Google Maps Latitude
 Google Maps Longitude
 Extra Information
-Select Age
-Select rooms
-Select Bathrooms
 badge
 is_featured
 is_published
 is_reserved
 Slug
-Property Features
+
+## Property Features
+
 Air Conditioning
 Swimming Pool
 Central Heating
@@ -89,21 +104,83 @@ Gym
 Alarm
 Window Covering
 Refrigerator
-TV Cable & WIFI
+TV
+WIFI
 Microwave
 
-Contact Information
+- Relationships
+  Belongs to user
+  Has one agent contact information
+  has many likes
+  has many reviews
+  has many apartment contacts
+  has many photos
+
+### Agent contact information
+
 Name
-Username
 Email
 Phone
+Notes
 
-street,
-postcode
-sub_city
-city
-province
-country
+- Relationships
+  Belongs to apartment
+
+### Apartment contact information
+
+Name
+Email
+Phone
+Message
+Notes
+
+- Relationships
+  Belongs to apartment
+
+### Likes
+
+status
+
+- Relationships
+  Belongs to apartment
+  Belongs to user
+
+### Reviews
+
+stars
+description
+
+- Relationships
+  Belongs to apartment
+  Belongs to user
+
+### Users
+
+first name
+last name
+full name
+email
+phone
+roles
+terms accepted
+login count
+last login
+
+- Relationships
+  Has many apartments
+  Has many likes
+  Has many reviews
+  Has one profile picture
+
+### contacts
+
 name
 email
 phone
+message
+notes
+
+### photos
+
+Belongs to apartments
+Belongs to users
