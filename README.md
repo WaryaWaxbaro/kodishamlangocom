@@ -184,3 +184,5 @@ notes
 
 Belongs to apartments
 Belongs to users
+
+---
