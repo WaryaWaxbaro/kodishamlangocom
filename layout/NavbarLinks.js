@@ -1,11 +1,25 @@
 import { useState } from "react";
-import Logo from "../components/Logo";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import Image from "next/image";
+import { getAuth, signOut } from "firebase/auth";
+import { useUser } from "../context/userContext";
+import Logo from "../components/Logo";
 
 export default function NavbarLinks() {
   const { pathname } = useRouter();
-  const [currentUser, setCurrentUser] = useState(true);
+  const { user: currentUser, setUser } = useUser();
+  const auth = getAuth();
+  const handleSignOut = (e) => {
+    e.preventDefault();
+    signOut(auth)
+      .then(() => {
+        setUser(null);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <div className="container-xl h-100">
       <Logo imgUrl="/images/logo_dark_door.png" />
@@ -56,7 +70,7 @@ export default function NavbarLinks() {
               {currentUser ? (
                 <li className="nav-item dropdown">
                   <button
-                    className="btn btn-transparent nav-dropdown-toggle dropdown-toggle text-nowrap rounded-0 no-shadow-btn"
+                    className="btn btn-transparent nav-dropdown-toggle dropdown-toggle text-nowrap rounded-0 no-shadow-btn fs-14"
                     type="button"
                     id="dropdownMenuButton1"
                     data-bs-toggle="dropdown"
@@ -67,8 +81,12 @@ export default function NavbarLinks() {
                       style={{ marginTop: "10px" }}
                     >
                       <span className="d-flex align-items-center">
-                        <span className="d-block square-50 bg-danger rounded-circle me-3"></span>
-                        <span className="d-block">Hello Abdishakur!</span>
+                        <span className="d-block position-relative square-50 bg-danger rounded-circle overflow-hidden me-3">
+                          <Image src={currentUser.photoURL} layout="fill" />
+                        </span>
+                        <span className="d-block">
+                          Hello {currentUser.displayName}
+                        </span>
                       </span>
                     </span>
                   </button>
@@ -78,9 +96,18 @@ export default function NavbarLinks() {
                   >
                     {dropdownLinks.map((link) => (
                       <li key={link.name} className="cursor-pointer">
-                        <Link href={link.url}>
-                          <span className="dropdown-item">{link.name}</span>
-                        </Link>
+                        {link.name === "Logout" ? (
+                          <span
+                            onClick={handleSignOut}
+                            className="dropdown-item"
+                          >
+                            {link.name}
+                          </span>
+                        ) : (
+                          <Link href={link.url}>
+                            <span className="dropdown-item">{link.name}</span>
+                          </Link>
+                        )}
                       </li>
                     ))}
                   </ul>
@@ -107,32 +134,70 @@ export default function NavbarLinks() {
             </ul>
           </div>
           <div className="h-100 nav-section-width d-lg-none">
-            <div className="w-100 mb-5 text-center">
-              <div className="square-96 mx-auto rounded-circle bg-danger border border-4 border-primary mb-3"></div>
-              <p>Shakur Hassan</p>
-            </div>
-            <ul className="list-unstyled px-3">
-              {dropdownLinks.map((link, index) => (
-                <li key={`${link.name}_${index}`} className="mb-2">
-                  <Link href={link.url}>
+            {currentUser ? (
+              <>
+                <div className="w-100 mb-5 text-center">
+                  <div className="square-96 mx-auto position-relative rounded-circle bg-danger border border-4 border-primary overflow-hidden mb-3">
+                    <Image src={currentUser.photoURL} layout="fill" />
+                  </div>
+                  <p>{currentUser.displayName}</p>
+                </div>
+                <ul className="list-unstyled px-3">
+                  {dropdownLinks.map((link, index) => (
+                    <li key={`${link.name}_${index}`} className="mb-2">
+                      {link.name === "Logout" ? (
+                        <a onClick={handleSignOut} className="dropdown-item">
+                          <span className="d-flex align-items-center">
+                            <span className="d-block me-3">
+                              <i className={link.icon}></i>
+                            </span>
+                            <span className="d-block">{link.name}</span>
+                          </span>
+                        </a>
+                      ) : (
+                        <Link href={link.url}>
+                          <a
+                            className={
+                              link.url === pathname
+                                ? "dropdown-item active"
+                                : "dropdown-item"
+                            }
+                          >
+                            <span className="d-flex align-items-center">
+                              <span className="d-block me-3">
+                                <i className={link.icon}></i>
+                              </span>
+                              <span className="d-block">{link.name}</span>
+                            </span>
+                          </a>
+                        </Link>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </>
+            ) : (
+              <ul className="list-unstyled px-3">
+                <li className="mb-2">
+                  <Link href="/login">
                     <a
                       className={
-                        link.url === pathname
+                        pathname === "/login"
                           ? "dropdown-item active"
                           : "dropdown-item"
                       }
                     >
                       <span className="d-flex align-items-center">
                         <span className="d-block me-3">
-                          <i className={link.icon}></i>
+                          <i className="bi bi-box-arrow-in-right"></i>
                         </span>
-                        <span className="d-block">{link.name}</span>
+                        <span className="d-block">Login</span>
                       </span>
                     </a>
                   </Link>
                 </li>
-              ))}
-            </ul>
+              </ul>
+            )}
             <hr className="mx-3" />
             <ul className="list-unstyled px-3">
               {mainLinks.map((link, index) => (
@@ -226,6 +291,6 @@ const dropdownLinks = [
   {
     name: "Logout",
     url: "/",
-    icon: "bi bi-box-arrow-right",
+    icon: "bi bi-box-arrow-in-left",
   },
 ];
