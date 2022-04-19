@@ -1,6 +1,14 @@
 import { useState, useEffect, createContext, useContext } from "react";
 import { createFirebaseApp } from "../firebase/clientApp";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  getDoc,
+  doc,
+  setDoc,
+} from "firebase/firestore";
 
 export const UserContext = createContext();
 
@@ -18,7 +26,7 @@ export default function UserContextComp({ children }) {
           // User is signed in.
           const { uid, displayName, email, photoURL } = user;
           // You could also look for the user doc in your Firestore (if you have one):
-          // const userDoc = await firebase.firestore().doc(`users/${uid}`).get()
+          //const userDoc = await firebase.firestore().doc(`users/${uid}`).get();
           setUser({ uid, displayName, email, photoURL });
         } else setUser(null);
       } catch (error) {

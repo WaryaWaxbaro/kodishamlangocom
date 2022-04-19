@@ -186,3 +186,9 @@ Belongs to apartments
 Belongs to users
 
 ---
+
+## FIREBASE
+
+https://firebase.google.com/docs/auth/web/google-signin
+https://www.youtube.com/watch?v=2GIMsmDvXls
+https://github.com/vercel/next.js/tree/canary/examples/with-firebase

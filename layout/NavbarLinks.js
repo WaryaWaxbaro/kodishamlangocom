@@ -2,19 +2,23 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
+import { createFirebaseApp } from "../firebase/clientApp";
 import { getAuth, signOut } from "firebase/auth";
 import { useUser } from "../context/userContext";
 import Logo from "../components/Logo";
 
 export default function NavbarLinks() {
-  const { pathname } = useRouter();
-  const { user: currentUser, setUser } = useUser();
-  const auth = getAuth();
+  const router = useRouter();
+  const { pathname } = router;
+  const { user: currentUser, setUser, loadingUser } = useUser();
+  const auth = getAuth(createFirebaseApp());
   const handleSignOut = (e) => {
     e.preventDefault();
     signOut(auth)
       .then(() => {
         setUser(null);
+        sessionStorage.removeItem("token");
+        router.push("/");
       })
       .catch((error) => {
         console.log(error);
