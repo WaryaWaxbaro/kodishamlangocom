@@ -41,7 +41,9 @@ export default function profile() {
       console.log("currentUser", currentUser.profileId);
       getUserProfile(currentUser.profileId);
     } else {
-      setDataLoading(false);
+      if (!loadingUser) {
+        setDataLoading(false);
+      }
     }
   }, [loadingUser]);
 
