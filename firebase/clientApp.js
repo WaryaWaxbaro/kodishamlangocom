@@ -1,5 +1,10 @@
 import { initializeApp, getApps } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
+import { getFirestore } from "firebase/firestore";
+import { getDatabase } from "firebase/database";
+import { getAuth } from "firebase/auth";
+import { getStorage } from "firebase/storage";
+
 export const createFirebaseApp = () => {
   const clientCredentials = {
     apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -24,3 +29,10 @@ export const createFirebaseApp = () => {
     return app;
   }
 };
+
+//const database = getDatabase(createFirebaseApp());
+
+export const storage = getStorage(createFirebaseApp());
+//export default database;
+export const auth = getAuth(createFirebaseApp());
+export const db = getFirestore(createFirebaseApp());

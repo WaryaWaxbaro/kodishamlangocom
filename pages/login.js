@@ -1,55 +1,53 @@
 import { useState, useEffect } from "react";
-import { createFirebaseApp } from "../firebase/clientApp";
+import { db, auth } from "../firebase/clientApp";
 import {
-  getAuth,
   signInWithPopup,
   GoogleAuthProvider,
   FacebookAuthProvider,
 } from "firebase/auth";
 import {
-  getFirestore,
   collection,
-  addDoc,
   getDoc,
   doc,
   setDoc,
   updateDoc,
+  increment,
 } from "firebase/firestore";
 
 import { useRouter } from "next/router";
 import { useUser } from "../context/userContext";
+import Loader from "../components/Loader";
 
 export default function login() {
   const router = useRouter();
-  const auth = getAuth(createFirebaseApp());
-  const db = getFirestore(createFirebaseApp());
   const usersRef = collection(db, "users");
   const gProvider = new GoogleAuthProvider();
   const fProvider = new FacebookAuthProvider();
 
   const [authUser, setAuthUser] = useState(null);
-  const { user: currentUser, setUser } = useUser();
+  const { loadingUser, setUser, setCurrentUser } = useUser();
+
+  useEffect(() => {
+    const token = sessionStorage.getItem("token");
+    if (token) {
+      router.push("/admin");
+    }
+  }, []);
 
   useEffect(() => {
     const updateUser = async () => {
       const { uid, displayName, email, photoURL } = authUser;
       const userDoc = doc(db, "users", uid);
-      console.log("***userDoc***", userDoc);
       const docSnap = await getDoc(userDoc);
-      console.log("***docSnap***", docSnap);
 
       if (docSnap.exists()) {
-        console.log("Document data:", docSnap.data());
-        const { loginCount, lastLogin } = docSnap.data();
-        const newLoginCount = loginCount + 1;
-        const newLastLogin = new Date();
+        setCurrentUser({ ...docSnap.data(), uid });
         await updateDoc(doc(usersRef, uid), {
-          loginCount: newLoginCount,
-          lastLogin: newLastLogin,
+          loginCount: increment(1),
+          lastLogin: new Date(),
         });
       } else {
         // doc.data() will be undefined in this case
-        console.log("No such document!");
         await setDoc(doc(usersRef, uid), {
           fullName: displayName,
           email,
@@ -116,29 +114,35 @@ export default function login() {
       });
   };
   return (
-    <div className="max-width-350 mx-auto shadow p-2 p-sm-3 rounded-5 my-5">
-      <h1 className="fs-24 text-center mb-3">Login</h1>
-      <hr className="bg-dark" />
-      <div className="d-grid py-4">
-        <button
-          onClick={handleGoogleAuth}
-          className="btn btn-danger text-light btn-lg d-flex align-items-center justify-content-center mb-4"
-        >
-          <span className="d-block me-3">
-            <i className="bi bi-google"></i>
-          </span>
-          <span className="d-block">Login with Google</span>
-        </button>
-        <button
-          onClick={handleFacebookAuth}
-          className="btn btn-blue text-light btn-lg d-flex align-items-center justify-content-center"
-        >
-          <span className="d-block me-3">
-            <i className="bi bi-facebook"></i>
-          </span>
-          <span className="d-block">Login with Facebook</span>
-        </button>
-      </div>
-    </div>
+    <>
+      {loadingUser ? (
+        <Loader />
+      ) : (
+        <div className="max-width-350 mx-auto shadow p-2 p-sm-3 rounded-5 my-5">
+          <h1 className="fs-24 text-center mb-3">Login</h1>
+          <hr className="bg-dark" />
+          <div className="d-grid py-4">
+            <button
+              onClick={handleGoogleAuth}
+              className="btn btn-danger text-light btn-lg d-flex align-items-center justify-content-center mb-4"
+            >
+              <span className="d-block me-3">
+                <i className="bi bi-google"></i>
+              </span>
+              <span className="d-block">Login with Google</span>
+            </button>
+            <button
+              onClick={handleFacebookAuth}
+              className="btn btn-blue text-light btn-lg d-flex align-items-center justify-content-center"
+            >
+              <span className="d-block me-3">
+                <i className="bi bi-facebook"></i>
+              </span>
+              <span className="d-block">Login with Facebook</span>
+            </button>
+          </div>
+        </div>
+      )}
+    </>
   );
 }

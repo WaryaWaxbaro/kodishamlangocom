@@ -133,6 +133,7 @@ Email
 Phone
 Message
 Notes
+Title
 
 - Relationships
   Belongs to apartment
