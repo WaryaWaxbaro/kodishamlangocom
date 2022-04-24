@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import { ToastContainer, toast } from "react-toastify";
 import { db, storage } from "../../firebase/clientApp";
 import { collection, addDoc, getDoc, doc, updateDoc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
@@ -126,6 +127,7 @@ export default function profile() {
     setProfileForm(userProfile);
     console.log("userProfile", userProfile);
     setToggleEdit(!toggleEdit);
+    toast("Wow so easy!");
   };
   const handleCopyProfile = () => {
     setProfileForm({
@@ -148,6 +150,9 @@ export default function profile() {
               <div className="w-100">
                 {toggleEdit ? (
                   <div className="w-100">
+                    <div>
+                      <ToastContainer />
+                    </div>
                     <h3 className="fs-16 fw-bold">
                       Editing <em>{currentUser.displayName}'s</em> Sales Profile
                     </h3>
@@ -176,6 +181,7 @@ export default function profile() {
                         </span>
                       </button>
                     </div>
+
                     <ProfileForm
                       formAction="update"
                       setSaveProfileData={setSaveProfileData}

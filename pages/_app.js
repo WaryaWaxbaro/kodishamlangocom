@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import "react-toastify/dist/ReactToastify.css";
 import MainLayout from "../layout/MainLayout";
 import UserProvider from "../context/userContext";
 import "../scss/main.scss";
