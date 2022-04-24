@@ -1,11 +1,15 @@
 import Image from "next/image";
 
-export default function ProfileCard({ profile }) {
+export default function ProfileCard({ profile, previewUrl }) {
   return (
     <>
       <div className="d-flex my-4">
         <div className="position-relative square-75 overflow-hidden rounded-circle cover-img-img me-4">
-          <Image src="/images/cover/ts-5.jpeg" layout="fill" />
+          {previewUrl ? (
+            <Image src={previewUrl} layout="fill" />
+          ) : (
+            <Image src="/images/cover/ts-5.jpeg" layout="fill" />
+          )}
         </div>
         <div>
           <h4 className="fs-16 fw-bold ls-6">{profile.name}</h4>

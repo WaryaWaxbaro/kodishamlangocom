@@ -1,10 +1,15 @@
 import { useState, useEffect } from "react";
+import Image from "next/image";
 
 export default function ProfileForm({
   formAction,
   setSaveProfileData,
   profileForm,
   setProfileForm,
+  profileImage,
+  setProfileImage,
+  previewUrl,
+  setPreviewUrl,
 }) {
   const [charsCounter, setCharsCounter] = useState(0);
 
@@ -17,6 +22,12 @@ export default function ProfileForm({
           [e.target.name]: e.target.value,
         });
       }
+    } else if (e.target.name === "showProfile") {
+      console.log("e.target.value", e.target.checked);
+      setProfileForm({
+        ...profileForm,
+        [e.target.name]: e.target.checked,
+      });
     } else {
       setProfileForm({
         ...profileForm,
@@ -28,9 +39,50 @@ export default function ProfileForm({
     e.preventDefault();
     setSaveProfileData(formAction);
   };
+
+  const handleProfileImage = (e) => {
+    setProfileImage(e.target.files[0]);
+    setPreviewUrl(URL.createObjectURL(e.target.files[0]));
+  };
   return (
     <div className="w-100 my-3">
       <form onSubmit={handleProfileFormSubmit}>
+        <div className="d-flex align-items-center">
+          {profileImage && (
+            <div className="square-75 bg-danger me-3 rounded-circle overflow-hidden cover-img-img">
+              <div className="position-relative w-100 h-100">
+                <Image src={previewUrl} layout="fill" alt="profile" />
+              </div>
+            </div>
+          )}
+          <div className="mb-3">
+            <label htmlFor="profileImage" className="form-label">
+              Upload profile photo
+            </label>
+            <input
+              onChange={handleProfileImage}
+              className="form-control"
+              type="file"
+              id="profileImage"
+              accept="image/jpeg, image/png, image/webp, image/tiff, image/svg+xml"
+            />
+          </div>
+        </div>
+        <div className="mb-3">
+          <div className="form-check">
+            <input
+              className="form-check-input"
+              type="checkbox"
+              id="showProfile"
+              name="showProfile"
+              checked={profileForm.showProfile}
+              onChange={handleProfileFormData}
+            />
+            <label className="form-check-label" htmlFor="showProfile">
+              Show Profile on announcements
+            </label>
+          </div>
+        </div>
         <div className="form-floating mb-3">
           <input
             type="text"

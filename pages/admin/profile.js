@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { db } from "../../firebase/clientApp";
+import { db, storage } from "../../firebase/clientApp";
 import { collection, addDoc, getDoc, doc, updateDoc } from "firebase/firestore";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 import ProfileCard from "../../components/ProfileCard";
 import AdminLayout from "../../layout/AdminLayout";
@@ -16,6 +17,7 @@ const formInputs = {
   phone: "",
   address: "",
   intro: "",
+  showProfile: true,
 };
 
 export default function profile() {
@@ -27,6 +29,8 @@ export default function profile() {
   const [profileForm, setProfileForm] = useState(formInputs);
   const [userProfile, setUserProfile] = useState(null);
   const [dataLoading, setDataLoading] = useState(true);
+  const [profileImage, setProfileImage] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState("");
 
   useEffect(() => {
     const getUserProfile = async (profileId) => {
@@ -34,6 +38,35 @@ export default function profile() {
       const docSnap = await getDoc(profileRef);
       if (docSnap.exists()) {
         setUserProfile(docSnap.data());
+        const starsRef = ref(storage, `${currentUser.profileId}`);
+        // Get the download URL
+        getDownloadURL(starsRef)
+          .then((url) => {
+            // Insert url into an <img> tag to "download"
+            console.log("url", url);
+            setPreviewUrl(url);
+          })
+          .catch((error) => {
+            // A full list of error codes is available at
+            // https://firebase.google.com/docs/storage/web/handle-errors
+            switch (error.code) {
+              case "storage/object-not-found":
+                // File doesn't exist
+                break;
+              case "storage/unauthorized":
+                // User doesn't have permission to access the object
+                break;
+              case "storage/canceled":
+                // User canceled the upload
+                break;
+
+              // ...
+
+              case "storage/unknown":
+                // Unknown error occurred, inspect the server response
+                break;
+            }
+          });
       }
       setDataLoading(false);
     };
@@ -67,7 +100,17 @@ export default function profile() {
           doc(db, "profiles", `${currentUser.profileId}`),
           profileForm
         );
-        router.reload();
+
+        if (profileImage) {
+          const storageRef = ref(storage, `${currentUser.profileId}`);
+          // 'file' comes from the Blob or File API
+          uploadBytes(storageRef, profileImage).then((snapshot) => {
+            console.log("Uploaded a blob or file!");
+            router.reload();
+          });
+        } else {
+          router.reload();
+        }
       }
     };
 
@@ -138,11 +181,18 @@ export default function profile() {
                       setSaveProfileData={setSaveProfileData}
                       profileForm={profileForm}
                       setProfileForm={setProfileForm}
+                      profileImage={profileImage}
+                      setProfileImage={setProfileImage}
+                      previewUrl={previewUrl}
+                      setPreviewUrl={setPreviewUrl}
                     />
                   </div>
                 ) : (
                   <>
-                    <ProfileCard profile={userProfile} />
+                    <ProfileCard
+                      profile={userProfile}
+                      previewUrl={previewUrl}
+                    />
                     <hr />
                   </>
                 )}
@@ -181,6 +231,10 @@ export default function profile() {
                   setSaveProfileData={setSaveProfileData}
                   profileForm={profileForm}
                   setProfileForm={setProfileForm}
+                  profileImage={profileImage}
+                  setProfileImage={setProfileImage}
+                  previewUrl={previewUrl}
+                  setPreviewUrl={setPreviewUrl}
                 />
               </div>
             )}
