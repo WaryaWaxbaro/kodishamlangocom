@@ -11,29 +11,30 @@ import {
 } from "../utils";
 
 const fieldValues = {
-  title: "",
-  description: "",
+  title: "Luxury Apartment",
+  description:
+    "This is a luxury apartment that is very spacious and has a lot of space for people to live in.",
   property_status_sale: false,
   property_status_rent: true,
   property_status_short_stay: false,
-  apartment_type: "",
-  bedrooms: "",
-  bathroom: "",
-  area: "",
-  guest: "",
-  price: "",
-  price_duration: "",
+  apartment_type: "House",
+  bedrooms: 1,
+  bathroom: 1,
+  area: 125,
+  guest: 1,
+  price: 125000,
+  price_duration: "Month",
   reserved: false,
-  published: false,
-  street: "",
-  postcode: "",
-  sub_city: "",
-  city: "",
-  province: "",
-  country: "",
-  name: "",
-  email: "",
-  phone: "",
+  published: true,
+  street: "Jalan Kebun",
+  postcode: "90000",
+  sub_city: "Eastleigh",
+  city: "Nairobi",
+  province: "Nairobi",
+  country: "Kenya",
+  name: "John Doe",
+  email: "john.doe@gmail.com",
+  phone: "0712345678",
 };
 const property_features_keys = property_features.map((feature) => {
   let k = toUnderscoreKey(feature);
@@ -57,7 +58,13 @@ const validatableFields = [
 ];
 
 export default function NewListingForm(props) {
-  const { formFieldValues, isEditing } = props;
+  const {
+    formFieldValues,
+    isEditing,
+    setFormData,
+    setFormImages,
+    setSyncData,
+  } = props;
   const [formFields, setFormFields] = useState(fieldValues);
 
   useEffect(() => {
@@ -199,10 +206,13 @@ export default function NewListingForm(props) {
       return;
     }
 
+    setFormData(formFields);
+    setFormImages(propertyImages);
+    setSyncData(true);
+
     console.log("errorFields", errorFields);
   };
 
-  const validateField = (field) => {};
   return (
     <div className="w-100 p-2 p-sm-4 shadow">
       <form onSubmit={handleSubmit}>

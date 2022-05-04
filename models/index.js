@@ -11,3 +11,9 @@ export class UserModel extends BaseModel {
     super("users", data);
   }
 }
+
+export class ApartmentModel extends BaseModel {
+  constructor(data) {
+    super("apartments", data);
+  }
+}

@@ -110,7 +110,7 @@ export default function profile() {
           const uploadStorage = await new StorageUploads(
             `profiles/${currentUser.profileId}`,
             profileImage
-          ).uploadResumable();
+          ).uploadResumable("shalow");
 
           console.log("uploadStorage", uploadStorage);
           const { error, downloadURL } = uploadStorage[0];

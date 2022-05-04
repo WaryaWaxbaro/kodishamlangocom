@@ -16,12 +16,15 @@ export default class StorageUploads {
     this.storage = storage;
   }
 
-  async uploadResumable() {
-    const storageRef = ref(this.storage, this.fullPath);
+  async uploadResumable(fileLevel = "deep") {
     let status = [];
-
     return Promise.all(
       Array.from(this.files).map(async (file) => {
+        let filePath =
+          fileLevel === "deep"
+            ? `${this.fullPath}/${file.name}`
+            : this.fullPath;
+        let storageRef = ref(this.storage, `${filePath}`);
         return new Promise((resolve, reject) => {
           let statusInfo = {
             progress: 0,
