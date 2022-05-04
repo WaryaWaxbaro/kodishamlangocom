@@ -51,7 +51,6 @@ export default function NewListingForm(props) {
   const [maxUploads, setMaxUploads] = useState(0);
 
   const handleChange = (e) => {
-    console.log(e.target.type);
     setFormFields({
       ...formFields,
       [e.target.name]:
@@ -60,15 +59,12 @@ export default function NewListingForm(props) {
   };
 
   const handleOpenFileDialog = () => {
-    console.log("opening dialog ");
     fileField.current.click();
   };
 
   useEffect(() => {
     setUploadMessage("");
-    console.log("triggered");
     let files = uploadedFiles;
-    console.log("files ", files);
     if (files && files.length > 0) {
       let currentFiles = [];
       Array.from(files).forEach((file) => {
@@ -86,15 +82,12 @@ export default function NewListingForm(props) {
           }
         }
       });
-      console.log("result ", [...currentFiles, ...propertyImages]);
       setPropertyImages([...currentFiles, ...propertyImages]);
-      console.log("property Images", propertyImages);
       fileField.current.value = null;
     }
   }, [uploadedFiles]);
 
   const handleImageUpload = (event) => {
-    console.log("events --> ", event.target.files);
     setUploadedFiles(event.target.files);
   };
 

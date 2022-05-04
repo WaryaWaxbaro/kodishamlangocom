@@ -23,7 +23,6 @@ export default function ProfileForm({
         });
       }
     } else if (e.target.name === "showProfile") {
-      console.log("e.target.value", e.target.checked);
       setProfileForm({
         ...profileForm,
         [e.target.name]: e.target.checked,
@@ -41,7 +40,7 @@ export default function ProfileForm({
   };
 
   const handleProfileImage = (e) => {
-    setProfileImage(e.target.files[0]);
+    setProfileImage(e.target.files);
     setPreviewUrl(URL.createObjectURL(e.target.files[0]));
   };
   return (

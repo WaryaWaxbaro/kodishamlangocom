@@ -1,0 +1,13 @@
+import BaseModel from "./baseModel";
+
+export class ProfileModel extends BaseModel {
+  constructor(data) {
+    super("profiles", data);
+  }
+}
+
+export class UserModel extends BaseModel {
+  constructor(data) {
+    super("users", data);
+  }
+}

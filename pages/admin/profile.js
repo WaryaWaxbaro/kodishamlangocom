@@ -1,15 +1,14 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { ToastContainer, toast } from "react-toastify";
-import { db, storage } from "../../firebase/clientApp";
-import { collection, addDoc, getDoc, doc, updateDoc } from "firebase/firestore";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 import ProfileCard from "../../components/ProfileCard";
 import AdminLayout from "../../layout/AdminLayout";
 import ProfileForm from "../../components/ProfileForm";
 import { useUser } from "../../context/userContext";
 import Loader from "../../components/Loader";
+import { ProfileModel, UserModel } from "../../models";
+import StorageUploads from "../../models/storageUploads";
 
 const formInputs = {
   name: "",
@@ -32,47 +31,53 @@ export default function profile() {
   const [dataLoading, setDataLoading] = useState(true);
   const [profileImage, setProfileImage] = useState(null);
   const [previewUrl, setPreviewUrl] = useState("");
+  const [profileImageUrl, setProfileImageUrl] = useState("");
+  const [syncData, setSyncData] = useState(false);
+  const [toastInfo, setToastInfo] = useState({
+    status: "success",
+    message: "Profile updated successfully",
+  });
+
+  useEffect(() => {
+    const updateData = async () => {
+      const profileModel = await new ProfileModel({
+        id: currentUser.profileId,
+      }).getOne();
+      if (profileModel) {
+        setUserProfile(profileModel);
+      }
+    };
+    if (syncData) {
+      setSyncData(false);
+      setToggleEdit(false);
+      updateData();
+      if (toastInfo.status === "success") {
+        toast.success(toastInfo.message);
+      } else {
+        toast.error(toastInfo.message);
+        setToastInfo({
+          status: "success",
+          message: "Profile updated successfully",
+        });
+      }
+    }
+  }, [syncData]);
 
   useEffect(() => {
     const getUserProfile = async (profileId) => {
-      const profileRef = doc(db, "profiles", profileId);
-      const docSnap = await getDoc(profileRef);
-      if (docSnap.exists()) {
-        setUserProfile(docSnap.data());
-        const starsRef = ref(storage, `${currentUser.profileId}`);
-        // Get the download URL
-        getDownloadURL(starsRef)
-          .then((url) => {
-            // Insert url into an <img> tag to "download"
-            console.log("url", url);
-            setPreviewUrl(url);
-          })
-          .catch((error) => {
-            // A full list of error codes is available at
-            // https://firebase.google.com/docs/storage/web/handle-errors
-            switch (error.code) {
-              case "storage/object-not-found":
-                // File doesn't exist
-                break;
-              case "storage/unauthorized":
-                // User doesn't have permission to access the object
-                break;
-              case "storage/canceled":
-                // User canceled the upload
-                break;
-
-              // ...
-
-              case "storage/unknown":
-                // Unknown error occurred, inspect the server response
-                break;
-            }
-          });
+      const profileModel = await new ProfileModel({ id: profileId }).getOne();
+      if (profileModel) {
+        setUserProfile(profileModel);
+        const profileUrl = await new StorageUploads(
+          `profiles/${profileId}`
+        ).downloadURL();
+        if (profileUrl) {
+          setProfileImageUrl(profileUrl);
+        }
       }
       setDataLoading(false);
     };
     if (currentUser?.profileId) {
-      console.log("currentUser", currentUser.profileId);
       getUserProfile(currentUser.profileId);
     } else {
       if (!loadingUser) {
@@ -83,51 +88,62 @@ export default function profile() {
 
   useEffect(() => {
     const createProfile = async () => {
-      const profile = await addDoc(collection(db, "profiles"), profileForm);
+      const profile = await new ProfileModel(profileForm).save();
       if (profile.id && currentUser.uid) {
         setUserProfile(profile);
-        const userDoc = await updateDoc(
-          doc(db, "users", `${currentUser.uid}`),
-          {
-            profileId: `${profile.id}`,
-          }
-        );
-        router.reload();
+        const userDoc = await new UserModel({
+          id: currentUser.uid,
+          profileId: `${profile.id}`,
+        }).update();
+        setSyncData(true);
       }
     };
     const updateProfile = async () => {
       if (currentUser?.profileId) {
-        const docSnap = await updateDoc(
-          doc(db, "profiles", `${currentUser.profileId}`),
-          profileForm
-        );
+        const docSnap = await new ProfileModel({
+          id: currentUser.profileId,
+          ...profileForm,
+        }).update();
 
         if (profileImage) {
-          const storageRef = ref(storage, `${currentUser.profileId}`);
-          // 'file' comes from the Blob or File API
-          uploadBytes(storageRef, profileImage).then((snapshot) => {
-            console.log("Uploaded a blob or file!");
-            router.reload();
-          });
-        } else {
-          router.reload();
+          console.log("profileImage", profileImage);
+          const uploadStorage = await new StorageUploads(
+            `profiles/${currentUser.profileId}`,
+            profileImage
+          ).uploadResumable();
+
+          console.log("uploadStorage", uploadStorage);
+          const { error, downloadURL } = uploadStorage[0];
+          console.log("error--- ", error);
+          console.log("downloadURL--- ", downloadURL);
+          if (downloadURL) {
+            setProfileImageUrl(downloadURL);
+          } else {
+            setToastInfo({
+              status: "error",
+              message: `Profile image upload failed. ${error}`,
+            });
+          }
         }
+        setSyncData(true);
       }
     };
 
-    if (saveProfileData === "new") {
+    if (saveProfileData && saveProfileData === "new") {
       createProfile();
     }
-    if (saveProfileData === "update") {
+    if (saveProfileData && saveProfileData === "update") {
       updateProfile();
     }
+
+    return () => {
+      setSaveProfileData("");
+    };
   }, [saveProfileData]);
 
   const handleProfileEdit = () => {
     setProfileForm(userProfile);
-    console.log("userProfile", userProfile);
     setToggleEdit(!toggleEdit);
-    toast("Wow so easy!");
   };
   const handleCopyProfile = () => {
     setProfileForm({
@@ -141,6 +157,9 @@ export default function profile() {
   };
   return (
     <AdminLayout>
+      <div>
+        <ToastContainer />
+      </div>
       <div className="container-lg py-4">
         {dataLoading ? (
           <Loader />
@@ -150,9 +169,6 @@ export default function profile() {
               <div className="w-100">
                 {toggleEdit ? (
                   <div className="w-100">
-                    <div>
-                      <ToastContainer />
-                    </div>
                     <h3 className="fs-16 fw-bold">
                       Editing <em>{currentUser.displayName}'s</em> Sales Profile
                     </h3>
@@ -197,7 +213,7 @@ export default function profile() {
                   <>
                     <ProfileCard
                       profile={userProfile}
-                      previewUrl={previewUrl}
+                      profileImageUrl={profileImageUrl}
                     />
                     <hr />
                   </>

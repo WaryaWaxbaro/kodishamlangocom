@@ -9,13 +9,10 @@ export default function AdminLayout({ children }) {
   const { user } = useUser();
   const router = useRouter();
 
-  console.log("user", user);
-
   useEffect(() => {
     let token = sessionStorage.getItem("token");
     if (!token) {
       router.push("/login");
-      console.log("token", token);
     }
   }, []);
 
