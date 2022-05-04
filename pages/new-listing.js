@@ -1,7 +1,8 @@
 import React from "react";
+
 import NewListingForm from "../components/NewListingForm";
 
-export default function newListing() {
+export default function newListing(props) {
   return (
     <div className="container-lg py-5">
       <h1 className="fs-28 mb-3">Add New Property Listing</h1>

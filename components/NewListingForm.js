@@ -1,4 +1,6 @@
 import { useEffect, useState, useRef } from "react";
+import { toast } from "react-toastify";
+
 import Image from "next/image";
 
 import {
@@ -12,9 +14,8 @@ const fieldValues = {
   title: "",
   description: "",
   property_status_sale: false,
-  property_status_rent: false,
+  property_status_rent: true,
   property_status_short_stay: false,
-  status: [],
   apartment_type: "",
   bedrooms: "",
   bathroom: "",
@@ -40,15 +41,79 @@ const property_features_keys = property_features.map((feature) => {
   return k;
 });
 
+console.log("property_features_keys", property_features_keys);
+
+const validatableFields = [
+  "title",
+  "description",
+  "price",
+  "street",
+  "city",
+  "sub_city",
+  "country",
+  "name",
+  "email",
+  "phone",
+];
+
 export default function NewListingForm(props) {
-  const { formFieldValues } = props;
-  const fileField = useRef(null);
-  const toastItem = useRef(null);
-  const [formFields, setFormFields] = useState(formFieldValues || fieldValues);
+  const { formFieldValues, isEditing } = props;
+  const [formFields, setFormFields] = useState(fieldValues);
+
+  useEffect(() => {
+    let storedFields = JSON.parse(sessionStorage.getItem("newListingData"));
+    if (storedFields) {
+      setFormFields(storedFields);
+    } else {
+      if (isEditing) {
+        setFormFields(formFieldValues);
+      } else {
+        setFormFields(fieldValues);
+      }
+    }
+  }, []);
+
   const [propertyImages, setPropertyImages] = useState([]);
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [uploadMessage, setUploadMessage] = useState("");
   const [maxUploads, setMaxUploads] = useState(0);
+
+  const fileField = useRef(null);
+  const titleRef = useRef(null);
+  const descriptionRef = useRef(null);
+  const priceRef = useRef(null);
+  const streetRef = useRef(null);
+  const subCityRef = useRef(null);
+  const cityRef = useRef(null);
+  const countryRef = useRef(null);
+  const nameRef = useRef(null);
+  const emailRef = useRef(null);
+  const phoneRef = useRef(null);
+
+  const errorFields = [];
+
+  const updateRefClass = (ref, msg) => {
+    if (ref.current) {
+      if (msg === "error") {
+        ref.current.classList.add("is-invalid");
+      } else {
+        ref.current.classList.remove("is-invalid");
+      }
+    }
+  };
+
+  const inputsRefs = {
+    title: { action: (msg) => updateRefClass(titleRef, msg) },
+    description: { action: (msg) => updateRefClass(descriptionRef, msg) },
+    price: { action: (msg) => updateRefClass(priceRef, msg) },
+    street: { action: (msg) => updateRefClass(streetRef, msg) },
+    sub_city: { action: (msg) => updateRefClass(subCityRef, msg) },
+    city: { action: (msg) => updateRefClass(cityRef, msg) },
+    country: { action: (msg) => updateRefClass(countryRef, msg) },
+    name: { action: (msg) => updateRefClass(nameRef, msg) },
+    email: { action: (msg) => updateRefClass(emailRef, msg) },
+    phone: { action: (msg) => updateRefClass(phoneRef, msg) },
+  };
 
   const handleChange = (e) => {
     setFormFields({
@@ -56,6 +121,11 @@ export default function NewListingForm(props) {
       [e.target.name]:
         e.target.type === "checkbox" ? e.target.checked : e.target.value,
     });
+
+    if (inputsRefs[e.target.name]) {
+      inputsRefs[e.target.name].action("valid");
+      errorFields.filter((field) => field !== e.target.name);
+    }
   };
 
   const handleOpenFileDialog = () => {
@@ -73,9 +143,11 @@ export default function NewListingForm(props) {
           setUploadMessage(
             `File (${is_uploaded.name}) has been already uploaded.`
           );
+          toast.error(`File (${is_uploaded.name}) has been already uploaded.`);
         } else {
           if (propertyImages.length > 5) {
             setUploadMessage("Uploaded maximum photos allowed.");
+            toast.error("Uploaded maximum photos allowed.");
             return;
           } else {
             currentFiles.push(file);
@@ -108,7 +180,29 @@ export default function NewListingForm(props) {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log("formFields", formFields);
+    validatableFields.forEach((field) => {
+      if (!formFields[field]) {
+        inputsRefs[field].action("error");
+        errorFields.push(field);
+      }
+    });
+
+    if (!formFields.property_status_sale && !formFields.property_status_rent) {
+      toast.error("Please select at least one property status.");
+      return;
+    }
+
+    if (errorFields.length > 0) {
+      toast.error("Please fill all required fields.");
+      sessionStorage.setItem("newListingData", JSON.stringify(formFields));
+      return;
+    }
+
+    console.log("errorFields", errorFields);
   };
+
+  const validateField = (field) => {};
   return (
     <div className="w-100 p-2 p-sm-4 shadow">
       <form onSubmit={handleSubmit}>
@@ -125,6 +219,7 @@ export default function NewListingForm(props) {
             value={formFields.title}
             onChange={handleChange}
             placeholder="Luxury Villa House"
+            ref={titleRef}
           />
         </div>
         <div className="mb-3">
@@ -138,6 +233,8 @@ export default function NewListingForm(props) {
             value={formFields.description}
             onChange={handleChange}
             rows="4"
+            placeholder="This is a luxury villa house with a pool, a garden, a terrace and a private garden."
+            ref={descriptionRef}
           ></textarea>
         </div>
         <div className="mb-3">
@@ -283,7 +380,7 @@ export default function NewListingForm(props) {
           <div className="col-sm-12 col-md-6 col-lg-4">
             <div className="mb-3">
               <label htmlFor="price" className="form-label">
-                Price
+                Price <span className="text-primary">*</span>
               </label>
               <input
                 type="number"
@@ -294,6 +391,7 @@ export default function NewListingForm(props) {
                 value={formFields.price}
                 onChange={handleChange}
                 placeholder="100000"
+                ref={priceRef}
               />
             </div>
           </div>
@@ -392,6 +490,7 @@ export default function NewListingForm(props) {
                 value={formFields.street}
                 onChange={handleChange}
                 placeholder="Isgoyska dabka"
+                ref={streetRef}
               />
             </div>
           </div>
@@ -425,6 +524,7 @@ export default function NewListingForm(props) {
                 value={formFields.sub_city}
                 onChange={handleChange}
                 placeholder="Celasha Biyaha"
+                ref={subCityRef}
               />
             </div>
           </div>
@@ -441,6 +541,7 @@ export default function NewListingForm(props) {
                 value={formFields.city}
                 onChange={handleChange}
                 placeholder="Mogadishu"
+                ref={cityRef}
               />
             </div>
           </div>
@@ -473,6 +574,7 @@ export default function NewListingForm(props) {
                 value={formFields.country}
                 onChange={handleChange}
                 placeholder="Somalia"
+                ref={countryRef}
               />
             </div>
           </div>
@@ -493,6 +595,7 @@ export default function NewListingForm(props) {
                 value={formFields.name}
                 onChange={handleChange}
                 placeholder="Full Name"
+                ref={nameRef}
               />
             </div>
           </div>
@@ -509,6 +612,7 @@ export default function NewListingForm(props) {
                 value={formFields.email}
                 onChange={handleChange}
                 placeholder="firstname.lastname@example.com"
+                ref={emailRef}
               />
             </div>
           </div>
@@ -525,6 +629,7 @@ export default function NewListingForm(props) {
                 value={formFields.phone}
                 onChange={handleChange}
                 placeholder="016242387"
+                ref={phoneRef}
               />
             </div>
           </div>
