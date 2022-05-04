@@ -1,7 +1,8 @@
 import { useState, useEffect, createContext, useContext } from "react";
-import { db, auth } from "../firebase/clientApp";
-import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged, onIdTokenChanged } from "firebase/auth";
 import { getDoc, doc } from "firebase/firestore";
+import nookies from "nookies";
+import { db, auth } from "../firebase/clientApp";
 export const UserContext = createContext();
 
 export default function UserContextComp({ children }) {
@@ -11,9 +12,11 @@ export default function UserContextComp({ children }) {
 
   useEffect(() => {
     // Listen authenticated user
-    const unsubscriber = onAuthStateChanged(auth, async (user) => {
+    //const unsubscriber = onAuthStateChanged(auth, async (user) => {
+    const unsubscriber = onIdTokenChanged(auth, async (user) => {
       try {
         if (user) {
+          const token = await user.getIdToken();
           // User is signed in.
           const { uid, displayName, email, photoURL } = user;
           // You could also look for the user doc in your Firestore (if you have one):
@@ -24,7 +27,11 @@ export default function UserContextComp({ children }) {
             setCurrentUser({ ...docSnap.data(), uid });
           }
           setUser({ uid, displayName, email, photoURL });
-        } else setUser(null);
+          nookies.set(undefined, "token", token, { path: "/" });
+        } else {
+          setUser(null);
+          nookies.set(undefined, "token", "", { path: "/" });
+        }
       } catch (error) {
         // Most probably a connection error. Handle appropriately.
       } finally {
