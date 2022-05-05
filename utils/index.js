@@ -72,3 +72,13 @@ export const property_features = [
   "Arrival Pickup",
   "Departure Pickup",
 ];
+
+export const randomKeys = (length = 10) => {
+  let chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  let str = "";
+  for (let i = 0; i < length; i++) {
+    str += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+
+  return str;
+};

@@ -193,3 +193,31 @@ Belongs to users
 https://firebase.google.com/docs/auth/web/google-signin
 https://www.youtube.com/watch?v=2GIMsmDvXls
 https://github.com/vercel/next.js/tree/canary/examples/with-firebase
+
+https://firebase.google.com/docs/rules/basics
+
+### Firebase example rules
+
+```
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+    //match /{document=**} {
+     // allow write: if request.auth != null;
+      //allow read: if true;
+    //}
+    match /profiles/{document} {
+    	allow read: if true;
+      allow write: if request.auth != null;
+    }
+
+    match /apartments/{document} {
+    	allow read: if true;
+      allow write: if request.auth != null;
+    }
+  }
+}
+```

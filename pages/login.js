@@ -1,26 +1,20 @@
 import { useState, useEffect } from "react";
-import { db, auth } from "../firebase/clientApp";
+import { auth } from "../firebase/clientApp";
 import {
   signInWithPopup,
   GoogleAuthProvider,
   FacebookAuthProvider,
 } from "firebase/auth";
-import {
-  collection,
-  getDoc,
-  doc,
-  setDoc,
-  updateDoc,
-  increment,
-} from "firebase/firestore";
-
+import { increment } from "firebase/firestore";
 import { useRouter } from "next/router";
+import { v4 as uuidv4 } from "uuid";
 import { useUser } from "../context/userContext";
 import Loader from "../components/Loader";
+import { UserModel } from "../models";
+import { randomKeys } from "../utils";
 
 export default function login() {
   const router = useRouter();
-  const usersRef = collection(db, "users");
   const gProvider = new GoogleAuthProvider();
   const fProvider = new FacebookAuthProvider();
 
@@ -37,25 +31,26 @@ export default function login() {
   useEffect(() => {
     const updateUser = async () => {
       const { uid, displayName, email, photoURL } = authUser;
-      const userDoc = doc(db, "users", uid);
-      const docSnap = await getDoc(userDoc);
+      const userDoc = await new UserModel({ id: uid }).getOne();
 
-      if (docSnap.exists()) {
-        setCurrentUser({ ...docSnap.data(), uid });
-        await updateDoc(doc(usersRef, uid), {
+      if (userDoc) {
+        setCurrentUser({ ...userDoc, uid });
+        await new UserModel({
+          id: uid,
           loginCount: increment(1),
           lastLogin: new Date(),
-        });
+        }).update();
       } else {
         // doc.data() will be undefined in this case
-        await setDoc(doc(usersRef, uid), {
+        await new UserModel({
           fullName: displayName,
           email,
           displayName,
           photoURL,
           loginCount: 1,
           lastLogin: new Date(),
-        });
+          id: uid,
+        }).create();
       }
     };
     if (authUser) updateUser();
@@ -68,7 +63,6 @@ export default function login() {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
         const user = result.user;
-        console.log(user);
         setAuthUser(user);
         setUser(user);
         sessionStorage.setItem("token", token);
@@ -98,7 +92,6 @@ export default function login() {
         const accessToken = credential.accessToken;
         sessionStorage.setItem("token", accessToken);
         // ...
-        console.log(user);
         router.push("/admin");
       })
       .catch((error) => {

@@ -6,9 +6,12 @@ import {
   doc,
   updateDoc,
   getDocs,
+  setDoc,
   where,
   query,
 } from "firebase/firestore";
+
+import { randomKeys } from "../utils";
 
 class BaseModel {
   constructor(collectionName, data) {
@@ -49,9 +52,30 @@ class BaseModel {
     this.data.updatedAt = updatedAt;
   }
 
+  setModalId(id) {
+    this.data["mId"] = id || randomKeys(20);
+  }
+
+  dataWithoutId(generalMId = false) {
+    this.setCreatedAt(new Date());
+    this.setUpdatedAt(new Date());
+    if (generalMId) {
+      this.setModalId(randomKeys(20));
+    }
+    let data = { ...this.data };
+    delete data.id;
+    return data;
+  }
+
+  async create() {
+    const usersRef = collection(this.db, this.collectionName);
+    return setDoc(doc(usersRef, this.getId()), this.dataWithoutId(true));
+  }
+
   async save() {
     this.setCreatedAt(new Date());
     this.setUpdatedAt(new Date());
+    this.setModalId(randomKeys(20));
     return await addDoc(collection(this.db, this.collectionName), this.data);
   }
 
@@ -59,9 +83,8 @@ class BaseModel {
     this.setUpdatedAt(new Date());
     const docSnap = await updateDoc(
       doc(this.db, this.collectionName, this.getId()),
-      this.data
+      this.dataWithoutId()
     );
-    console.log("---- docSnap", docSnap);
     return docSnap;
   }
 
@@ -77,12 +100,20 @@ class BaseModel {
 
   async getAllByQuery() {
     const key = Object.keys(this.data)[0];
-    const query = query(
+    const q = query(
       collection(this.db, this.collectionName),
       where(`${key}`, "==", this.get(key))
     );
-    return await getDocs(query);
+
+    const querySnapshot = await getDocs(q);
+    const data = querySnapshot.docs.map((doc) => {
+      return { id: doc.id, ...doc.data() };
+    });
+
+    return data;
   }
+
+  async getAllByMultipleQueries() {}
 }
 
 export default BaseModel;

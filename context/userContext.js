@@ -3,6 +3,8 @@ import { onAuthStateChanged, onIdTokenChanged } from "firebase/auth";
 import { getDoc, doc } from "firebase/firestore";
 import nookies from "nookies";
 import { db, auth } from "../firebase/clientApp";
+import { UserModel } from "../models";
+
 export const UserContext = createContext();
 
 export default function UserContextComp({ children }) {
@@ -21,6 +23,7 @@ export default function UserContextComp({ children }) {
           const { uid, displayName, email, photoURL } = user;
           // You could also look for the user doc in your Firestore (if you have one):
           //const userDoc = await firebase.firestore().doc(`users/${uid}`).get();
+          const loggedInUser = await new UserModel({ id: uid }).getOne();
           const userDoc = doc(db, "users", uid);
           const docSnap = await getDoc(userDoc);
           if (docSnap.exists()) {

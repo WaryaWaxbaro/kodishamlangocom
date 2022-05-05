@@ -39,12 +39,39 @@ export default function profile() {
   });
 
   useEffect(() => {
+    const getUserProfile = async (profileId) => {
+      const profileModel = await new ProfileModel({
+        mId: `${profileId}`,
+      }).getAllByQuery();
+
+      if (profileModel && profileModel.length > 0) {
+        const currentProfile = profileModel[0];
+        setUserProfile(currentProfile);
+        const profileUrl = await new StorageUploads(
+          `profiles/${currentProfile.mId}`
+        ).downloadURL();
+        if (profileUrl) {
+          setProfileImageUrl(profileUrl);
+        }
+      }
+      setDataLoading(false);
+    };
+    if (currentUser?.profileId) {
+      getUserProfile(currentUser.profileId);
+    } else {
+      if (!loadingUser) {
+        setDataLoading(false);
+      }
+    }
+  }, [loadingUser]);
+
+  useEffect(() => {
     const updateData = async () => {
       const profileModel = await new ProfileModel({
-        id: currentUser.profileId,
-      }).getOne();
-      if (profileModel) {
-        setUserProfile(profileModel);
+        mId: `${currentUser.profileId}`,
+      }).getAllByQuery();
+      if (profileModel && profileModel.length > 0) {
+        setUserProfile(profileModel[0]);
       }
     };
     if (syncData) {
@@ -64,76 +91,74 @@ export default function profile() {
   }, [syncData]);
 
   useEffect(() => {
-    const getUserProfile = async (profileId) => {
-      const profileModel = await new ProfileModel({ id: profileId }).getOne();
-      if (profileModel) {
-        setUserProfile(profileModel);
-        const profileUrl = await new StorageUploads(
-          `profiles/${profileId}`
-        ).downloadURL();
-        if (profileUrl) {
-          setProfileImageUrl(profileUrl);
+    const createUpdateProfile = async (action) => {
+      let hasImage = false;
+      let profileMid = null;
+      if (action === "new") {
+        // Save new profile
+        const profile = await new ProfileModel(profileForm).save();
+        if (profile.id && currentUser.uid) {
+          // Get saved profile data
+          const savedProfile = await new ProfileModel({
+            id: `${profile.id}`,
+          }).getOne();
+
+          // Save profile id to user
+          const userDoc = await new UserModel({
+            id: `${currentUser.uid}`,
+            profileId: `${savedProfile.mId}`,
+          }).update();
+
+          if (profileImage) {
+            hasImage = true;
+          }
+          setUserProfile(savedProfile);
         }
-      }
-      setDataLoading(false);
-    };
-    if (currentUser?.profileId) {
-      getUserProfile(currentUser.profileId);
-    } else {
-      if (!loadingUser) {
-        setDataLoading(false);
-      }
-    }
-  }, [loadingUser]);
+      } else if (action === "update") {
+        if (currentUser?.profileId) {
+          const foundProfile = await new ProfileModel({
+            mId: `${currentUser.profileId}`,
+          }).getAllByQuery();
+          if (foundProfile && foundProfile.length > 0) {
+            const docSnap = await new ProfileModel({
+              id: `${foundProfile[0].id}`,
+              ...profileForm,
+            }).update();
 
-  useEffect(() => {
-    const createProfile = async () => {
-      const profile = await new ProfileModel(profileForm).save();
-      if (profile.id && currentUser.uid) {
-        setUserProfile(profile);
-        const userDoc = await new UserModel({
-          id: currentUser.uid,
-          profileId: `${profile.id}`,
-        }).update();
-        setSyncData(true);
-      }
-    };
-    const updateProfile = async () => {
-      if (currentUser?.profileId) {
-        const docSnap = await new ProfileModel({
-          id: currentUser.profileId,
-          ...profileForm,
-        }).update();
-
-        if (profileImage) {
-          console.log("profileImage", profileImage);
-          const uploadStorage = await new StorageUploads(
-            `profiles/${currentUser.profileId}`,
-            profileImage
-          ).uploadResumable("shalow");
-
-          console.log("uploadStorage", uploadStorage);
-          const { error, downloadURL } = uploadStorage[0];
-          console.log("error--- ", error);
-          console.log("downloadURL--- ", downloadURL);
-          if (downloadURL) {
-            setProfileImageUrl(downloadURL);
-          } else {
-            setToastInfo({
-              status: "error",
-              message: `Profile image upload failed. ${error}`,
-            });
+            if (profileImage) {
+              hasImage = true;
+            }
           }
         }
+      }
+
+      // Upload profile image if exists
+      if (hasImage) {
+        const uploadStorage = await new StorageUploads(
+          `profiles/${currentUser.profileId}`,
+          profileImage
+        ).uploadResumable("shalow");
+
+        const { error, downloadURL } = uploadStorage[0];
+
+        if (downloadURL) {
+          setProfileImageUrl(downloadURL);
+        } else {
+          setToastInfo({
+            status: "error",
+            message: `Profile image upload failed. ${error}`,
+          });
+        }
+
+        setSyncData(true);
+        hasImage = false;
+      } else {
         setSyncData(true);
       }
     };
 
-    if (saveProfileData && saveProfileData === "new") {
-      createProfile();
-    }
-    if (saveProfileData && saveProfileData === "update") {
-      updateProfile();
+    if (saveProfileData) {
+      createUpdateProfile(saveProfileData);
     }
 
     return () => {

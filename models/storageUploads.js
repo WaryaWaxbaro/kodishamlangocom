@@ -9,6 +9,8 @@ import {
   deleteObject,
 } from "firebase/storage";
 
+import { randomKeys } from "../utils";
+
 export default class StorageUploads {
   constructor(fullPath, files) {
     this.fullPath = fullPath;
@@ -22,7 +24,7 @@ export default class StorageUploads {
       Array.from(this.files).map(async (file) => {
         let filePath =
           fileLevel === "deep"
-            ? `${this.fullPath}/${file.name}`
+            ? `${this.fullPath}/${randomKeys(20)}`
             : this.fullPath;
         let storageRef = ref(this.storage, `${filePath}`);
         return new Promise((resolve, reject) => {
