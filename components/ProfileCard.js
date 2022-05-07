@@ -1,6 +1,9 @@
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 export default function ProfileCard({ profile, profileImageUrl }) {
+  const router = useRouter();
+  const isProfilePage = router.pathname === "/admin/profile";
   if (!profile) {
     return <div>No Profile</div>;
   }
@@ -19,6 +22,19 @@ export default function ProfileCard({ profile, profileImageUrl }) {
         <div>
           <h4 className="fs-16 fw-bold ls-6">{profile.name}</h4>
           <p className="fs-14">{profile.title}</p>
+          <p className="fs-12">
+            {isProfilePage && profile.showProfile ? (
+              <span className="text-success">
+                <i class="bi bi-check-circle-fill"></i> Profile is visible to
+                others.
+              </span>
+            ) : (
+              <span className="text-danger">
+                <i class="bi bi-x-circle-fill"></i> Profile is not visible to
+                others.
+              </span>
+            )}
+          </p>
         </div>
       </div>
       <div>

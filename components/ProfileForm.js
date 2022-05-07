@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import { toast } from "react-toastify";
 
 export default function ProfileForm({
   formAction,
@@ -10,6 +11,8 @@ export default function ProfileForm({
   setProfileImage,
   previewUrl,
   setPreviewUrl,
+  disableBtn,
+  setDisableBtn,
 }) {
   const [charsCounter, setCharsCounter] = useState(0);
 
@@ -36,7 +39,18 @@ export default function ProfileForm({
   };
   const handleProfileFormSubmit = (e) => {
     e.preventDefault();
-    setSaveProfileData(formAction);
+    if (
+      profileForm.name &&
+      profileForm.title &&
+      profileForm.email &&
+      profileForm.phone &&
+      profileForm.address
+    ) {
+      setSaveProfileData(formAction);
+      setDisableBtn(true);
+    } else {
+      toast.error("Fields marked with * are required");
+    }
   };
 
   const handleProfileImage = (e) => {
@@ -92,7 +106,7 @@ export default function ProfileForm({
             value={profileForm.name}
             onChange={handleProfileFormData}
           />
-          <label htmlFor="name">Name</label>
+          <label htmlFor="name">Name *</label>
         </div>
         <div className="form-floating mb-3">
           <input
@@ -104,7 +118,7 @@ export default function ProfileForm({
             value={profileForm.title}
             onChange={handleProfileFormData}
           />
-          <label htmlFor="title">Title</label>
+          <label htmlFor="title">Title *</label>
         </div>
         <div className="form-floating mb-3">
           <input
@@ -116,7 +130,7 @@ export default function ProfileForm({
             value={profileForm.phone}
             onChange={handleProfileFormData}
           />
-          <label htmlFor="phone">Phone Number</label>
+          <label htmlFor="phone">Phone Number *</label>
         </div>
         <div className="form-floating mb-3">
           <input
@@ -128,7 +142,7 @@ export default function ProfileForm({
             value={profileForm.email}
             onChange={handleProfileFormData}
           />
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email">Email *</label>
         </div>
         <div className="form-floating mb-3">
           <input
@@ -140,7 +154,7 @@ export default function ProfileForm({
             value={profileForm.address}
             onChange={handleProfileFormData}
           />
-          <label htmlFor="address">Address</label>
+          <label htmlFor="address">Address *</label>
         </div>
         <div className="mb-3">
           <label className="form-label" htmlFor="intro">
@@ -158,7 +172,12 @@ export default function ProfileForm({
           <p>{charsCounter}/60</p>
         </div>
         <div className="text-end">
-          <button className="btn btn-success text-light rounded-0">Save</button>
+          <button
+            className="btn btn-success text-light rounded-0"
+            disabled={disableBtn}
+          >
+            Save
+          </button>
         </div>
       </form>
     </div>

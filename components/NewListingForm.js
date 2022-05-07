@@ -64,6 +64,8 @@ export default function NewListingForm(props) {
     setFormData,
     setFormImages,
     setSyncData,
+    disableBtn,
+    setDisableBtn,
   } = props;
   const [formFields, setFormFields] = useState(fieldValues);
 
@@ -152,7 +154,7 @@ export default function NewListingForm(props) {
           );
           toast.error(`File (${is_uploaded.name}) has been already uploaded.`);
         } else {
-          if (propertyImages.length > 5) {
+          if (propertyImages.length > 9) {
             setUploadMessage("Uploaded maximum photos allowed.");
             toast.error("Uploaded maximum photos allowed.");
             return;
@@ -208,6 +210,7 @@ export default function NewListingForm(props) {
 
     setFormData(formFields);
     setFormImages(propertyImages);
+    setDisableBtn(true);
     setSyncData(true);
 
     console.log("errorFields", errorFields);
@@ -695,7 +698,11 @@ export default function NewListingForm(props) {
           </div>
         </div>
         <div className="d-grid my-5">
-          <button type="submit" className="btn btn-primary btn-lg rounded-pill">
+          <button
+            type="submit"
+            className="btn btn-primary btn-lg rounded-pill"
+            disabled={disableBtn}
+          >
             Save
           </button>
         </div>

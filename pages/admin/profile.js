@@ -33,6 +33,7 @@ export default function profile() {
   const [previewUrl, setPreviewUrl] = useState("");
   const [profileImageUrl, setProfileImageUrl] = useState("");
   const [syncData, setSyncData] = useState(false);
+  const [disableBtn, setDisableBtn] = useState(false);
   const [toastInfo, setToastInfo] = useState({
     status: "success",
     message: "Profile updated successfully",
@@ -169,6 +170,7 @@ export default function profile() {
   const handleProfileEdit = () => {
     setProfileForm(userProfile);
     setToggleEdit(!toggleEdit);
+    setDisableBtn(false);
   };
   const handleCopyProfile = () => {
     setProfileForm({
@@ -232,6 +234,8 @@ export default function profile() {
                       setProfileImage={setProfileImage}
                       previewUrl={previewUrl}
                       setPreviewUrl={setPreviewUrl}
+                      disableBtn={disableBtn}
+                      setDisableBtn={setDisableBtn}
                     />
                   </div>
                 ) : (
@@ -282,6 +286,8 @@ export default function profile() {
                   setProfileImage={setProfileImage}
                   previewUrl={previewUrl}
                   setPreviewUrl={setPreviewUrl}
+                  disableBtn={disableBtn}
+                  setDisableBtn={setDisableBtn}
                 />
               </div>
             )}

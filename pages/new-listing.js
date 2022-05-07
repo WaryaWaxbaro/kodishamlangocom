@@ -11,6 +11,7 @@ export default function newListing(props) {
   const [formData, setFormData] = useState({});
   const [formImages, setFormImages] = useState([]);
   const [syncData, setSyncData] = useState(false);
+  const [disableBtn, setDisableBtn] = useState(false);
 
   const { loadingUser, currentUser } = useUser();
 
@@ -20,32 +21,58 @@ export default function newListing(props) {
     const addNewListing = async (userId) => {
       const apartmentModel = new ApartmentModel({
         ...formData,
-        userId,
+        userId: `${userId}`,
       });
       const apartment = await apartmentModel.save();
       if (apartment.id) {
-        setSyncData(false);
-        console.log("apartment", apartment.id);
-        if (formImages.length > 0) {
-          console.log("profileImage", formImages);
-          const uploadStorage = await new StorageUploads(
-            `apartments/${apartment.id}`,
-            formImages
-          ).uploadResumable();
+        // Get recently added apartment
+        const savedApartment = await new ApartmentModel({
+          id: apartment.id,
+        }).getOne();
 
-          console.log("uploadStorage", uploadStorage);
+        console.log("savedApartment", savedApartment);
+
+        if (savedApartment.mId) {
+          console.log("savedApartment.mId", savedApartment.mId);
+          if (formImages.length > 0) {
+            console.log("profileImage", formImages);
+            const uploadStorage = await new StorageUploads(
+              `apartments/${savedApartment.mId}`,
+              formImages
+            ).uploadResumable();
+
+            if (uploadStorage && uploadStorage.length > 0) {
+              uploadStorage.forEach(async (storage) => {
+                const { error, downloadURL } = storage;
+
+                if (downloadURL) {
+                  toast.success("Image uploaded successfully");
+                } else {
+                  toast.error("Image upload failed");
+                }
+              });
+            }
+
+            console.log("uploadStorage", uploadStorage);
+          }
         }
+        setSyncData(false);
+        setDisableBtn(false);
         router.push("/");
       }
 
       console.log("formData", { ...formData, userId });
     };
-    if (syncData && currentUser?.uid) {
-      if (currentUser.uid) {
-        addNewListing(currentUser.uid);
+
+    if (syncData && currentUser?.mId) {
+      if (currentUser.mId) {
+        addNewListing(currentUser.mId);
       } else {
         toast.error("Please login to add listing");
       }
+    } else if (syncData) {
+      toast.error("Please login to add listing");
+      setSyncData(false);
     }
   }, [syncData, loadingUser]);
 
@@ -64,6 +91,8 @@ export default function newListing(props) {
           setFormData={setFormData}
           setFormImages={setFormImages}
           setSyncData={setSyncData}
+          disableBtn={disableBtn}
+          setDisableBtn={setDisableBtn}
         />
       </div>
     </div>
