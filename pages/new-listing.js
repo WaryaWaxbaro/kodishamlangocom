@@ -12,6 +12,7 @@ export default function newListing(props) {
   const [formImages, setFormImages] = useState([]);
   const [syncData, setSyncData] = useState(false);
   const [disableBtn, setDisableBtn] = useState(false);
+  const [thumbnailImage, setThumbnailImage] = useState(null);
 
   const { loadingUser, currentUser } = useUser();
 
@@ -35,7 +36,13 @@ export default function newListing(props) {
         if (savedApartment.mId) {
           console.log("savedApartment.mId", savedApartment.mId);
           if (formImages.length > 0) {
+            toast.warning("Uploading images...");
             console.log("profileImage", formImages);
+            await new StorageUploads(
+              `apartments/thumbnails/${savedApartment.mId}`,
+              thumbnailImage
+            ).uploadResumable("shalow");
+
             const uploadStorage = await new StorageUploads(
               `apartments/${savedApartment.mId}`,
               formImages
@@ -93,6 +100,7 @@ export default function newListing(props) {
           setSyncData={setSyncData}
           disableBtn={disableBtn}
           setDisableBtn={setDisableBtn}
+          setThumbnailImage={setThumbnailImage}
         />
       </div>
     </div>

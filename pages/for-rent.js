@@ -1,11 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import nookies from "nookies";
 
 import admin from "../firebase/nodeApp";
+import StorageUploads from "../models/storageUploads";
 import Listings from "../components/Listings";
 
-export default function forRent() {
-  return <Listings />;
+export default function forRent(props) {
+  let { listings } = props;
+
+  useEffect(() => {
+    const getThumbnails = async () => {
+      const thumbnails = await new StorageUploads(
+        "/apartments/thumbnails",
+        null
+      ).getListAll();
+      console.log("thumbnails", thumbnails);
+    };
+    if (listings) {
+      getThumbnails();
+    }
+  }, [listings]);
+  return <Listings apartments={JSON.parse(listings)} />;
 }
 
 export async function getServerSideProps(context) {
@@ -19,12 +34,17 @@ export async function getServerSideProps(context) {
       .firestore()
       .collection("apartments")
       .get();
-    console.log("listingEntries", listingEntries);
+
+    //79ktlzft6iA5Dj4EHjRx
+    const files = "79ktlzft6iA5Dj4EHjRx";
+    //.bucket(`${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}`);
+    //.get("/apartments/thumbnails/79ktlzft6iA5Dj4EHjRx");
+
+    console.log("files", files);
+
     const listings = JSON.stringify(
       listingEntries.docs.map((doc) => doc.data())
     );
-
-    console.log("listings", listings);
 
     return {
       props: {
@@ -35,7 +55,7 @@ export async function getServerSideProps(context) {
     console.log("error", error);
     return {
       props: {
-        listings: [],
+        listings: null,
       },
     };
   }

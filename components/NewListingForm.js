@@ -26,6 +26,7 @@ const fieldValues = {
   price_duration: "Month",
   reserved: false,
   published: true,
+  featured: false,
   street: "Jalan Kebun",
   postcode: "90000",
   sub_city: "Eastleigh",
@@ -66,8 +67,10 @@ export default function NewListingForm(props) {
     setSyncData,
     disableBtn,
     setDisableBtn,
+    setThumbnailImage,
   } = props;
   const [formFields, setFormFields] = useState(fieldValues);
+  const [selectedThumbnail, setSelectedThumbnail] = useState(null);
 
   useEffect(() => {
     let storedFields = JSON.parse(sessionStorage.getItem("newListingData"));
@@ -186,7 +189,12 @@ export default function NewListingForm(props) {
   const removeImageFile = (imageFile) => {
     let filtered = propertyImages.filter((img) => img.name !== imageFile.name);
     setPropertyImages(filtered);
+    if (selectedThumbnail === imageFile.name) {
+      setSelectedThumbnail(null);
+      setThumbnailImage(null);
+    }
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("formFields", formFields);
@@ -214,6 +222,25 @@ export default function NewListingForm(props) {
     setSyncData(true);
 
     console.log("errorFields", errorFields);
+  };
+
+  const setThumbnail = (imageFile) => {
+    propertyImages
+      .map((img) => img.name)
+      .map((name) => {
+        let thumb = document.getElementById(name);
+        console.log("thumb", thumb);
+        if (name === imageFile.name) {
+          thumb.checked = true;
+        } else {
+          thumb.checked = false;
+        }
+        console.log("thumb", thumb);
+      });
+    let filtered = propertyImages.filter((img) => img.name === imageFile.name);
+    setThumbnailImage(filtered);
+    setSelectedThumbnail(imageFile.name);
+    console.log("filtered", filtered);
   };
 
   return (
@@ -663,7 +690,7 @@ export default function NewListingForm(props) {
             {propertyImages.map((img, index) => (
               <div
                 key={index}
-                className="position-relative thumbnail-img me-3 border border-primary rounded-5"
+                className="position-relative thumbnail-img me-3 border border-primary rounded-5 mb-5"
               >
                 <Image src={getFileUrl(img)} layout="fill" />
                 <span
@@ -680,6 +707,23 @@ export default function NewListingForm(props) {
                     <i className="bi bi-x"></i>
                   </span>
                 </span>
+                <div
+                  className="fs-12 position-absolute start-0"
+                  style={{ bottom: "-30px" }}
+                >
+                  <div className="form-check">
+                    <input
+                      className="form-check-input"
+                      type="checkbox"
+                      name={img.name}
+                      id={img.name}
+                      onChange={() => setThumbnail(img)}
+                    />
+                    <label className="form-check-label" htmlFor={img.name}>
+                      Use as a thumbnail
+                    </label>
+                  </div>
+                </div>
               </div>
             ))}
           </div>

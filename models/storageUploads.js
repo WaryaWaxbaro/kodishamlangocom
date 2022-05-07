@@ -76,7 +76,12 @@ export default class StorageUploads {
   async getListAll() {
     const listRef = ref(this.storage, this.fullPath);
     const res = await listAll(listRef);
-    return res;
+    const items = res.items.map(async (itemRef) => {
+      const res = await getDownloadURL(itemRef);
+      console.log("res", res);
+      return res;
+    });
+    return items;
   }
 
   async getList() {
