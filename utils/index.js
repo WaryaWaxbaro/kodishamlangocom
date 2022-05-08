@@ -82,3 +82,8 @@ export const randomKeys = (length = 10) => {
 
   return str;
 };
+
+export const slugString = (str) => {
+  let slug = str.toLowerCase().split(" ").join("-");
+  return typeof str === "string" ? `${slug}-${randomKeys()}` : str;
+};

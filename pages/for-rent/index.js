@@ -1,12 +1,14 @@
 import React, { useEffect } from "react";
 import nookies from "nookies";
 
-import admin from "../firebase/nodeApp";
-import StorageUploads from "../models/storageUploads";
-import Listings from "../components/Listings";
+import admin from "../../firebase/nodeApp";
+import StorageUploads from "../../models/storageUploads";
+import Listings from "../../components/Listings";
 
 export default function forRent(props) {
   let { listings } = props;
+
+  console.log("listings", listings);
 
   useEffect(() => {
     const getThumbnails = async () => {

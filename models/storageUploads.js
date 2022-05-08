@@ -76,12 +76,23 @@ export default class StorageUploads {
   async getListAll() {
     const listRef = ref(this.storage, this.fullPath);
     const res = await listAll(listRef);
-    const items = res.items.map(async (itemRef) => {
-      const res = await getDownloadURL(itemRef);
-      console.log("res", res);
-      return res;
-    });
-    return items;
+    const data = res.items.map((itemRef) => itemRef);
+    return Promise.all(
+      data.map(async (doc) => {
+        return new Promise((resolve, reject) => {
+          const res = getDownloadURL(doc);
+          resolve(res);
+        });
+      })
+    )
+      .then((data) => {
+        console.log("items fetched", data);
+        return data;
+      })
+      .catch((err) => {
+        console.log(err);
+        return err;
+      });
   }
 
   async getList() {

@@ -3,12 +3,15 @@ import Image from "next/image";
 import Link from "next/link";
 
 import StorageUploads from "../models/storageUploads";
-import Loader from "./Loader";
+
+import { formatPrice } from "../utils";
 
 export default function SmallCard({ apartment }) {
   const [liked, setLiked] = useState(false);
   const [thumbnailUrl, setThumbnailUrl] = useState(null);
+
   useEffect(() => {
+    console.log("apartment", apartment);
     const getThumbnailUrl = async (id) => {
       const thumnail = await new StorageUploads(
         `apartments/thumbnails/${id}`
@@ -24,7 +27,7 @@ export default function SmallCard({ apartment }) {
   return (
     <div className="w-100 border border-gray-300 rounded-5 overflow-hidden d-flex flex-column shadow">
       <div className="w-100">
-        <Link href="/">
+        <Link href={"/for-rent/" + apartment.slug}>
           <a>
             <div className="w-100 h-260 position-relative cover-img-img">
               {thumbnailUrl ? (
@@ -40,19 +43,19 @@ export default function SmallCard({ apartment }) {
                     Featured
                   </button>
                 )}
-                {apartment.property_status_sale && property_status_rent && (
-                  <button className="btn btn-sm bg-dark bg-opacity-50 m-2 text-light fs-14">
-                    {apartment.property_status_sale && "For Sale"}
-                    {apartment.property_status_rent && "For Rent"}
-                  </button>
-                )}
+                {apartment.property_status_sale ||
+                  (apartment.property_status_rent && (
+                    <button className="btn btn-sm bg-dark bg-opacity-50 m-2 text-light fs-14">
+                      {apartment.property_status_rent ? "For Rent" : "For Sale"}
+                    </button>
+                  ))}
               </div>
             </div>
           </a>
         </Link>
       </div>
       <div className="featured-card__text position-relative h-100 p-3 p-md-4 bg-white flex-1">
-        <Link href="/">
+        <Link href={"/for-rent/" + apartment.slug}>
           <a className="text-decoration-none text-dark">
             <div className="w-100">
               <h3 className="fs-16 fw-bold ls-6 mb-2">{apartment.title}</h3>
@@ -114,7 +117,9 @@ export default function SmallCard({ apartment }) {
           <div className="w-100 px-3 pb-3 px-md-4 pb-md-4">
             <hr className="bg-gray-500" />
             <div className="d-flex align-item-center justify-content-between">
-              <p className="mb-0 fw-bold ls-6">Kshs {apartment.price}</p>
+              <p className="mb-0 fw-bold ls-6">
+                Kshs {formatPrice(apartment.price)}
+              </p>
               <p className="mb-0 d-flex">
                 <span className="d-block cursor-pointer me-4">
                   <i className="bi bi-share"></i>

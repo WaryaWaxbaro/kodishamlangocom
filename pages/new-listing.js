@@ -7,6 +7,8 @@ import { ApartmentModel } from "../models";
 import StorageUploads from "../models/storageUploads";
 import { useUser } from "../context/userContext";
 
+import { slugString } from "../utils";
+
 export default function newListing(props) {
   const [formData, setFormData] = useState({});
   const [formImages, setFormImages] = useState([]);
@@ -22,6 +24,7 @@ export default function newListing(props) {
     const addNewListing = async (userId) => {
       const apartmentModel = new ApartmentModel({
         ...formData,
+        slug: slugString(`${formData.title} ${formData.city}`),
         userId: `${userId}`,
       });
       const apartment = await apartmentModel.save();
@@ -62,10 +65,16 @@ export default function newListing(props) {
 
             console.log("uploadStorage", uploadStorage);
           }
+          toast.success("Listing added successfully");
+          setSyncData(false);
+          setDisableBtn(false);
+          let slug = savedApartment.property_status_rent
+            ? "/for-rent"
+            : savedApartment.property_status_rent
+            ? "/for-sale"
+            : "for-rent";
+          router.push(`${slug}/${savedApartment.slug}`);
         }
-        setSyncData(false);
-        setDisableBtn(false);
-        router.push("/");
       }
 
       console.log("formData", { ...formData, userId });

@@ -97,7 +97,10 @@ export default function profile() {
       let profileMid = null;
       if (action === "new") {
         // Save new profile
-        const profile = await new ProfileModel(profileForm).save();
+        const profile = await new ProfileModel({
+          ...profileForm,
+          userId: currentUser.mId,
+        }).save();
         if (profile.id && currentUser.uid) {
           // Get saved profile data
           const savedProfile = await new ProfileModel({

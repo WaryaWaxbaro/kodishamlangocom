@@ -19,7 +19,7 @@ const fieldValues = {
   property_status_short_stay: false,
   apartment_type: "House",
   bedrooms: 1,
-  bathroom: 1,
+  bathrooms: 1,
   area: 125,
   guest: 1,
   price: 125000,
