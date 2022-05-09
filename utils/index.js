@@ -87,3 +87,22 @@ export const slugString = (str) => {
   let slug = str.toLowerCase().split(" ").join("-");
   return typeof str === "string" ? `${slug}-${randomKeys()}` : str;
 };
+
+// Zero-pad a number
+export const zeroPad = (num, places) => {
+  let zero = places - num.toString().length + 1;
+  return Array(+(zero > 0 && zero)).join("0") + num;
+};
+
+// Convert unix timestamp to date
+export const unixToDate = (unix) => {
+  let date = new Date(unix * 1000);
+  let year = date.getFullYear();
+  let month = zeroPad(date.getMonth() + 1, 2);
+  let day = zeroPad(date.getDate(), 2);
+  let hour = zeroPad(date.getHours(), 2);
+  let min = zeroPad(date.getMinutes(), 2);
+  let sec = zeroPad(date.getSeconds(), 2);
+  let time = `${day}/${month}/${year} ${hour}:${min}:${sec}`;
+  return time;
+};

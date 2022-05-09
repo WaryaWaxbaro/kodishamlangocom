@@ -11,18 +11,23 @@ import admin from "../../firebase/nodeApp";
 import StorageUploads from "../../models/storageUploads";
 import { ProfileModel } from "../../models";
 import { formatPrice, property_features, toUnderscoreKey } from "../../utils";
+import Loader from "../../components/Loader";
 
 export default function singleListingForRent(props) {
-  const listing = JSON.parse(props.listing);
+  const listing = props.listing ? JSON.parse(props.listing) : {};
+  console.log("listing", listing);
+  console.log("listing length ", Object.keys(listing).length > 0);
   const [images, setImages] = useState([]);
   const [agentProfile, setAgentProfile] = useState(null);
   const [profileImageUrl, setProfileImageUrl] = useState(null);
+  const [reload, setReload] = useState(true);
 
   useEffect(() => {
     const getImages = async (id) => {
       const imagesList = await new StorageUploads(
         `apartments/${id}`
       ).getListAll();
+
       if (imagesList && imagesList.length > 0) {
         setImages(imagesList);
       }
@@ -46,12 +51,21 @@ export default function singleListingForRent(props) {
       }
     };
 
-    if (listing.mId) {
-      getImages(listing.mId);
-      getAgentProfile(listing.userId);
+    console.log(listing.mId);
+    console.log("reload --", reload);
+    if (reload) {
+      console.log("reload");
+      if (listing.mId) {
+        getImages(listing.mId);
+        getAgentProfile(listing.userId);
+        setReload(false);
+      }
     }
-  }, []);
+  }, [reload, listing]);
 
+  if (Object.keys(listing).length < 1) {
+    return <Loader />;
+  }
   return (
     <div className="container-lg py-5">
       <div className="row">
@@ -62,12 +76,12 @@ export default function singleListingForRent(props) {
               <div className="d-flex">
                 <h1 className="fs-28 fw-bold">
                   {listing.title}{" "}
-                  {listing.property_status_rent &&
-                    listing.property_status_sale && (
+                  {listing.property_status_rent ||
+                    (listing.property_status_sale && (
                       <span className="badge bg-primary ms-3 rounded-pill fs-14 fw-normal">
                         {listing.property_status_rent ? "For Rent" : "For Sale"}
                       </span>
-                    )}
+                    ))}
                 </h1>
               </div>
               <p>
@@ -128,11 +142,11 @@ export default function singleListingForRent(props) {
               classNames="text-dark fs-18 fw-bold ls-6"
             />
             <ul className="list-unstyled d-flex justify-content-between flex-wrap">
-              {property_features.map((feature) => (
+              {property_features.map((feature, index) => (
                 <>
                   {listing[toUnderscoreKey(feature)] && (
                     <li
-                      key={toUnderscoreKey(feature)}
+                      key={toUnderscoreKey(feature) + "_" + index}
                       className="w-columns-30 mb-3"
                     >
                       <span className="d-inline-block me-2">
@@ -179,24 +193,21 @@ export default function singleListingForRent(props) {
         </div>
         <div className="col-12 col-md-4">
           {/* Agent Information */}
-          <div className="w-100 bg-white shadow p-3 mb-3">
-            {agentProfile?.showProfile && (
-              <>
-                {" "}
-                <h3 className="fs-18 fw-bold ls-6">Agent Information</h3>
-                <hr />
-                <ProfileCard
-                  profile={agentProfile}
-                  profileImageUrl={profileImageUrl}
-                />
-                <hr />
-              </>
-            )}
-            <div className="w-100">
-              <h5 className="fs-16 fw-bold ls-6">Request Inquiry</h5>
-              <ContactRequestForm />
+          {agentProfile?.showProfile && (
+            <div className="w-100 bg-white shadow p-3 mb-3">
+              <h3 className="fs-18 fw-bold ls-6">Agent Information</h3>
+              <hr />
+              <ProfileCard
+                profile={agentProfile}
+                profileImageUrl={profileImageUrl}
+              />
+              <hr />
+              <div className="w-100">
+                <h5 className="fs-16 fw-bold ls-6">Request Inquiry</h5>
+                <ContactRequestForm />
+              </div>
             </div>
-          </div>
+          )}
           {/* Recent Properties */}
           <div className="w-100 bg-white shadow p-3 mb-3">
             <h3 className="fs-18 fw-bold ls-6">Recent Properties</h3>

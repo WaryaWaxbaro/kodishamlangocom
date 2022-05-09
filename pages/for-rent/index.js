@@ -4,6 +4,7 @@ import nookies from "nookies";
 import admin from "../../firebase/nodeApp";
 import StorageUploads from "../../models/storageUploads";
 import Listings from "../../components/Listings";
+import Loader from "../../components/Loader";
 
 export default function forRent(props) {
   let { listings } = props;
@@ -22,6 +23,10 @@ export default function forRent(props) {
       getThumbnails();
     }
   }, [listings]);
+
+  if (!listings) {
+    return <Loader />;
+  }
   return <Listings apartments={JSON.parse(listings)} />;
 }
 
