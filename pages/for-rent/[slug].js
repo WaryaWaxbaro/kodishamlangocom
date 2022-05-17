@@ -15,8 +15,6 @@ import Loader from "../../components/Loader";
 
 export default function singleListingForRent(props) {
   const listing = props.listing ? JSON.parse(props.listing) : {};
-  console.log("listing", listing);
-  console.log("listing length ", Object.keys(listing).length > 0);
   const [images, setImages] = useState([]);
   const [agentProfile, setAgentProfile] = useState(null);
   const [profileImageUrl, setProfileImageUrl] = useState(null);
@@ -37,7 +35,7 @@ export default function singleListingForRent(props) {
       const profile = await new ProfileModel({
         userId: `${userId}`,
       }).getAllByQuery();
-      console.log("profile", profile);
+
       if (profile && profile.length > 0) {
         const currentProfile = profile[0];
         setAgentProfile(currentProfile);
@@ -45,16 +43,12 @@ export default function singleListingForRent(props) {
           `profiles/${currentProfile.mId}`
         ).downloadURL();
         if (profileUrl) {
-          console.log("profileUrl", profileUrl);
           setProfileImageUrl(profileUrl);
         }
       }
     };
 
-    console.log(listing.mId);
-    console.log("reload --", reload);
     if (reload) {
-      console.log("reload");
       if (listing.mId) {
         getImages(listing.mId);
         getAgentProfile(listing.userId);
@@ -241,7 +235,6 @@ export const getStaticPaths = async () => {
     .get();
 
   const data = querySnapshot.docs.map((doc) => {
-    console.log("----", doc.data());
     return {
       params: {
         slug: `${doc.data().slug}`,

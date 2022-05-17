@@ -19,7 +19,6 @@ export default function myProperties() {
       const listing = await new ApartmentModel({
         userId: `${userId}`,
       }).getAllByQuery();
-      console.log("ListingContextComp listing", listing);
       if (listing) {
         // Sort the listings by date
         const sortedListings = listing.sort((a, b) => {
@@ -30,7 +29,6 @@ export default function myProperties() {
     };
 
     if (currentUser) {
-      console.log("ListingContextComp currentUser", currentUser);
       getApartments(currentUser.mId);
     }
   }, [loadingUser]);
@@ -38,19 +36,15 @@ export default function myProperties() {
   useEffect(() => {
     const getThumbnails = async (listingIds) => {
       const thumbnails = listingIds.forEach(async (listingId) => {
-        console.log("listingId", listingId);
         const thumbanil = await new StorageUploads(
           `apartments/thumbnails/${listingId}`
         ).downloadURL();
-        console.log("thumbnail", thumbanil);
         setThumnails((prevThumbnails) => [
           ...prevThumbnails,
           { id: listingId, img: thumbanil },
         ]);
         return thumbanil;
       });
-
-      console.log("thumbnails", thumbnails);
     };
     if (listings) {
       const listingIds = listings.map((listing) => listing.mId);
@@ -62,7 +56,6 @@ export default function myProperties() {
     const foundThumbnail = thumnails.find(
       (thumbnail) => thumbnail.id === listingId
     );
-    console.log("foundThumbnail -->", foundThumbnail);
     return foundThumbnail?.img
       ? foundThumbnail.img
       : "/images/cover/nairobi.png";

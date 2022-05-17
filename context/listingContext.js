@@ -16,7 +16,6 @@ export default function ListingContextComp({ children }) {
       const listing = await new ApartmentModel({
         userId: `${userId}`,
       }).getAllByQuery();
-      console.log("ListingContextComp listing", listing);
       if (listing) {
         setListings(listing);
         setListingLoading(false);
@@ -24,7 +23,6 @@ export default function ListingContextComp({ children }) {
     };
 
     if (currentUser) {
-      console.log("ListingContextComp currentUser", currentUser);
       getApartments(currentUser.mId);
     }
   }, [loadingUser]);

@@ -7,7 +7,6 @@ import { unixToDate } from "../utils";
 export default function PropertyListItem({ listing, thumbnail }) {
   const router = useRouter();
   const { pathname } = router;
-  console.log("thumbnail", thumbnail);
   if (!listing && !thumbnail) return null;
   return (
     <tr>

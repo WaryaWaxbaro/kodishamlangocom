@@ -55,7 +55,6 @@ export default class StorageUploads {
             () => {
               // Upload completed successfully, now we can get the download URL
               getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                console.log("File available at", downloadURL);
                 statusInfo.downloadURL = downloadURL;
                 resolve({ downloadURL, error: null });
               });
@@ -65,12 +64,9 @@ export default class StorageUploads {
       })
     )
       .then((data) => {
-        console.log("values ", data[0]);
-        console.log("items uploaded", data);
         return data;
       })
       .catch((err) => {
-        console.log(err);
         return err;
       });
   }
@@ -79,7 +75,6 @@ export default class StorageUploads {
     const listRef = ref(this.storage, this.fullPath);
     const res = await listAll(listRef);
     const data = res.items.map((itemRef) => {
-      console.log("itemRef -->", { ...itemRef });
       return itemRef;
     });
     return Promise.all(
@@ -87,7 +82,6 @@ export default class StorageUploads {
         const { _location } = doc;
         const { path_ } = _location;
         const imageUrl = await getDownloadURL(doc);
-        console.log("path_ -->", { path_ });
         const obj = { imageUrl, path_ };
         return new Promise((resolve, reject) => {
           resolve(obj);
@@ -95,7 +89,6 @@ export default class StorageUploads {
       })
     )
       .then((data) => {
-        console.log("items fetched", data);
         return data;
       })
       .catch((err) => {
@@ -108,7 +101,6 @@ export default class StorageUploads {
     const listRef = ref(this.storage, this.fullPath);
     const res = await listAll(listRef);
     const data = res.items.map((itemRef) => {
-      console.log("itemRef -->", itemRef);
       return itemRef;
     });
     return Promise.all(
@@ -120,7 +112,6 @@ export default class StorageUploads {
       })
     )
       .then((data) => {
-        console.log("items fetched", data);
         return data;
       })
       .catch((err) => {

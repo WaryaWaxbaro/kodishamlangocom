@@ -14,7 +14,6 @@ import Link from "next/link";
 
 export default function MyProperty(props) {
   const router = useRouter();
-  console.log("router", router);
   const { id } = router.query;
   const [listing, setListing] = useState({});
 
@@ -32,7 +31,6 @@ export default function MyProperty(props) {
         mId: `${id}`,
       }).getAllByQuery();
       if (listing) {
-        console.log("listing????", listing);
         setListing(listing[0]);
         setFormData(listing[0]);
       }
@@ -44,7 +42,6 @@ export default function MyProperty(props) {
       ).getListAll();
 
       if (imagesList && imagesList.length > 0) {
-        console.log("imagesList", imagesList);
         setCurrentImages(imagesList);
       }
     };
@@ -57,7 +54,6 @@ export default function MyProperty(props) {
 
   useEffect(() => {
     const updateListing = async () => {
-      console.log("formData........", formData);
       const apartmentModel = await new ApartmentModel({
         ...formData,
         id: listing.id,
@@ -66,7 +62,6 @@ export default function MyProperty(props) {
     const updateImages = async () => {
       if (formImages.length > 0) {
         toast.warning("Uploading images...");
-        console.log("profileImage", formImages);
         if (thumbnailImage) {
           await new StorageUploads(
             `apartments/thumbnails/${listing.mId}`,

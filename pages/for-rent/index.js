@@ -9,16 +9,14 @@ import Loader from "../../components/Loader";
 export default function forRent(props) {
   let { listings } = props;
 
-  console.log("listings", listings);
-
   useEffect(() => {
     const getThumbnails = async () => {
       const thumbnails = await new StorageUploads(
         "/apartments/thumbnails",
         null
       ).getListAll();
-      console.log("thumbnails", thumbnails);
     };
+
     if (listings) {
       getThumbnails();
     }
@@ -31,7 +29,6 @@ export default function forRent(props) {
 }
 
 export async function getServerSideProps(context) {
-  console.log("*****");
   try {
     //const cookies = nookies.get(context);
     //const token = await admin.auth().verifyIdToken(cookies.token);
@@ -46,8 +43,6 @@ export async function getServerSideProps(context) {
     const files = "79ktlzft6iA5Dj4EHjRx";
     //.bucket(`${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}`);
     //.get("/apartments/thumbnails/79ktlzft6iA5Dj4EHjRx");
-
-    console.log("files", files);
 
     const listings = JSON.stringify(
       listingEntries.docs.map((doc) => doc.data())

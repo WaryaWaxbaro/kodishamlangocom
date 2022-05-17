@@ -11,13 +11,11 @@ export default function SmallCard({ apartment }) {
   const [thumbnailUrl, setThumbnailUrl] = useState(null);
 
   useEffect(() => {
-    console.log("apartment", apartment);
     const getThumbnailUrl = async (id) => {
       const thumnail = await new StorageUploads(
         `apartments/thumbnails/${id}`
       ).downloadURL();
       setThumbnailUrl(thumnail);
-      console.log("thumnail small card", thumnail);
     };
     if (apartment.mId) {
       getThumbnailUrl(apartment.mId);

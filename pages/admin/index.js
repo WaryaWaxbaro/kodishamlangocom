@@ -20,7 +20,7 @@ export default function dashboard() {
       const listing = await new ApartmentModel({
         userId: `${userId}`,
       }).getAllByQuery();
-      console.log("ListingContextComp listing", listing);
+
       if (listing) {
         // Sort the listings by date
         const sortedListings = listing.sort((a, b) => {
@@ -31,7 +31,6 @@ export default function dashboard() {
     };
 
     if (currentUser) {
-      console.log("ListingContextComp currentUser", currentUser);
       getApartments(currentUser.mId);
     }
   }, [loadingUser]);

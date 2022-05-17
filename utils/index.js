@@ -109,10 +109,7 @@ export const unixToDate = (unix) => {
 
 export const urlToObject = async (url) => {
   const response = await fetch(url);
-  console.log("response url : ", response);
   // here image is url/location of image
   const blob = await response.blob();
-  console.log("blob url : ", blob);
   const file = new File([blob], "image.jpg", { type: blob.type });
-  console.log(file);
 };

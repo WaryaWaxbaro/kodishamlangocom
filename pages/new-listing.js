@@ -34,13 +34,9 @@ export default function newListing(props) {
           id: apartment.id,
         }).getOne();
 
-        console.log("savedApartment", savedApartment);
-
         if (savedApartment.mId) {
-          console.log("savedApartment.mId", savedApartment.mId);
           if (formImages.length > 0) {
             toast.warning("Uploading images...");
-            console.log("profileImage", formImages);
             await new StorageUploads(
               `apartments/thumbnails/${savedApartment.mId}`,
               thumbnailImage
@@ -62,8 +58,6 @@ export default function newListing(props) {
                 }
               });
             }
-
-            console.log("uploadStorage", uploadStorage);
           }
           toast.success("Listing added successfully");
           setSyncData(false);
@@ -76,8 +70,6 @@ export default function newListing(props) {
           router.push(`${slug}/${savedApartment.slug}`);
         }
       }
-
-      console.log("formData", { ...formData, userId });
     };
 
     if (syncData && currentUser?.mId) {

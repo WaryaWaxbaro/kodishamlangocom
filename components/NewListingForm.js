@@ -44,8 +44,6 @@ const property_features_keys = property_features.map((feature) => {
   return k;
 });
 
-console.log("property_features_keys", property_features_keys);
-
 const validatableFields = [
   "title",
   "description",
@@ -79,8 +77,6 @@ export default function NewListingForm(props) {
 
   useEffect(() => {
     if (isEditing) {
-      console.log("formFieldValues", formFieldValues);
-      console.log("isEditing is true", isEditing);
       setFormFields(formFieldValues);
     } else {
       let storedFields = JSON.parse(sessionStorage.getItem("newListingData"));
@@ -204,7 +200,6 @@ export default function NewListingForm(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("formFields", formFields);
     validatableFields.forEach((field) => {
       if (!formFields[field]) {
         inputsRefs[field].action("error");
@@ -227,8 +222,6 @@ export default function NewListingForm(props) {
     setFormImages(propertyImages);
     setDisableBtn(true);
     setSyncData(true);
-
-    console.log("errorFields", errorFields);
   };
 
   const setThumbnail = (imageFile) => {
@@ -236,18 +229,15 @@ export default function NewListingForm(props) {
       .map((img) => img.name)
       .map((name) => {
         let thumb = document.getElementById(name);
-        console.log("thumb", thumb);
         if (name === imageFile.name) {
           thumb.checked = true;
         } else {
           thumb.checked = false;
         }
-        console.log("thumb", thumb);
       });
     let filtered = propertyImages.filter((img) => img.name === imageFile.name);
     setThumbnailImage(filtered);
     setSelectedThumbnail(imageFile.name);
-    console.log("filtered", filtered);
   };
 
   const removeImageFromCurrentImages = (url) => {
