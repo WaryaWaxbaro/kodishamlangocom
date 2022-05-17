@@ -9,7 +9,6 @@ export default function AppSlider(props) {
   const max = mMax[1];
   const [rangeMinMax, setRangeMinMax] = useState(mMax);
   const handleRangeChange = (value) => {
-    console.log(value);
     setRangeMinMax(value);
     setSelectedRange(value);
   };

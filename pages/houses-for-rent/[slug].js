@@ -4,7 +4,6 @@ import Image from "next/image";
 
 export default function SingleApartment(props) {
   const { apartment } = props;
-  console.log("apartment ", apartment);
   return (
     <main>
       <div
