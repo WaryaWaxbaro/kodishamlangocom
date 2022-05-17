@@ -1,5 +1,7 @@
 import { useEffect } from "react";
+import "react-toastify/dist/ReactToastify.css";
 import MainLayout from "../layout/MainLayout";
+import UserProvider from "../context/userContext";
 import "../scss/main.scss";
 
 function MyApp({ Component, pageProps }) {
@@ -8,9 +10,11 @@ function MyApp({ Component, pageProps }) {
   });
 
   return (
-    <MainLayout>
-      <Component {...pageProps} />
-    </MainLayout>
+    <UserProvider>
+      <MainLayout>
+        <Component {...pageProps} />
+      </MainLayout>
+    </UserProvider>
   );
 }
 
