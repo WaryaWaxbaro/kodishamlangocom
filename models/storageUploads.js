@@ -7,6 +7,8 @@ import {
   list,
   listAll,
   deleteObject,
+  getBlob,
+  getStream,
 } from "firebase/storage";
 
 import { randomKeys } from "../utils";
@@ -76,11 +78,43 @@ export default class StorageUploads {
   async getListAll() {
     const listRef = ref(this.storage, this.fullPath);
     const res = await listAll(listRef);
-    const data = res.items.map((itemRef) => itemRef);
+    const data = res.items.map((itemRef) => {
+      console.log("itemRef -->", { ...itemRef });
+      return itemRef;
+    });
+    return Promise.all(
+      data.map(async (doc) => {
+        const { _location } = doc;
+        const { path_ } = _location;
+        const imageUrl = await getDownloadURL(doc);
+        console.log("path_ -->", { path_ });
+        const obj = { imageUrl, path_ };
+        return new Promise((resolve, reject) => {
+          resolve(obj);
+        });
+      })
+    )
+      .then((data) => {
+        console.log("items fetched", data);
+        return data;
+      })
+      .catch((err) => {
+        console.log(err);
+        return err;
+      });
+  }
+
+  async getListByBlob() {
+    const listRef = ref(this.storage, this.fullPath);
+    const res = await listAll(listRef);
+    const data = res.items.map((itemRef) => {
+      console.log("itemRef -->", itemRef);
+      return itemRef;
+    });
     return Promise.all(
       data.map(async (doc) => {
         return new Promise((resolve, reject) => {
-          const res = getDownloadURL(doc);
+          const res = getBlob(doc);
           resolve(res);
         });
       })

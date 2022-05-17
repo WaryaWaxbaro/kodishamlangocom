@@ -8,6 +8,7 @@ import {
   property_features,
   removeWhiteSpace,
   toUnderscoreKey,
+  urlToObject,
 } from "../utils";
 
 const fieldValues = {
@@ -68,17 +69,23 @@ export default function NewListingForm(props) {
     disableBtn,
     setDisableBtn,
     setThumbnailImage,
+    currentImages,
+    setCurrentImages,
+    removedCurrentImages,
+    setRemovedCurrentImages,
   } = props;
   const [formFields, setFormFields] = useState(fieldValues);
   const [selectedThumbnail, setSelectedThumbnail] = useState(null);
 
   useEffect(() => {
-    let storedFields = JSON.parse(sessionStorage.getItem("newListingData"));
-    if (storedFields) {
-      setFormFields(storedFields);
+    if (isEditing) {
+      console.log("formFieldValues", formFieldValues);
+      console.log("isEditing is true", isEditing);
+      setFormFields(formFieldValues);
     } else {
-      if (isEditing) {
-        setFormFields(formFieldValues);
+      let storedFields = JSON.parse(sessionStorage.getItem("newListingData"));
+      if (storedFields) {
+        setFormFields(storedFields);
       } else {
         setFormFields(fieldValues);
       }
@@ -241,6 +248,12 @@ export default function NewListingForm(props) {
     setThumbnailImage(filtered);
     setSelectedThumbnail(imageFile.name);
     console.log("filtered", filtered);
+  };
+
+  const removeImageFromCurrentImages = (url) => {
+    let filtered = currentImages.filter((obj) => obj.path_ !== url);
+    setCurrentImages(filtered);
+    setRemovedCurrentImages([...removedCurrentImages, url]);
   };
 
   return (
@@ -686,6 +699,35 @@ export default function NewListingForm(props) {
             id="pictures"
             onChange={handleImageUpload}
           />
+          {currentImages?.length > 0 && (
+            <>
+              <p className="h5">Current Images</p>
+              <div className="my-3 w-100 d-flex flex-wrap">
+                {currentImages.map((img, index) => (
+                  <div
+                    key={index}
+                    className="position-relative thumbnail-img me-3 border border-primary rounded-5 mb-5"
+                  >
+                    {img.imageUrl && <Image src={img.imageUrl} layout="fill" />}
+                    <span
+                      onClick={() => removeImageFromCurrentImages(img.path_)}
+                      className="btn btn-danger bg-opacity-75 border-0 rounded-circle d-block position-absolute d-flex align-items-center justify-content-center p-0"
+                      style={{
+                        width: "20px",
+                        height: "20px",
+                        right: "-5px",
+                        top: "-5px",
+                      }}
+                    >
+                      <span className="d-block text-light">
+                        <i className="bi bi-x"></i>
+                      </span>
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
           <div className="w-100 d-flex mb-4">
             {propertyImages.map((img, index) => (
               <div
@@ -741,6 +783,7 @@ export default function NewListingForm(props) {
             <p className="mb-0 fs-14">Click here to add Property pictures</p>
           </div>
         </div>
+
         <div className="d-grid my-5">
           <button
             type="submit"

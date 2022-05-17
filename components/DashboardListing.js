@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 import { formatPrice, unixToDate } from "../utils";
@@ -25,7 +26,11 @@ export default function DashboardListing({ listings }) {
                 <td>{unixToDate(listing.updatedAt.seconds)}</td>
                 <td>{listing.published ? "Published" : "Not published"}</td>
                 <td className="text-danger">
-                  <i className="bi bi-pencil-square"></i>
+                  <Link href={`/admin/my-properties/${listing.mId}`}>
+                    <a>
+                      <i className="bi bi-pencil-square"></i>
+                    </a>
+                  </Link>
                 </td>
               </tr>
             ))}
@@ -33,10 +38,12 @@ export default function DashboardListing({ listings }) {
         </table>
       </div>
       <div className="py-3 text-end">
-        <button className="btn btn-primary px-4">
-          <span className="d-inline-block me-4">More </span>
-          <i className="bi bi-arrow-right-circle-fill"></i>
-        </button>
+        <Link href="/admin/my-properties">
+          <a className="btn btn-primary px-4">
+            <span className="d-inline-block me-4">More </span>
+            <i className="bi bi-arrow-right-circle-fill"></i>
+          </a>
+        </Link>
       </div>
     </div>
   );
