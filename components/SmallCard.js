@@ -6,9 +6,18 @@ import StorageUploads from "../models/storageUploads";
 
 import { formatPrice } from "../utils";
 
-export default function SmallCard({ apartment }) {
+export default function SmallCard({ apartment, apartmentType }) {
   const [liked, setLiked] = useState(false);
   const [thumbnailUrl, setThumbnailUrl] = useState(null);
+
+  const slug =
+    apartmentType === "rent"
+      ? `/for-rent/${apartment.slug}`
+      : apartmentType === "sale"
+      ? `/for-sale/${apartment.slug}`
+      : apartmentType === "holiday"
+      ? `/holiday/${apartment.slug}`
+      : `/`;
 
   useEffect(() => {
     const getThumbnailUrl = async (id) => {
@@ -25,7 +34,7 @@ export default function SmallCard({ apartment }) {
   return (
     <div className="w-100 border border-gray-300 rounded-5 overflow-hidden d-flex flex-column shadow">
       <div className="w-100">
-        <Link href={"/for-rent/" + apartment.slug}>
+        <Link href={slug}>
           <a>
             <div className="w-100 h-260 position-relative cover-img-img">
               {thumbnailUrl ? (
@@ -53,7 +62,7 @@ export default function SmallCard({ apartment }) {
         </Link>
       </div>
       <div className="featured-card__text position-relative h-100 p-3 p-md-4 bg-white flex-1">
-        <Link href={"/for-rent/" + apartment.slug}>
+        <Link href={slug}>
           <a className="text-decoration-none text-dark">
             <div className="w-100">
               <h3 className="fs-16 fw-bold ls-6 mb-2">{apartment.title}</h3>

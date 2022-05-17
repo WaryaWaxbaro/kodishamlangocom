@@ -13,7 +13,7 @@ export default function ImageSlider({ images }) {
         <div className="carousel-indicators justify-content-start mx-0 mb-0 img-slider-thumbnail-container">
           {images.map((image, index) => (
             <div
-              key={"indicator" + index}
+              key={"indicator__" + index}
               className={
                 index === 0
                   ? "me-2 border-0 ms-0 active img-slider-thumbnail"

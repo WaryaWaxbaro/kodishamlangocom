@@ -79,6 +79,29 @@ export default class StorageUploads {
     });
     return Promise.all(
       data.map(async (doc) => {
+        const imageUrl = await getDownloadURL(doc);
+        return new Promise((resolve, reject) => {
+          resolve(imageUrl);
+        });
+      })
+    )
+      .then((data) => {
+        return data;
+      })
+      .catch((err) => {
+        console.log(err);
+        return err;
+      });
+  }
+
+  async getListAllWithPath() {
+    const listRef = ref(this.storage, this.fullPath);
+    const res = await listAll(listRef);
+    const data = res.items.map((itemRef) => {
+      return itemRef;
+    });
+    return Promise.all(
+      data.map(async (doc) => {
         const { _location } = doc;
         const { path_ } = _location;
         const imageUrl = await getDownloadURL(doc);

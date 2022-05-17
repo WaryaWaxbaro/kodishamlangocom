@@ -39,7 +39,7 @@ export default function MyProperty(props) {
     const getImages = async () => {
       const imagesList = await new StorageUploads(
         `apartments/${id}`
-      ).getListAll();
+      ).getListAllWithPath();
 
       if (imagesList && imagesList.length > 0) {
         setCurrentImages(imagesList);

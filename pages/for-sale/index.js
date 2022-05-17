@@ -6,7 +6,7 @@ import StorageUploads from "../../models/storageUploads";
 import Listings from "../../components/Listings";
 import Loader from "../../components/Loader";
 
-export default function forRent(props) {
+export default function forSale(props) {
   let { listings } = props;
 
   useEffect(() => {
@@ -25,7 +25,7 @@ export default function forRent(props) {
   if (!listings) {
     return <Loader />;
   }
-  return <Listings apartments={JSON.parse(listings)} apartmentType="rent" />;
+  return <Listings apartments={JSON.parse(listings)} apartmentType="sale" />;
 }
 
 export async function getServerSideProps(context) {
@@ -37,12 +37,8 @@ export async function getServerSideProps(context) {
     const listingEntries = await admin
       .firestore()
       .collection("apartments")
+      .where("property_status_sale", "==", true)
       .get();
-
-    //79ktlzft6iA5Dj4EHjRx
-    const files = "79ktlzft6iA5Dj4EHjRx";
-    //.bucket(`${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}`);
-    //.get("/apartments/thumbnails/79ktlzft6iA5Dj4EHjRx");
 
     const listings = JSON.stringify(
       listingEntries.docs.map((doc) => doc.data())

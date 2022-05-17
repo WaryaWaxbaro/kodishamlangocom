@@ -104,7 +104,8 @@ export default function Search(props) {
       })
       .filter((sv) => sv);
 
-    setActiveSearchValues(activeValues);
+    console.log(activeValues);
+    setShowAdvanced(false);
   };
   return (
     <div className="position-relative w-100 rounded-10 border border-5 border-bg-light bg-light py-3 px-2">

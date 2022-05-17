@@ -54,7 +54,7 @@ export default function Hero() {
                   </Link>
                 ))}
               </div>
-              <Search setActiveSearchValues={setActiveSearchValues} />
+              <Search />
             </div>
           </div>
         </div>
@@ -66,19 +66,19 @@ export default function Hero() {
 const apartLinks = [
   {
     name: "For Sale",
-    url: "/",
+    url: "/for-sale",
   },
   {
     name: "For Rent",
-    url: "/",
+    url: "/for-rent",
   },
   ,
   {
     name: "For Holiday",
-    url: "/",
+    url: "/holiday",
   },
   {
     name: "Plots",
-    url: "/",
+    url: "/plots",
   },
 ];
