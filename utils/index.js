@@ -72,3 +72,47 @@ export const property_features = [
   "Arrival Pickup",
   "Departure Pickup",
 ];
+
+export const randomKeys = (length = 10) => {
+  let chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  let str = "";
+  for (let i = 0; i < length; i++) {
+    str += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+
+  return str;
+};
+
+export const slugString = (str) => {
+  let slug = str.toLowerCase().split(" ").join("-");
+  return typeof str === "string" ? `${slug}-${randomKeys()}` : str;
+};
+
+// Zero-pad a number
+export const zeroPad = (num, places) => {
+  let zero = places - num.toString().length + 1;
+  return Array(+(zero > 0 && zero)).join("0") + num;
+};
+
+// Convert unix timestamp to date
+export const unixToDate = (unix) => {
+  let date = new Date(unix * 1000);
+  let year = date.getFullYear();
+  let month = zeroPad(date.getMonth() + 1, 2);
+  let day = zeroPad(date.getDate(), 2);
+  let hour = zeroPad(date.getHours(), 2);
+  let min = zeroPad(date.getMinutes(), 2);
+  let sec = zeroPad(date.getSeconds(), 2);
+  let time = `${day}/${month}/${year} ${hour}:${min}:${sec}`;
+  return time;
+};
+
+export const urlToObject = async (url) => {
+  const response = await fetch(url);
+  console.log("response url : ", response);
+  // here image is url/location of image
+  const blob = await response.blob();
+  console.log("blob url : ", blob);
+  const file = new File([blob], "image.jpg", { type: blob.type });
+  console.log(file);
+};

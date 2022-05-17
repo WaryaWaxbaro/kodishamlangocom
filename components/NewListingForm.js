@@ -1,4 +1,6 @@
 import { useEffect, useState, useRef } from "react";
+import { toast } from "react-toastify";
+
 import Image from "next/image";
 
 import {
@@ -6,33 +8,35 @@ import {
   property_features,
   removeWhiteSpace,
   toUnderscoreKey,
+  urlToObject,
 } from "../utils";
 
 const fieldValues = {
-  title: "",
-  description: "",
+  title: "Luxury Apartment",
+  description:
+    "This is a luxury apartment that is very spacious and has a lot of space for people to live in.",
   property_status_sale: false,
-  property_status_rent: false,
+  property_status_rent: true,
   property_status_short_stay: false,
-  status: [],
-  apartment_type: "",
-  bedrooms: "",
-  bathroom: "",
-  area: "",
-  guest: "",
-  price: "",
-  price_duration: "",
+  apartment_type: "House",
+  bedrooms: 1,
+  bathrooms: 1,
+  area: 125,
+  guest: 1,
+  price: 125000,
+  price_duration: "Month",
   reserved: false,
-  published: false,
-  street: "",
-  postcode: "",
-  sub_city: "",
-  city: "",
-  province: "",
-  country: "",
-  name: "",
-  email: "",
-  phone: "",
+  published: true,
+  featured: false,
+  street: "Jalan Kebun",
+  postcode: "90000",
+  sub_city: "Eastleigh",
+  city: "Nairobi",
+  province: "Nairobi",
+  country: "Kenya",
+  name: "John Doe",
+  email: "john.doe@gmail.com",
+  phone: "0712345678",
 };
 const property_features_keys = property_features.map((feature) => {
   let k = toUnderscoreKey(feature);
@@ -40,35 +44,116 @@ const property_features_keys = property_features.map((feature) => {
   return k;
 });
 
+console.log("property_features_keys", property_features_keys);
+
+const validatableFields = [
+  "title",
+  "description",
+  "price",
+  "street",
+  "city",
+  "sub_city",
+  "country",
+  "name",
+  "email",
+  "phone",
+];
+
 export default function NewListingForm(props) {
-  const { formFieldValues } = props;
-  const fileField = useRef(null);
-  const toastItem = useRef(null);
-  const [formFields, setFormFields] = useState(formFieldValues || fieldValues);
+  const {
+    formFieldValues,
+    isEditing,
+    setFormData,
+    setFormImages,
+    setSyncData,
+    disableBtn,
+    setDisableBtn,
+    setThumbnailImage,
+    currentImages,
+    setCurrentImages,
+    removedCurrentImages,
+    setRemovedCurrentImages,
+  } = props;
+  const [formFields, setFormFields] = useState(fieldValues);
+  const [selectedThumbnail, setSelectedThumbnail] = useState(null);
+
+  useEffect(() => {
+    if (isEditing) {
+      console.log("formFieldValues", formFieldValues);
+      console.log("isEditing is true", isEditing);
+      setFormFields(formFieldValues);
+    } else {
+      let storedFields = JSON.parse(sessionStorage.getItem("newListingData"));
+      if (storedFields) {
+        setFormFields(storedFields);
+      } else {
+        setFormFields(fieldValues);
+      }
+    }
+  }, []);
+
   const [propertyImages, setPropertyImages] = useState([]);
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [uploadMessage, setUploadMessage] = useState("");
   const [maxUploads, setMaxUploads] = useState(0);
 
+  const fileField = useRef(null);
+  const titleRef = useRef(null);
+  const descriptionRef = useRef(null);
+  const priceRef = useRef(null);
+  const streetRef = useRef(null);
+  const subCityRef = useRef(null);
+  const cityRef = useRef(null);
+  const countryRef = useRef(null);
+  const nameRef = useRef(null);
+  const emailRef = useRef(null);
+  const phoneRef = useRef(null);
+
+  const errorFields = [];
+
+  const updateRefClass = (ref, msg) => {
+    if (ref.current) {
+      if (msg === "error") {
+        ref.current.classList.add("is-invalid");
+      } else {
+        ref.current.classList.remove("is-invalid");
+      }
+    }
+  };
+
+  const inputsRefs = {
+    title: { action: (msg) => updateRefClass(titleRef, msg) },
+    description: { action: (msg) => updateRefClass(descriptionRef, msg) },
+    price: { action: (msg) => updateRefClass(priceRef, msg) },
+    street: { action: (msg) => updateRefClass(streetRef, msg) },
+    sub_city: { action: (msg) => updateRefClass(subCityRef, msg) },
+    city: { action: (msg) => updateRefClass(cityRef, msg) },
+    country: { action: (msg) => updateRefClass(countryRef, msg) },
+    name: { action: (msg) => updateRefClass(nameRef, msg) },
+    email: { action: (msg) => updateRefClass(emailRef, msg) },
+    phone: { action: (msg) => updateRefClass(phoneRef, msg) },
+  };
+
   const handleChange = (e) => {
-    console.log(e.target.type);
     setFormFields({
       ...formFields,
       [e.target.name]:
         e.target.type === "checkbox" ? e.target.checked : e.target.value,
     });
+
+    if (inputsRefs[e.target.name]) {
+      inputsRefs[e.target.name].action("valid");
+      errorFields.filter((field) => field !== e.target.name);
+    }
   };
 
   const handleOpenFileDialog = () => {
-    console.log("opening dialog ");
     fileField.current.click();
   };
 
   useEffect(() => {
     setUploadMessage("");
-    console.log("triggered");
     let files = uploadedFiles;
-    console.log("files ", files);
     if (files && files.length > 0) {
       let currentFiles = [];
       Array.from(files).forEach((file) => {
@@ -77,24 +162,23 @@ export default function NewListingForm(props) {
           setUploadMessage(
             `File (${is_uploaded.name}) has been already uploaded.`
           );
+          toast.error(`File (${is_uploaded.name}) has been already uploaded.`);
         } else {
-          if (propertyImages.length > 5) {
+          if (propertyImages.length > 9) {
             setUploadMessage("Uploaded maximum photos allowed.");
+            toast.error("Uploaded maximum photos allowed.");
             return;
           } else {
             currentFiles.push(file);
           }
         }
       });
-      console.log("result ", [...currentFiles, ...propertyImages]);
       setPropertyImages([...currentFiles, ...propertyImages]);
-      console.log("property Images", propertyImages);
       fileField.current.value = null;
     }
   }, [uploadedFiles]);
 
   const handleImageUpload = (event) => {
-    console.log("events --> ", event.target.files);
     setUploadedFiles(event.target.files);
   };
 
@@ -112,10 +196,66 @@ export default function NewListingForm(props) {
   const removeImageFile = (imageFile) => {
     let filtered = propertyImages.filter((img) => img.name !== imageFile.name);
     setPropertyImages(filtered);
+    if (selectedThumbnail === imageFile.name) {
+      setSelectedThumbnail(null);
+      setThumbnailImage(null);
+    }
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log("formFields", formFields);
+    validatableFields.forEach((field) => {
+      if (!formFields[field]) {
+        inputsRefs[field].action("error");
+        errorFields.push(field);
+      }
+    });
+
+    if (!formFields.property_status_sale && !formFields.property_status_rent) {
+      toast.error("Please select at least one property status.");
+      return;
+    }
+
+    if (errorFields.length > 0) {
+      toast.error("Please fill all required fields.");
+      sessionStorage.setItem("newListingData", JSON.stringify(formFields));
+      return;
+    }
+
+    setFormData(formFields);
+    setFormImages(propertyImages);
+    setDisableBtn(true);
+    setSyncData(true);
+
+    console.log("errorFields", errorFields);
   };
+
+  const setThumbnail = (imageFile) => {
+    propertyImages
+      .map((img) => img.name)
+      .map((name) => {
+        let thumb = document.getElementById(name);
+        console.log("thumb", thumb);
+        if (name === imageFile.name) {
+          thumb.checked = true;
+        } else {
+          thumb.checked = false;
+        }
+        console.log("thumb", thumb);
+      });
+    let filtered = propertyImages.filter((img) => img.name === imageFile.name);
+    setThumbnailImage(filtered);
+    setSelectedThumbnail(imageFile.name);
+    console.log("filtered", filtered);
+  };
+
+  const removeImageFromCurrentImages = (url) => {
+    let filtered = currentImages.filter((obj) => obj.path_ !== url);
+    setCurrentImages(filtered);
+    setRemovedCurrentImages([...removedCurrentImages, url]);
+  };
+
   return (
     <div className="w-100 p-2 p-sm-4 shadow">
       <form onSubmit={handleSubmit}>
@@ -132,6 +272,7 @@ export default function NewListingForm(props) {
             value={formFields.title}
             onChange={handleChange}
             placeholder="Luxury Villa House"
+            ref={titleRef}
           />
         </div>
         <div className="mb-3">
@@ -145,6 +286,8 @@ export default function NewListingForm(props) {
             value={formFields.description}
             onChange={handleChange}
             rows="4"
+            placeholder="This is a luxury villa house with a pool, a garden, a terrace and a private garden."
+            ref={descriptionRef}
           ></textarea>
         </div>
         <div className="mb-3">
@@ -290,7 +433,7 @@ export default function NewListingForm(props) {
           <div className="col-sm-12 col-md-6 col-lg-4">
             <div className="mb-3">
               <label htmlFor="price" className="form-label">
-                Price
+                Price <span className="text-primary">*</span>
               </label>
               <input
                 type="number"
@@ -301,6 +444,7 @@ export default function NewListingForm(props) {
                 value={formFields.price}
                 onChange={handleChange}
                 placeholder="100000"
+                ref={priceRef}
               />
             </div>
           </div>
@@ -399,6 +543,7 @@ export default function NewListingForm(props) {
                 value={formFields.street}
                 onChange={handleChange}
                 placeholder="Isgoyska dabka"
+                ref={streetRef}
               />
             </div>
           </div>
@@ -432,6 +577,7 @@ export default function NewListingForm(props) {
                 value={formFields.sub_city}
                 onChange={handleChange}
                 placeholder="Celasha Biyaha"
+                ref={subCityRef}
               />
             </div>
           </div>
@@ -448,6 +594,7 @@ export default function NewListingForm(props) {
                 value={formFields.city}
                 onChange={handleChange}
                 placeholder="Mogadishu"
+                ref={cityRef}
               />
             </div>
           </div>
@@ -480,6 +627,7 @@ export default function NewListingForm(props) {
                 value={formFields.country}
                 onChange={handleChange}
                 placeholder="Somalia"
+                ref={countryRef}
               />
             </div>
           </div>
@@ -500,6 +648,7 @@ export default function NewListingForm(props) {
                 value={formFields.name}
                 onChange={handleChange}
                 placeholder="Full Name"
+                ref={nameRef}
               />
             </div>
           </div>
@@ -516,6 +665,7 @@ export default function NewListingForm(props) {
                 value={formFields.email}
                 onChange={handleChange}
                 placeholder="firstname.lastname@example.com"
+                ref={emailRef}
               />
             </div>
           </div>
@@ -532,6 +682,7 @@ export default function NewListingForm(props) {
                 value={formFields.phone}
                 onChange={handleChange}
                 placeholder="016242387"
+                ref={phoneRef}
               />
             </div>
           </div>
@@ -548,11 +699,40 @@ export default function NewListingForm(props) {
             id="pictures"
             onChange={handleImageUpload}
           />
+          {currentImages?.length > 0 && (
+            <>
+              <p className="h5">Current Images</p>
+              <div className="my-3 w-100 d-flex flex-wrap">
+                {currentImages.map((img, index) => (
+                  <div
+                    key={index}
+                    className="position-relative thumbnail-img me-3 border border-primary rounded-5 mb-5"
+                  >
+                    {img.imageUrl && <Image src={img.imageUrl} layout="fill" />}
+                    <span
+                      onClick={() => removeImageFromCurrentImages(img.path_)}
+                      className="btn btn-danger bg-opacity-75 border-0 rounded-circle d-block position-absolute d-flex align-items-center justify-content-center p-0"
+                      style={{
+                        width: "20px",
+                        height: "20px",
+                        right: "-5px",
+                        top: "-5px",
+                      }}
+                    >
+                      <span className="d-block text-light">
+                        <i className="bi bi-x"></i>
+                      </span>
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
           <div className="w-100 d-flex mb-4">
             {propertyImages.map((img, index) => (
               <div
                 key={index}
-                className="position-relative thumbnail-img me-3 border border-primary rounded-5"
+                className="position-relative thumbnail-img me-3 border border-primary rounded-5 mb-5"
               >
                 <Image src={getFileUrl(img)} layout="fill" />
                 <span
@@ -569,6 +749,23 @@ export default function NewListingForm(props) {
                     <i className="bi bi-x"></i>
                   </span>
                 </span>
+                <div
+                  className="fs-12 position-absolute start-0"
+                  style={{ bottom: "-30px" }}
+                >
+                  <div className="form-check">
+                    <input
+                      className="form-check-input"
+                      type="checkbox"
+                      name={img.name}
+                      id={img.name}
+                      onChange={() => setThumbnail(img)}
+                    />
+                    <label className="form-check-label" htmlFor={img.name}>
+                      Use as a thumbnail
+                    </label>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
@@ -586,8 +783,13 @@ export default function NewListingForm(props) {
             <p className="mb-0 fs-14">Click here to add Property pictures</p>
           </div>
         </div>
+
         <div className="d-grid my-5">
-          <button type="submit" className="btn btn-primary btn-lg rounded-pill">
+          <button
+            type="submit"
+            className="btn btn-primary btn-lg rounded-pill"
+            disabled={disableBtn}
+          >
             Save
           </button>
         </div>

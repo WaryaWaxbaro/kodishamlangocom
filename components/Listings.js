@@ -1,9 +1,11 @@
 import { useState } from "react";
+import Link from "next/link";
+
 import Search from "./Search";
 import AppDropdown from "./AppDropdown";
 import SmallCard from "./SmallCard";
 
-export default function Listings() {
+export default function Listings({ apartments }) {
   const [sortBy, setSortBy] = useState(null);
   return (
     <div className="container-lg">
@@ -35,15 +37,11 @@ export default function Listings() {
       </div>
       <div className="w-100 my-5">
         <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-          <div className="col">
-            <SmallCard />
-          </div>
-          <div className="col">
-            <SmallCard />
-          </div>
-          <div className="col">
-            <SmallCard />
-          </div>
+          {apartments.map((apartment) => (
+            <div className="col" key={apartment.mId}>
+              <SmallCard apartment={apartment} />
+            </div>
+          ))}
         </div>
       </div>
       <div className="w-100 my-5">
