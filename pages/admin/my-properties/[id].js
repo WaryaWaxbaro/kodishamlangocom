@@ -41,6 +41,8 @@ export default function MyProperty(props) {
         `apartments/${id}`
       ).getListAllWithPath();
 
+      console.log("imagesList", imagesList);
+
       if (imagesList && imagesList.length > 0) {
         setCurrentImages(imagesList);
       }

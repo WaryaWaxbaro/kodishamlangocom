@@ -9,6 +9,7 @@ import {
   setDoc,
   where,
   query,
+  deleteDoc,
 } from "firebase/firestore";
 
 import { randomKeys } from "../utils";
@@ -114,6 +115,10 @@ class BaseModel {
   }
 
   async getAllByMultipleQueries() {}
+
+  async remove() {
+    return await deleteDoc(doc(this.db, this.collectionName, this.getId()));
+  }
 }
 
 export default BaseModel;

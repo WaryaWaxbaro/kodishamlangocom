@@ -1,11 +1,38 @@
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import queryString from "query-string";
 
 import AppDropdown from "./AppDropdown";
 import AppSlider from "./AppSlider";
-
 import cities from "../utils/cities";
+import { property_features, toUnderscoreKey, property_types } from "../utils";
+
+const searchFormFields = {
+  location: "",
+  apartment_type: null,
+  property_status: null,
+  bedrooms: null,
+  bathrooms: null,
+  area: null,
+  price: null,
+};
+
+const property_features_keys = property_features.map((feature) => {
+  let k = toUnderscoreKey(feature);
+  searchFormFields[k] = false;
+  return k;
+});
+
+const property_types_keys = {
+  "For Sale": "sale",
+  "For Rent": "rent",
+  "For Holiday": "short stay",
+};
 
 export default function Search(props) {
+  const router = useRouter();
+  const { route, query } = router;
+
   const { setActiveSearchValues } = props;
   const [selectedPropertyType, setSelectedPropertyType] = useState("");
   const [selectedPropertyStatus, setSelectedPropertyStatus] = useState("");
@@ -13,18 +40,20 @@ export default function Search(props) {
   const [selectedBathrooms, setSelectedBathrooms] = useState("");
   const [selectedArea, setSelectedArea] = useState("");
   const [selectedPrice, setSelectedPrice] = useState("");
+  const [searchCity, setSearchCity] = useState("");
 
   const [showAdvanced, setShowAdvanced] = useState(false);
 
   useEffect(() => {
     setSearchValues({
       ...searchValues,
-      property_type: selectedPropertyType,
+      apartment_type: selectedPropertyType,
       property_status: selectedPropertyStatus,
       bedrooms: selectedBedrooms,
       bathrooms: selectedBathrooms,
       area: selectedArea,
       price: selectedPrice,
+      city: searchCity,
     });
   }, [
     selectedPropertyType,
@@ -35,102 +64,72 @@ export default function Search(props) {
     selectedPrice,
   ]);
 
-  const [searchValues, setSearchValues] = useState({
-    location: "",
-    property_type: null,
-    property_status: null,
-    bedrooms: null,
-    bathrooms: null,
-    area: null,
-    price: null,
-    facilities: [
-      { name: "AC", key: "ac", value: false },
-      { name: "Fan", key: "fan", value: false },
-      { name: "Swimming Pool", key: "swimming_pool", value: false },
-      { name: "Central Heating", key: "central_heating", value: false },
-      { name: "Laundry Room", key: "laundry_room", value: false },
-      { name: "Gym", key: "gym", value: false },
-      { name: "Alarm", key: "alarm", value: false },
-      { name: "Window Covering", key: "window_covering", value: false },
-      { name: "WiFi", key: "wifi", value: false },
-      { name: "TV", key: "tv", value: false },
-      { name: "Dryer", key: "dryer", value: false },
-      { name: "Microwave", key: "microwave", value: false },
-      { name: "Washer", key: "washer", value: false },
-      { name: "Refrigerator", key: "refrigerator", value: false },
-      { name: "Outdoor Shower", key: "outdoor_shower", value: false },
-      { name: "Parking", key: "parking", value: false },
-      { name: "Lift", key: "lift", value: false },
-      { name: "Balcony", key: "balcony", value: false },
-      { name: "Fully Furnished", key: "fully_furnished", value: false },
-      { name: "Play Ground", key: "play_ground", value: false },
-      { name: "Breakfast", key: "breakfast", value: false },
-      { name: "Arrival Pickup", key: "arrival_pickup", value: false },
-      { name: "Departure Pickup", key: "departure_pickup", value: false },
-    ],
-  });
+  const [searchValues, setSearchValues] = useState(searchFormFields);
 
   const handleSearchValues = (e) => {
     let name = e.target.name;
     let val = e.target.value;
-    if (name === "facilities") {
-      let facilities = searchValues.facilities.map((facility) => {
-        if (facility.key === e.target.id) {
-          return { ...facility, value: e.target.checked };
-        }
-
-        return facility;
-      });
-
-      setSearchValues({ ...searchValues, facilities });
-    } else {
-      setSearchValues({ ...searchValues, [name]: val });
-    }
+    setSearchValues({
+      ...searchValues,
+      [name]: e.target.type === "checkbox" ? e.target.checked : val,
+    });
   };
 
   const handleSubmitSearch = () => {
+    console.log("searchValues", searchValues);
     let activeValues = Object.keys(searchValues)
-      .map((obj) => {
-        if (obj === "facilities") {
-          let filteredFacility = searchValues[obj].filter(
-            (facility) => facility.value
-          );
-          return filteredFacility;
-        } else {
-          if (searchValues[obj]) {
-            return { [obj]: searchValues[obj] };
+      .map((key) => {
+        if (searchValues[key]) {
+          if (Array.isArray(searchValues[key])) {
+            return { [key]: searchValues[key].join(",") };
+          } else if (key === "property_status") {
+            let val = searchValues[key];
+            return property_types_keys[val];
+          } else {
+            return { [key]: searchValues[key] };
           }
         }
       })
       .filter((sv) => sv);
 
     console.log(activeValues);
+    let sQuery = Object.keys(searchValues).reduce((acc, key) => {
+      if (searchValues[key]) {
+        console.log("searchValues[key]", searchValues[key]);
+        if (Array.isArray(searchValues[key])) {
+          return { ...acc, [key]: searchValues[key].join(",") };
+        } else if (key === "property_status") {
+          let val = searchValues[key];
+          return { ...acc, [key]: property_types_keys[val] };
+        } else {
+          return { ...acc, [key]: searchValues[key] };
+        }
+      }
+      return acc;
+    }, {});
+
+    let q = queryString.stringify(sQuery);
+    console.log("q", sQuery);
+    console.log("q", q);
     setShowAdvanced(false);
   };
   return (
     <div className="position-relative w-100 rounded-10 border border-5 border-bg-light bg-light py-3 px-2">
       <div className="row">
         <div className="col-12 col-md-3 mb-2">
-          <input
-            className="form-control h-100 bg-light fs-14 border-gray-200 p-2 rounded-5 outline-none no-shadow"
-            type="text"
-            list="cities"
-            name="location"
-            id="location"
-            placeholder="Location"
-            onChange={handleSearchValues}
+          <AppDropdown
+            defaultItem="Select City"
+            zIndex={100}
+            mainListItem={cities}
+            icon="<i class='bi bi-house-fill text-primary'></i>"
+            setSelectedListItem={setSearchCity}
           />
-          <datalist id="cities">
-            {cities.map((city) => (
-              <option key={city} value={city} />
-            ))}
-          </datalist>
         </div>
         <div className="col-12 col-md-3 mb-2">
           <AppDropdown
             defaultItem="Property Type"
             zIndex={100}
-            mainListItem={["Family House", "Apartment", "Bangalow"]}
+            mainListItem={property_types}
             setSelectedListItem={setSelectedPropertyType}
           />
         </div>
@@ -166,15 +165,18 @@ export default function Search(props) {
         }
       >
         <div className="row">
-          <div className="col-12 col-md-6 col-lg-4 mb-2">
-            <AppDropdown
-              defaultItem="Property Status"
-              zIndex={100}
-              mainListItem={["For Sale", "For Rent"]}
-              icon="<i class='bi bi-house-fill text-primary'></i>"
-              setSelectedListItem={setSelectedPropertyStatus}
-            />
-          </div>
+          {route === "/" && (
+            <div className="col-12 col-md-6 col-lg-4 mb-2">
+              <AppDropdown
+                defaultItem="Property Status"
+                zIndex={100}
+                mainListItem={["For Sale", "For Rent", "For Holiday"]}
+                icon="<i class='bi bi-house-fill text-primary'></i>"
+                setSelectedListItem={setSelectedPropertyStatus}
+              />
+            </div>
+          )}
+
           <div className="col-12 col-md-6 col-lg-4 mb-2">
             <AppDropdown
               defaultItem="Bedrooms"
@@ -198,7 +200,7 @@ export default function Search(props) {
               <div className="col-12 col-md-6 mb-2">
                 <div className="my-3">
                   <AppSlider
-                    minMax={[0, 110000]}
+                    minMax={[0, 100000]}
                     labelName="Area Size"
                     unit="m"
                     setSelectedRange={setSelectedArea}
@@ -206,7 +208,7 @@ export default function Search(props) {
                 </div>
                 <div className="my-3">
                   <AppSlider
-                    minMax={[0, 110000]}
+                    minMax={[0, 1000000]}
                     labelName="Price Range"
                     unit="Kshs"
                     formatUnit={true}
@@ -217,22 +219,20 @@ export default function Search(props) {
               <div className="col-12 col-md-6 mb-2">
                 <div className="w-100 py-md-5 ps-md-4">
                   <div className="row">
-                    {searchValues.facilities.map((facility) => (
-                      <div key={facility.key} className="col-12 col-sm-6">
+                    {property_features_keys.map((key, index) => (
+                      <div key={key} className="col-12 col-sm-6">
                         <div className="form-check">
                           <input
                             className="form-check-input"
                             type="checkbox"
-                            value={facility.value}
-                            name="facilities"
-                            id={facility.key}
+                            id={key}
+                            name={key}
+                            checked={searchValues[key]}
+                            value={searchValues[key]}
                             onChange={handleSearchValues}
                           />
-                          <label
-                            className="form-check-label fs-14"
-                            htmlFor={facility.key}
-                          >
-                            {facility.name}
+                          <label className="form-check-label" htmlFor={key}>
+                            {property_features[index]}
                           </label>
                         </div>
                       </div>

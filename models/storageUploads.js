@@ -9,6 +9,7 @@ import {
   deleteObject,
   getBlob,
   getStream,
+  deleteFiles,
 } from "firebase/storage";
 
 import { randomKeys } from "../utils";
@@ -159,9 +160,33 @@ export default class StorageUploads {
     }
   }
 
-  async deleteObject() {
+  async remove() {
     const storageRef = ref(this.storage, this.fullPath);
     const res = await deleteObject(storageRef);
+    return res;
+  }
+
+  async removeAll() {
+    const listRef = ref(this.storage, this.fullPath);
+    const res = await listAll(listRef);
+    const data = res.items.map(async (itemRef) => {
+      await deleteObject(itemRef);
+    });
+
+    return data;
+  }
+
+  async removeAllWithThumbnail() {
+    await this.removeAll();
+    // Delete thumbnail
+    const thumbnailPath = `${this.fullPath}`.replace(
+      "apartments",
+      "apartments/thumbnails"
+    );
+    console.log(thumbnailPath);
+    const thumbnailRef = ref(this.storage, `${thumbnailPath}`);
+    const res = await deleteObject(thumbnailRef);
+
     return res;
   }
 }

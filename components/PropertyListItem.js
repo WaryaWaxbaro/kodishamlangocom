@@ -1,12 +1,30 @@
+import { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { toast } from "react-toastify";
 import ReviewStars from "./ReviewStars";
 import { unixToDate } from "../utils";
+import { ApartmentModel } from "../models/index";
+import StorageUploads from "../models/storageUploads";
 
 export default function PropertyListItem({ listing, thumbnail }) {
   const router = useRouter();
   const { pathname } = router;
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  const handleDelete = async () => {
+    setIsDeleting(true);
+    const deleteListing = await new ApartmentModel({
+      id: listing.id,
+    }).remove();
+    const removeImages = await new StorageUploads(
+      `/apartments/${listing.mId}`
+    ).removeAllWithThumbnail();
+
+    toast.success("Listing deleted successfully");
+    router.reload();
+  };
   if (!listing && !thumbnail) return null;
   return (
     <tr>
@@ -39,11 +57,16 @@ export default function PropertyListItem({ listing, thumbnail }) {
         </Link>
       </td>
       <td className="py-3">
-        <Link href={`${pathname}/${listing.mId}`}>
-          <a className="btn btn-primary text-danger bg-transparent border-0 p-0">
-            <i className="bi bi-trash3-fill"></i>
-          </a>
-        </Link>
+        <a
+          onClick={handleDelete}
+          className={
+            isDeleting
+              ? "btn btn-primary text-danger bg-transparent border-0 p-0 disabled"
+              : "btn btn-primary text-danger bg-transparent border-0 p-0"
+          }
+        >
+          <i className="bi bi-trash3-fill"></i>
+        </a>
       </td>
     </tr>
   );
