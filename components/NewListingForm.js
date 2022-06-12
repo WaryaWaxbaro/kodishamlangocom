@@ -15,9 +15,7 @@ const fieldValues = {
   title: "Luxury Apartment",
   description:
     "This is a luxury apartment that is very spacious and has a lot of space for people to live in.",
-  property_status_sale: false,
-  property_status_rent: true,
-  property_status_short_stay: false,
+  property_status: ["rent"],
   apartment_type: "House",
   bedrooms: 1,
   bathrooms: 1,
@@ -131,15 +129,32 @@ export default function NewListingForm(props) {
   };
 
   const handleChange = (e) => {
-    setFormFields({
-      ...formFields,
-      [e.target.name]:
-        e.target.type === "checkbox" ? e.target.checked : e.target.value,
-    });
+    let { name, value } = e.target;
+    const elemType = e.target.type;
+    let isChecked = e.target.checked;
 
-    if (inputsRefs[e.target.name]) {
-      inputsRefs[e.target.name].action("valid");
-      errorFields.filter((field) => field !== e.target.name);
+    if (name === "property_status") {
+      let currentStatus = formFields.property_status;
+      if (currentStatus.indexOf(value) >= 0) {
+        currentStatus = currentStatus.filter((item) => item !== value);
+      } else {
+        currentStatus = [...currentStatus, value];
+      }
+
+      setFormFields({
+        ...formFields,
+        [name]: currentStatus,
+      });
+    } else {
+      setFormFields({
+        ...formFields,
+        [name]: isChecked ? isChecked : value,
+      });
+    }
+
+    if (inputsRefs[name]) {
+      inputsRefs[name].action("valid");
+      errorFields.filter((field) => field !== name);
     }
   };
 
@@ -207,7 +222,7 @@ export default function NewListingForm(props) {
       }
     });
 
-    if (!formFields.property_status_sale && !formFields.property_status_rent) {
+    if (formFields.property_status.length === 0) {
       toast.error("Please select at least one property status.");
       return;
     }
@@ -284,48 +299,25 @@ export default function NewListingForm(props) {
           <label className="form-label">
             Property Status <span className="text-primary">*</span>
           </label>
-          <div className="form-check me-5">
-            <input
-              className="form-check-input"
-              type="checkbox"
-              name="property_status_sale"
-              onChange={handleChange}
-              value={formFields.property_status_sale}
-              checked={formFields.property_status_sale}
-              id="sale"
-            />
-            <label className="form-check-label" htmlFor="sale">
-              Sale
-            </label>
-          </div>
-          <div className="form-check me-5">
-            <input
-              className="form-check-input"
-              type="checkbox"
-              name="property_status_rent"
-              onChange={handleChange}
-              value={formFields.property_status_rent}
-              checked={formFields.property_status_rent}
-              id="rent"
-            />
-            <label className="form-check-label" htmlFor="rent">
-              Rent
-            </label>
-          </div>
-          <div className="form-check">
-            <input
-              className="form-check-input"
-              type="checkbox"
-              name="property_status_short_stay"
-              onChange={handleChange}
-              value={formFields.property_status_short_stay}
-              checked={formFields.property_status_short_stay}
-              id="short_stay"
-            />
-            <label className="form-check-label" htmlFor="short_stay">
-              Short Stay
-            </label>
-          </div>
+          {["rent", "sale", "short stay"].map((status) => (
+            <div key={status} className="form-check me-5">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                name="property_status"
+                onChange={handleChange}
+                value={status}
+                checked={formFields.property_status?.includes(status)}
+                id={status}
+              />
+              <label
+                className="form-check-label text-capitalize"
+                htmlFor={status}
+              >
+                {status}
+              </label>
+            </div>
+          ))}
         </div>
         <div className="row">
           <div className="col-sm-12 col-md-6 col-lg-4">

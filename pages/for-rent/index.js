@@ -37,12 +37,8 @@ export async function getServerSideProps(context) {
     const listingEntries = await admin
       .firestore()
       .collection("apartments")
+      .where("property_status", "array-contains", "rent")
       .get();
-
-    //79ktlzft6iA5Dj4EHjRx
-    const files = "79ktlzft6iA5Dj4EHjRx";
-    //.bucket(`${process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET}`);
-    //.get("/apartments/thumbnails/79ktlzft6iA5Dj4EHjRx");
 
     const listings = JSON.stringify(
       listingEntries.docs.map((doc) => doc.data())

@@ -70,12 +70,11 @@ export default function singleListingForRent(props) {
               <div className="d-flex">
                 <h1 className="fs-28 fw-bold">
                   {listing.title}{" "}
-                  {listing.property_status_rent ||
-                    (listing.property_status_sale && (
-                      <span className="badge bg-primary ms-3 rounded-pill fs-14 fw-normal">
-                        {listing.property_status_rent ? "For Rent" : "For Sale"}
-                      </span>
-                    ))}
+                  {listing.property_status.indexOf("rent") >= 0 && (
+                    <span className="badge bg-primary ms-3 rounded-pill fs-14 fw-normal">
+                      For Rent
+                    </span>
+                  )}
                 </h1>
               </div>
               <p>
@@ -125,9 +124,11 @@ export default function singleListingForRent(props) {
               <li className="w-columns-30 mb-3">
                 <span>Property status: </span>
                 <span>
-                  {listing.property_status_rent && "For Rent"} ,
-                  {listing.property_status_sale && "For Sale"},
-                  {listing.property_status_short_stay && "For Holiday"}
+                  {listing.property_status.indexOf("rent") >= 0 && "For Rent "}{" "}
+                  ,{listing.property_status.indexOf("sale") >= 0 && "For Sale "}
+                  ,
+                  {listing.property_status.indexOf("short stay") >= 0 &&
+                    "For Holiday"}
                 </span>
               </li>
             </ul>
@@ -136,9 +137,9 @@ export default function singleListingForRent(props) {
               classNames="text-dark fs-18 fw-bold ls-6"
             />
             <ul className="list-unstyled d-flex justify-content-between flex-wrap">
-              {property_features.map((feature, index) => (
-                <>
-                  {listing[toUnderscoreKey(feature)] && (
+              {property_features.map((feature, index) => {
+                return (
+                  listing[toUnderscoreKey(feature)] && (
                     <li
                       key={toUnderscoreKey(feature) + "_" + index}
                       className="w-columns-30 mb-3"
@@ -148,9 +149,9 @@ export default function singleListingForRent(props) {
                       </span>
                       <span>{feature}</span>
                     </li>
-                  )}
-                </>
-              ))}
+                  )
+                );
+              })}
             </ul>
           </div>
           {/* Floor Plans */}
@@ -231,7 +232,7 @@ export const getStaticPaths = async () => {
   const querySnapshot = await admin
     .firestore()
     .collection("apartments")
-    .where("property_status_rent", "==", true)
+    .where("property_status", "array-contains", "rent")
     .get();
 
   const data = querySnapshot.docs.map((doc) => {

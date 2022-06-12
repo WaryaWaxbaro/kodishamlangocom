@@ -231,7 +231,7 @@ export const getStaticPaths = async () => {
   const querySnapshot = await admin
     .firestore()
     .collection("apartments")
-    .where("property_status_sale", "==", true)
+    .where("property_status", "array-contains", "sale")
     .get();
 
   const data = querySnapshot.docs.map((doc) => {
