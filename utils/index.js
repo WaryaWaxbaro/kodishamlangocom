@@ -113,3 +113,11 @@ export const urlToObject = async (url) => {
   const blob = await response.blob();
   const file = new File([blob], "image.jpg", { type: blob.type });
 };
+
+export const sortOrder = [
+  "Most Recent",
+  "Top Selling",
+  "Most Viewed",
+  "Price (low to hight)",
+  "Price (hight to low)",
+];

@@ -29,20 +29,40 @@ const property_types_keys = {
   "For Holiday": "short stay",
 };
 
+const property_status_routes = {
+  "For Sale": "/for-sale",
+  "For Rent": "/for-rent",
+  "For Holiday": "/for-holiday",
+};
+
+const emptyParams = ["Bedrooms", "Bathrooms", "Property Type"];
+
 export default function Search(props) {
   const router = useRouter();
   const { route, query } = router;
+  const isHomePage = route === "/";
 
   const { setActiveSearchValues } = props;
-  const [selectedPropertyType, setSelectedPropertyType] = useState("");
-  const [selectedPropertyStatus, setSelectedPropertyStatus] = useState("");
-  const [selectedBedrooms, setSelectedBedrooms] = useState("");
-  const [selectedBathrooms, setSelectedBathrooms] = useState("");
-  const [selectedArea, setSelectedArea] = useState("");
-  const [selectedPrice, setSelectedPrice] = useState("");
-  const [searchCity, setSearchCity] = useState("");
+  const [selectedPropertyType, setSelectedPropertyType] = useState(
+    query.apartment_type || "Property Type"
+  );
+  const [selectedPropertyStatus, setSelectedPropertyStatus] = useState(
+    query.property_status || "Property Status"
+  );
+  const [selectedBedrooms, setSelectedBedrooms] = useState(
+    query.bedrooms || "Bedrooms"
+  );
+  const [selectedBathrooms, setSelectedBathrooms] = useState(
+    query.bathrooms || "Bathrooms"
+  );
+  const [selectedArea, setSelectedArea] = useState(query.area || "");
+  const [selectedPrice, setSelectedPrice] = useState(query.price || "");
+  const [searchCity, setSearchCity] = useState(query.city || "Select City");
+
+  const [searchValues, setSearchValues] = useState(searchFormFields);
 
   const [showAdvanced, setShowAdvanced] = useState(false);
+  const [homePageRoute, setHomePageRoute] = useState("/for-sale");
 
   useEffect(() => {
     setSearchValues({
@@ -55,6 +75,9 @@ export default function Search(props) {
       price: selectedPrice,
       city: searchCity,
     });
+    if (selectedPropertyStatus) {
+      setHomePageRoute(property_status_routes[selectedPropertyStatus]);
+    }
   }, [
     selectedPropertyType,
     selectedPropertyStatus,
@@ -62,9 +85,8 @@ export default function Search(props) {
     selectedBathrooms,
     selectedArea,
     selectedPrice,
+    searchCity,
   ]);
-
-  const [searchValues, setSearchValues] = useState(searchFormFields);
 
   const handleSearchValues = (e) => {
     let name = e.target.name;
@@ -76,25 +98,9 @@ export default function Search(props) {
   };
 
   const handleSubmitSearch = () => {
-    console.log("searchValues", searchValues);
-    let activeValues = Object.keys(searchValues)
-      .map((key) => {
-        if (searchValues[key]) {
-          if (Array.isArray(searchValues[key])) {
-            return { [key]: searchValues[key].join(",") };
-          } else if (key === "property_status") {
-            let val = searchValues[key];
-            return property_types_keys[val];
-          } else {
-            return { [key]: searchValues[key] };
-          }
-        }
-      })
-      .filter((sv) => sv);
-
-    console.log(activeValues);
     let sQuery = Object.keys(searchValues).reduce((acc, key) => {
-      if (searchValues[key]) {
+      let val = searchValues[key];
+      if (val && emptyParams.indexOf(val) === -1) {
         console.log("searchValues[key]", searchValues[key]);
         if (Array.isArray(searchValues[key])) {
           return { ...acc, [key]: searchValues[key].join(",") };
@@ -108,17 +114,39 @@ export default function Search(props) {
       return acc;
     }, {});
 
-    let q = queryString.stringify(sQuery);
+    let urlQuery = queryString.stringify(sQuery);
     console.log("q", sQuery);
-    console.log("q", q);
+    console.log("q", urlQuery);
     setShowAdvanced(false);
+    isHomePage
+      ? router.push(`${homePageRoute}?${urlQuery}`)
+      : router.push(`${route}?${urlQuery}`);
   };
+
+  const handleResetSearch = (e) => {
+    let findClasses = e.target.classList;
+    if (
+      findClasses.contains("reset-search") ||
+      findClasses.contains("row") ||
+      findClasses.contains("col-12")
+    ) {
+      if (showAdvanced) {
+        setShowAdvanced(false);
+      }
+    }
+    console.log("parent clicked", findClasses);
+  };
+
   return (
-    <div className="position-relative w-100 rounded-10 border border-5 border-bg-light bg-light py-3 px-2">
+    <div
+      onClick={handleResetSearch}
+      className="reset-search position-relative w-100 rounded-10 border border-5 border-bg-light bg-light py-3 px-2"
+    >
       <div className="row">
         <div className="col-12 col-md-3 mb-2">
           <AppDropdown
-            defaultItem="Select City"
+            defaultItem={searchCity}
+            mainLabelName="Select City"
             zIndex={100}
             mainListItem={cities}
             icon="<i class='bi bi-house-fill text-primary'></i>"
@@ -127,7 +155,8 @@ export default function Search(props) {
         </div>
         <div className="col-12 col-md-3 mb-2">
           <AppDropdown
-            defaultItem="Property Type"
+            defaultItem={selectedPropertyType}
+            mainLabelName="Property Type"
             zIndex={100}
             mainListItem={property_types}
             setSelectedListItem={setSelectedPropertyType}
@@ -139,10 +168,21 @@ export default function Search(props) {
               onClick={() => setShowAdvanced(!showAdvanced)}
               className="w-100 h-100 btn fs-14 bg-light rounded-5 border-gray-200 ouline-none d-flex align-items-center justify-content-between p-2"
             >
-              <span className="d-block">Advanced Search</span>
-              <span className="d-block text-primary fs-16">
-                <i className="bi bi-three-dots-vertical"></i>
-              </span>
+              {showAdvanced ? (
+                <>
+                  <span className="d-block">Close Search</span>
+                  <span className="d-block text-primary fs-16">
+                    <i className="bi bi-x-lg"></i>
+                  </span>
+                </>
+              ) : (
+                <>
+                  <span className="d-block">Advanced Search</span>
+                  <span className="d-block text-primary fs-16">
+                    <i className="bi bi-three-dots-vertical"></i>
+                  </span>
+                </>
+              )}
             </button>
           </div>
         </div>
@@ -165,10 +205,11 @@ export default function Search(props) {
         }
       >
         <div className="row">
-          {route === "/" && (
+          {isHomePage && (
             <div className="col-12 col-md-6 col-lg-4 mb-2">
               <AppDropdown
-                defaultItem="Property Status"
+                defaultItem={selectedPropertyStatus}
+                mainLabelName="Property Status"
                 zIndex={100}
                 mainListItem={["For Sale", "For Rent", "For Holiday"]}
                 icon="<i class='bi bi-house-fill text-primary'></i>"
@@ -179,7 +220,8 @@ export default function Search(props) {
 
           <div className="col-12 col-md-6 col-lg-4 mb-2">
             <AppDropdown
-              defaultItem="Bedrooms"
+              defaultItem={selectedBedrooms}
+              mainLabelName="Bedrooms"
               zIndex={100}
               mainListItem={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
               icon="<i class='bi bi-house-fill text-primary'></i>"
@@ -188,7 +230,8 @@ export default function Search(props) {
           </div>
           <div className="col-12 col-md-6 col-lg-4 mb-2">
             <AppDropdown
-              defaultItem="Bathrooms"
+              defaultItem={selectedBathrooms}
+              mainLabelName="Bathrooms"
               zIndex={100}
               mainListItem={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
               icon="<i class='bi bi-house-fill text-primary'></i>"
@@ -217,7 +260,7 @@ export default function Search(props) {
                 </div>
               </div>
               <div className="col-12 col-md-6 mb-2">
-                <div className="w-100 py-md-5 ps-md-4">
+                <div className="reset-search w-100 py-md-5 ps-md-4">
                   <div className="row">
                     {property_features_keys.map((key, index) => (
                       <div key={key} className="col-12 col-sm-6">

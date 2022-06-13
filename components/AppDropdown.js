@@ -2,8 +2,14 @@ import { useState } from "react";
 import { removeWhiteSpace } from "../utils";
 
 export default function AppDropdown(props) {
-  const { defaultItem, zIndex, mainListItem, icon, setSelectedListItem } =
-    props;
+  const {
+    defaultItem,
+    zIndex,
+    mainListItem,
+    icon,
+    setSelectedListItem,
+    mainLabelName,
+  } = props;
   const [showPropertyList, setShowPropertyList] = useState(false);
   const [selectedItem, setSelectedItem] = useState(defaultItem || "Select");
 
@@ -51,15 +57,20 @@ export default function AppDropdown(props) {
             className="px-3 py-1 hover-bg-primary cursor-pointer"
           >
             <span className="d-flex align-items-center"></span>
-            {defaultItem || "Select"}
+            {mainLabelName || defaultItem}
           </li>
-          {mainListItem.map((list, index) => (
+
+          {mainListItem.map((item, index) => (
             <li
-              key={`${removeWhiteSpace(list)}_${index}`}
+              key={`${removeWhiteSpace(item)}_${index}`}
               onClick={(e) => handleListItemSelection(e)}
-              className="px-3 py-1 hover-bg-primary cursor-pointer"
+              className={
+                defaultItem === item
+                  ? "px-3 py-1 hover-bg-primary cursor-pointer bg-primary text-light"
+                  : "px-3 py-1 hover-bg-primary cursor-pointer"
+              }
             >
-              {list}
+              {item}
             </li>
           ))}
         </ul>

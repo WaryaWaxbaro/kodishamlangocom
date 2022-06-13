@@ -1,12 +1,53 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 
 import Search from "./Search";
 import AppDropdown from "./AppDropdown";
 import SmallCard from "./SmallCard";
+import { sortOrder } from "../utils";
 
-export default function Listings({ apartments, apartmentType }) {
-  const [sortBy, setSortBy] = useState(null);
+export default function Listings({ apartments, setApartments, apartmentType }) {
+  const [sortBy, setSortBy] = useState("Most Recent");
+
+  useEffect(() => {
+    const sortApartment = async (order) => {
+      let sorted = [];
+      switch (sortBy) {
+        case sortOrder[0]:
+          sorted = apartments.sort((a, b) => {
+            return a.createdAt.seconds - b.createdAt.seconds;
+          });
+          break;
+        case sortOrder[1]:
+          sorted = apartments.sort((a, b) => {}).reverse();
+          break;
+        case sortOrder[2]:
+          sorted = apartments.sort((a, b) => {
+            return b.views - a.views;
+          });
+          break;
+        case sortOrder[3]:
+          sorted = apartments.sort((a, b) => {
+            return b.price - a.price;
+          });
+          break;
+        case sortOrder[4]:
+          sorted = apartments.sort((a, b) => {
+            return a.price - b.price;
+          });
+          break;
+        default:
+          sorted = apartments.sort((a, b) => {
+            return b.createdAt.seconds - a.createdAt.seconds;
+          });
+      }
+      console.log(sorted);
+      setApartments(sorted);
+    };
+
+    sortApartment();
+  }, [sortBy]);
+
   return (
     <div className="container-lg">
       <div className="mt-3 mb-5">
@@ -17,22 +58,17 @@ export default function Listings({ apartments, apartmentType }) {
       </div>
       {apartments && apartments.length > 0 ? (
         <>
-          {" "}
           <div className="w-100 d-flex flex-column flex-sm-row justify-content-sm-between">
-            <p>{9} Search results</p>
+            <p>{apartments.length} Search results</p>
             <div className="d-flex align-items-center">
               <p className="mb-0 me-2" style={{ whiteSpace: " nowrap" }}>
                 Sort By
               </p>
               <AppDropdown
-                defaultItem="Recently added"
+                defaultItem={sortBy}
+                mainLabelName="Sort By"
                 zIndex={100}
-                mainListItem={[
-                  "Top Selling",
-                  "Most Viewed",
-                  "Price (low to hight)",
-                  "Price (hight to low)",
-                ]}
+                mainListItem={sortOrder}
                 icon="<i class='bi bi-filter-right fs-18'></i>"
                 setSelectedListItem={setSortBy}
               />

@@ -20,17 +20,22 @@ export default function SmallCard({ apartment, apartmentType }) {
       : `/`;
 
   useEffect(() => {
+    let isMounted = true;
     const getThumbnailUrl = async (id) => {
-      const thumnail = await new StorageUploads(
+      const thumbnail = await new StorageUploads(
         `apartments/thumbnails/${id}`
       ).downloadURL();
-      setThumbnailUrl(thumnail);
+      setThumbnailUrl(thumbnail);
     };
+
     if (apartment.mId) {
+      console.log(apartment);
       getThumbnailUrl(apartment.mId);
     }
-  }, []);
+  }, [apartment]);
+
   if (!apartment) return null;
+
   return (
     <div className="w-100 border border-gray-300 rounded-5 overflow-hidden d-flex flex-column shadow">
       <div className="w-100">
@@ -50,12 +55,11 @@ export default function SmallCard({ apartment, apartmentType }) {
                     Featured
                   </button>
                 )}
-                {apartment.property_status_sale ||
-                  (apartment.property_status_rent && (
-                    <button className="btn btn-sm bg-dark bg-opacity-50 m-2 text-light fs-14">
-                      {apartment.property_status_rent ? "For Rent" : "For Sale"}
-                    </button>
-                  ))}
+                {apartment.featured && (
+                  <button className="btn btn-sm bg-dark bg-opacity-50 m-2 text-light fs-14">
+                    Featured
+                  </button>
+                )}
               </div>
             </div>
           </a>

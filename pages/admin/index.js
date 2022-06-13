@@ -33,7 +33,7 @@ export default function dashboard() {
     if (currentUser) {
       getApartments(currentUser.mId);
     }
-  }, [loadingUser]);
+  }, [loadingUser, currentUser]);
 
   useEffect(() => {
     const publishedPropertiesCount = listings.filter(
