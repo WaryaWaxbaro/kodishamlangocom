@@ -10,13 +10,14 @@ import Logo from "../components/Logo";
 export default function NavbarLinks() {
   const router = useRouter();
   const { pathname } = router;
-  const { user: currentUser, setUser, loadingUser } = useUser();
+  const { user: currentUser, setUser, loadingUser, setCurrentUser } = useUser();
   const auth = getAuth(createFirebaseApp());
   const handleSignOut = (e) => {
     e.preventDefault();
     signOut(auth)
       .then(() => {
         setUser(null);
+        setCurrentUser(null);
         sessionStorage.removeItem("token");
         router.push("/");
       })

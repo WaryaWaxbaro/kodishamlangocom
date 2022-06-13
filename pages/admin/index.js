@@ -30,7 +30,7 @@ export default function dashboard() {
       }
     };
 
-    if (currentUser) {
+    if (currentUser?.mId) {
       getApartments(currentUser.mId);
     }
   }, [loadingUser, currentUser]);

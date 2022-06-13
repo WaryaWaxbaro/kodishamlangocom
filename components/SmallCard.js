@@ -37,7 +37,7 @@ export default function SmallCard({ apartment, apartmentType }) {
   if (!apartment) return null;
 
   return (
-    <div className="w-100 border border-gray-300 rounded-5 overflow-hidden d-flex flex-column shadow">
+    <div className="w-100 h-100 border border-gray-300 rounded-5 overflow-hidden d-flex flex-column shadow">
       <div className="w-100">
         <Link href={slug}>
           <a>

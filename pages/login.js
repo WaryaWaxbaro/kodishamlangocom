@@ -80,18 +80,17 @@ export default function login() {
   };
 
   const handleFacebookAuth = () => {
-    const provider = new FacebookAuthProvider();
     signInWithPopup(auth, fProvider)
       .then((result) => {
         // The signed-in user info.
         const user = result.user;
         setUser(user);
-
+        setAuthUser(user);
+        console.log(user);
         // This gives you a Facebook Access Token. You can use it to access the Facebook API.
         const credential = FacebookAuthProvider.credentialFromResult(result);
-        const accessToken = credential.accessToken;
-        sessionStorage.setItem("token", accessToken);
-        // ...
+        const token = credential.accessToken;
+        sessionStorage.setItem("token", token);
         router.push("/admin");
       })
       .catch((error) => {

@@ -101,6 +101,8 @@ class BaseModel {
 
   async getAllByQuery() {
     const key = Object.keys(this.data)[0];
+    console.log(key);
+    console.log(this.data[key]);
     const q = query(
       collection(this.db, this.collectionName),
       where(`${key}`, "==", this.get(key))
