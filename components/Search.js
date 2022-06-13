@@ -35,7 +35,7 @@ const property_status_routes = {
   "For Holiday": "/for-holiday",
 };
 
-const emptyParams = ["Bedrooms", "Bathrooms", "Property Type"];
+const emptyParams = ["Bedrooms", "Bathrooms", "Property Type", "Select City"];
 
 export default function Search(props) {
   const router = useRouter();

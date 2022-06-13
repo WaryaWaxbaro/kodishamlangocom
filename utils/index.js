@@ -121,3 +121,19 @@ export const sortOrder = [
   "Price (low to hight)",
   "Price (hight to low)",
 ];
+
+export const sortDataByQuery = (data, query) => {
+  let sortedData = data;
+  Object.keys(query).forEach((param) => {
+    if (param === "price" || param === "area") {
+      let val = query[param].split(",");
+      sortedData = data.filter(
+        (listing) => listing[param] >= val[0] && listing[param] <= val[1]
+      );
+    } else {
+      sortedData = data.filter((listing) => listing[param] === query[param]);
+    }
+  });
+
+  return sortedData;
+};
