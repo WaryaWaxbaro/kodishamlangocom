@@ -446,7 +446,7 @@
 }
 
 .whatsapp-icon {
-  color: #fff;
+  color: #25d366;
   transition: color 0.2s ease-out;
 
   &:hover {
@@ -455,7 +455,7 @@
 }
 
 .facebook-icon {
-  color: #fff;
+  color: #3b5998;
   transition: color 0.2s ease-out;
 
   &:hover {
@@ -464,7 +464,23 @@
 }
 
 .twitter-icon {
-  color: #fff;
+  color: #1da1f2;
+  transition: color 0.2s ease-out;
+
+  &:hover {
+    color: #1da1f2;
+  }
+}
+
+.messenger-icon {
+  background-image: linear-gradient(
+    rgb(255, 143, 178) 0%,
+    rgb(167, 151, 255) 50%,
+    rgb(0, 229, 255) 100%
+  );
+  background-clip: text;
+  //mix-blend-mode: screen;
+  color: transparent;
   transition: color 0.2s ease-out;
 
   &:hover {

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 
 import Search from "./Search";
@@ -6,13 +6,17 @@ import AppDropdown from "./AppDropdown";
 import SmallCard from "./SmallCard";
 import Pagination from "./Pagination";
 import { sortOrder } from "../utils";
+import SharingModal from "./SharingModal";
 
-let PageSize = 2;
+let PageSize = 25;
 
 export default function Listings({ apartments, setApartments, apartmentType }) {
   const [listedApartments, setListedApartments] = useState([]);
   const [sortBy, setSortBy] = useState("Most Recent");
   const [currentPage, setCurrentPage] = useState(1);
+  const [sharingInfo, setSharingInfo] = useState({ url: "", title: "" });
+
+  const sharingModalButton = useRef(null);
 
   useEffect(() => {
     const firstPageIndex = (currentPage - 1) * PageSize;
@@ -61,6 +65,11 @@ export default function Listings({ apartments, setApartments, apartmentType }) {
     sortApartment(sortBy);
   }, [sortBy]);
 
+  const handleSetsSharingInfo = (url, title) => {
+    setSharingInfo({ url, title });
+    sharingModalButton.current.click();
+  };
+
   return (
     <div className="container-lg">
       <div className="mt-3 mb-5">
@@ -94,6 +103,7 @@ export default function Listings({ apartments, setApartments, apartmentType }) {
                   <SmallCard
                     apartment={apartment}
                     apartmentType={apartmentType}
+                    setSharingInfo={handleSetsSharingInfo}
                   />
                 </div>
               ))}
@@ -111,6 +121,16 @@ export default function Listings({ apartments, setApartments, apartmentType }) {
           <p className="text-center">No result</p>
         </>
       )}
+      <SharingModal sharingInfo={sharingInfo} />
+      <button
+        ref={sharingModalButton}
+        type="button"
+        className="btn btn-primary d-none"
+        data-bs-toggle="modal"
+        data-bs-target="#sharingLinksModal"
+      >
+        Open sharing modal
+      </button>
     </div>
   );
 }

@@ -1,12 +1,19 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 import StorageUploads from "../models/storageUploads";
 
 import { formatPrice } from "../utils";
 
-export default function SmallCard({ apartment, apartmentType }) {
+export default function SmallCard({
+  apartment,
+  apartmentType,
+  setSharingInfo,
+}) {
+  const router = useRouter();
+  console.log(router);
   const [liked, setLiked] = useState(false);
   const [thumbnailUrl, setThumbnailUrl] = useState(null);
 
@@ -133,7 +140,15 @@ export default function SmallCard({ apartment, apartmentType }) {
                 {apartmentType === "rent" && `/ ${apartment.price_duration}`}
               </p>
               <p className="mb-0 d-flex">
-                <span className="d-block cursor-pointer me-4">
+                <span
+                  onClick={() =>
+                    setSharingInfo(
+                      `${location.hostname}${slug}`,
+                      apartment.title
+                    )
+                  }
+                  className="d-block cursor-pointer me-4"
+                >
                   <i className="bi bi-share"></i>
                 </span>
                 <span
