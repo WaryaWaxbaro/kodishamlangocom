@@ -129,7 +129,8 @@ export default function SmallCard({ apartment, apartmentType }) {
             <hr className="bg-gray-500" />
             <div className="d-flex align-item-center justify-content-between">
               <p className="mb-0 fw-bold ls-6">
-                Kshs {formatPrice(apartment.price)}
+                Kshs {formatPrice(apartment.price)}{" "}
+                {apartmentType === "rent" && `/ ${apartment.price_duration}`}
               </p>
               <p className="mb-0 d-flex">
                 <span className="d-block cursor-pointer me-4">

@@ -4,48 +4,61 @@ import Link from "next/link";
 import Search from "./Search";
 import AppDropdown from "./AppDropdown";
 import SmallCard from "./SmallCard";
+import Pagination from "./Pagination";
 import { sortOrder } from "../utils";
 
+let PageSize = 2;
+
 export default function Listings({ apartments, setApartments, apartmentType }) {
+  const [listedApartments, setListedApartments] = useState([]);
   const [sortBy, setSortBy] = useState("Most Recent");
+  const [currentPage, setCurrentPage] = useState(1);
+
+  useEffect(() => {
+    const firstPageIndex = (currentPage - 1) * PageSize;
+    const lastPageIndex = firstPageIndex + PageSize;
+    const paginatedApartments = apartments.slice(firstPageIndex, lastPageIndex);
+    setListedApartments(paginatedApartments);
+  }, [currentPage, apartments]);
 
   useEffect(() => {
     const sortApartment = async (order) => {
       let sorted = [];
-      switch (sortBy) {
+      switch (order) {
         case sortOrder[0]:
-          sorted = apartments.sort((a, b) => {
+          sorted = listedApartments.sort((a, b) => {
             return a.createdAt.seconds - b.createdAt.seconds;
           });
           break;
         case sortOrder[1]:
-          sorted = apartments.sort((a, b) => {}).reverse();
+          sorted = listedApartments.sort((a, b) => {}).reverse();
           break;
         case sortOrder[2]:
-          sorted = apartments.sort((a, b) => {
+          sorted = listedApartments.sort((a, b) => {
             return b.views - a.views;
           });
           break;
         case sortOrder[3]:
-          sorted = apartments.sort((a, b) => {
+          sorted = listedApartments.sort((a, b) => {
             return b.price - a.price;
           });
           break;
         case sortOrder[4]:
-          sorted = apartments.sort((a, b) => {
+          sorted = listedApartments.sort((a, b) => {
             return a.price - b.price;
           });
           break;
         default:
-          sorted = apartments.sort((a, b) => {
+          sorted = listedApartments.sort((a, b) => {
             return b.createdAt.seconds - a.createdAt.seconds;
           });
       }
       console.log(sorted);
-      setApartments(sorted);
+      setListedApartments(sorted);
+      setCurrentPage(1);
     };
 
-    sortApartment();
+    sortApartment(sortBy);
   }, [sortBy]);
 
   return (
@@ -56,7 +69,7 @@ export default function Listings({ apartments, setApartments, apartmentType }) {
       <div className="w-100 mb-5">
         <Search />
       </div>
-      {apartments && apartments.length > 0 ? (
+      {listedApartments && listedApartments.length > 0 ? (
         <>
           <div className="w-100 d-flex flex-column flex-sm-row justify-content-sm-between">
             <p>{apartments.length} Search results</p>
@@ -76,7 +89,7 @@ export default function Listings({ apartments, setApartments, apartmentType }) {
           </div>
           <div className="w-100 my-5">
             <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-              {apartments.map((apartment) => (
+              {listedApartments.map((apartment) => (
                 <div className="col" key={apartment.mId}>
                   <SmallCard
                     apartment={apartment}
@@ -86,37 +99,12 @@ export default function Listings({ apartments, setApartments, apartmentType }) {
               ))}
             </div>
           </div>
-          <div className="w-100 my-5">
-            <nav aria-label="Page navigation example">
-              <ul className="pagination justify-content-center">
-                <li className="page-item">
-                  <a className="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                  </a>
-                </li>
-                <li className="page-item">
-                  <a className="page-link" href="#">
-                    1
-                  </a>
-                </li>
-                <li className="page-item">
-                  <a className="page-link" href="#">
-                    2
-                  </a>
-                </li>
-                <li className="page-item">
-                  <a className="page-link" href="#">
-                    3
-                  </a>
-                </li>
-                <li className="page-item">
-                  <a className="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
+          <Pagination
+            currentPage={currentPage}
+            totalCount={apartments.length}
+            pageSize={PageSize}
+            onPageChange={(page) => setCurrentPage(page)}
+          />
         </>
       ) : (
         <>
