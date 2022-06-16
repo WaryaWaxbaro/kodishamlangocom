@@ -101,8 +101,6 @@ class BaseModel {
 
   async getAllByQuery() {
     const key = Object.keys(this.data)[0];
-    console.log(key);
-    console.log(this.data[key]);
     const q = query(
       collection(this.db, this.collectionName),
       where(`${key}`, "==", this.get(key))
@@ -120,6 +118,37 @@ class BaseModel {
 
   async remove() {
     return await deleteDoc(doc(this.db, this.collectionName, this.getId()));
+  }
+
+  async updateLikes() {
+    const docSnap = await this.getOne();
+    const likes = docSnap.likes || [];
+    let newLikes = [...likes];
+    if (likes.indexOf(this.get("like")) >= 0) {
+      newLikes = likes.filter((like) => like !== this.get("like"));
+    } else {
+      newLikes.push(this.get("like"));
+    }
+
+    await updateDoc(doc(this.db, this.collectionName, this.getId()), {
+      likes: newLikes,
+    });
+  }
+
+  async findByContains() {
+    const key = Object.keys(this.data)[0];
+    console.log(this.data);
+    const q = query(
+      collection(this.db, this.collectionName),
+      where(`${key}`, "array-contains", `${this.get(key)}`)
+    );
+
+    const querySnapshot = await getDocs(q);
+    const data = querySnapshot.docs.map((doc) => {
+      return { id: doc.id, ...doc.data() };
+    });
+
+    return data;
   }
 }
 

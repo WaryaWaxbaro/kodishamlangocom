@@ -7,6 +7,7 @@ import SmallCard from "./SmallCard";
 import Pagination from "./Pagination";
 import { sortOrder } from "../utils";
 import SharingModal from "./SharingModal";
+import { useUser } from "../context/userContext";
 
 let PageSize = 25;
 
@@ -16,6 +17,8 @@ export default function Listings({ apartments, setApartments, apartmentType }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [sharingInfo, setSharingInfo] = useState({ url: "", title: "" });
 
+  const { currentUser, user } = useUser();
+
   const sharingModalButton = useRef(null);
 
   useEffect(() => {
@@ -23,7 +26,7 @@ export default function Listings({ apartments, setApartments, apartmentType }) {
     const lastPageIndex = firstPageIndex + PageSize;
     const paginatedApartments = apartments.slice(firstPageIndex, lastPageIndex);
     setListedApartments(paginatedApartments);
-  }, [currentPage, apartments]);
+  }, [currentPage, apartments, currentUser]);
 
   useEffect(() => {
     const sortApartment = async (order) => {
@@ -57,7 +60,6 @@ export default function Listings({ apartments, setApartments, apartmentType }) {
             return b.createdAt.seconds - a.createdAt.seconds;
           });
       }
-      console.log(sorted);
       setListedApartments(sorted);
       setCurrentPage(1);
     };
@@ -104,6 +106,7 @@ export default function Listings({ apartments, setApartments, apartmentType }) {
                     apartment={apartment}
                     apartmentType={apartmentType}
                     setSharingInfo={handleSetsSharingInfo}
+                    currentUser={currentUser}
                   />
                 </div>
               ))}

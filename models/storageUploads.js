@@ -183,7 +183,7 @@ export default class StorageUploads {
       "apartments",
       "apartments/thumbnails"
     );
-    console.log(thumbnailPath);
+
     const thumbnailRef = ref(this.storage, `${thumbnailPath}`);
     const res = await deleteObject(thumbnailRef);
 

@@ -1,21 +1,27 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
 import StorageUploads from "../models/storageUploads";
-
+import { ApartmentModel } from "../models";
 import { formatPrice } from "../utils";
 
 export default function SmallCard({
   apartment,
   apartmentType,
   setSharingInfo,
+  currentUser,
 }) {
   const router = useRouter();
-  console.log(router);
-  const [liked, setLiked] = useState(false);
+  const [liked, setLiked] = useState(
+    apartment.likes?.includes(currentUser?.mId)
+  );
+  const [updateLikes, setUpdateLikes] = useState(false);
+
   const [thumbnailUrl, setThumbnailUrl] = useState(null);
+
+  const firstRender = useRef(false);
 
   const slug =
     apartmentType === "rent"
@@ -27,7 +33,10 @@ export default function SmallCard({
       : `/`;
 
   useEffect(() => {
-    let isMounted = true;
+    setLiked(apartment.likes?.includes(currentUser?.mId));
+  }, [currentUser]);
+
+  useEffect(() => {
     const getThumbnailUrl = async (id) => {
       const thumbnail = await new StorageUploads(
         `apartments/thumbnails/${id}`
@@ -36,10 +45,23 @@ export default function SmallCard({
     };
 
     if (apartment.mId) {
-      console.log(apartment);
       getThumbnailUrl(apartment.mId);
     }
   }, [apartment]);
+
+  useEffect(() => {
+    const handleLike = async () => {
+      await new ApartmentModel({
+        id: apartment.id,
+        like: currentUser.mId,
+      }).updateLikes();
+    };
+    if (updateLikes && currentUser) {
+      handleLike();
+      setLiked(!liked);
+      setUpdateLikes(false);
+    }
+  }, [updateLikes]);
 
   if (!apartment) return null;
 
@@ -152,7 +174,10 @@ export default function SmallCard({
                   <i className="bi bi-share"></i>
                 </span>
                 <span
-                  onClick={() => setLiked(!liked)}
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="top"
+                  title={apartment.likes.length}
+                  onClick={() => setUpdateLikes(true)}
                   className="d-block cursor-pointer"
                 >
                   {liked ? (

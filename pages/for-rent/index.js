@@ -60,7 +60,9 @@ export async function getServerSideProps(context) {
       .get();
 
     const listings = JSON.stringify(
-      listingEntries.docs.map((doc) => doc.data())
+      listingEntries.docs.map((doc) => {
+        return { ...doc.data(), id: doc.id };
+      })
     );
 
     return {

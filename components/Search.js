@@ -101,7 +101,6 @@ export default function Search(props) {
     let sQuery = Object.keys(searchValues).reduce((acc, key) => {
       let val = searchValues[key];
       if (val && emptyParams.indexOf(val) === -1) {
-        console.log("searchValues[key]", searchValues[key]);
         if (Array.isArray(searchValues[key])) {
           return { ...acc, [key]: searchValues[key].join(",") };
         } else if (key === "property_status") {
@@ -115,8 +114,6 @@ export default function Search(props) {
     }, {});
 
     let urlQuery = queryString.stringify(sQuery);
-    console.log("q", sQuery);
-    console.log("q", urlQuery);
     setShowAdvanced(false);
     isHomePage
       ? router.push(`${homePageRoute}?${urlQuery}`)
@@ -134,7 +131,6 @@ export default function Search(props) {
         setShowAdvanced(false);
       }
     }
-    console.log("parent clicked", findClasses);
   };
 
   return (

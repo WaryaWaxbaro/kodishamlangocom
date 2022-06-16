@@ -5,16 +5,16 @@ export const formatPrice = (price) => {
   });
 };
 
-export const getApartmentPath = (category, id) => {
+export const getApartmentPath = (category, slug) => {
   let cat = category || [];
-  if (cat.indexOf("sell") >= 0) {
-    return `houses-for-sell/${id}`;
+  if (cat.indexOf("sale") >= 0) {
+    return `/for-sale/${slug}`;
   } else if (cat.indexOf("rent") >= 0) {
-    return `houses-for-rent/${id}`;
+    return `/for-rent/${slug}`;
   } else if (cat.indexOf("holiday") >= 0) {
-    return `short-stay/${id}`;
+    return `/short-stay/${slug}`;
   } else {
-    return "";
+    return "/";
   }
 };
 
