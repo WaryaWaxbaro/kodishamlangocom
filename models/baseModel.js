@@ -137,7 +137,6 @@ class BaseModel {
 
   async findByContains() {
     const key = Object.keys(this.data)[0];
-    console.log(this.data);
     const q = query(
       collection(this.db, this.collectionName),
       where(`${key}`, "array-contains", `${this.get(key)}`)

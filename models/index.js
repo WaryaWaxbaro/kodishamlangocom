@@ -17,3 +17,9 @@ export class ApartmentModel extends BaseModel {
     super("apartments", data);
   }
 }
+
+export class ReviewsModel extends BaseModel {
+  constructor(data) {
+    super("reviews", data);
+  }
+}

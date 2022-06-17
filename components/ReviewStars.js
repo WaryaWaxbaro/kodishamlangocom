@@ -1,11 +1,12 @@
-import React from "react";
+import { useState } from "react";
 
 export default function ReviewStars(props) {
   let { rating, count } = props;
+  let [selectReview, setSelectReview] = useState(false);
   // Check if rating is not a number and null
   if (isNaN(rating) || rating === null) {
     // Set rating to 4
-    rating = 4;
+    rating = 0;
   }
   return (
     <div className="text-primary">

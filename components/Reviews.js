@@ -1,44 +1,121 @@
 import Image from "next/image";
-import React from "react";
+import { useState, useEffect } from "react";
+import { toast } from "react-toastify";
 
-export default function Reviews() {
+import { useUser } from "../context/userContext";
+import { ReviewsModel } from "../models";
+import { unixToDate } from "../utils";
+import HeadingWithLine from "./HeadingWithLine";
+import ReviewForm from "./ReviewForm";
+import ReviewStars from "./ReviewStars";
+
+export default function Reviews({ propertyId }) {
+  const { currentUser } = useUser();
+  const [reviews, setReviews] = useState([]);
+  const [resetFields, setResetFields] = useState(false);
+  const [updateReviews, setUpdateReviews] = useState(false);
+
+  useEffect(() => {
+    const getReviews = async () => {
+      console.log(propertyId);
+      const revs = await new ReviewsModel({
+        propertyId: `${propertyId}`,
+      }).getAllByQuery();
+      console.log(revs);
+      if (revs && revs.length > 0) {
+        const sortedRevs = revs.sort((a, b) => {
+          return a.createdAt.seconds - b.createdAt.seconds;
+        });
+        setReviews(sortedRevs);
+        setResetFields(!resetFields);
+      }
+    };
+
+    if (propertyId) {
+      getReviews();
+    }
+  }, [propertyId, updateReviews]);
+
+  const addNewReview = async (data) => {
+    if (!data.review) {
+      toast.error("Provide all the required fields");
+      return;
+    }
+
+    if (!currentUser) {
+      toast.error("You must be logged in to add review");
+      return;
+    }
+
+    console.log(currentUser);
+
+    let rev = {
+      ...data,
+      name: currentUser.displayName,
+      email: currentUser.email,
+      userId: `${currentUser.mId}`,
+      propertyId: `${propertyId}`,
+      photoUrl: `${currentUser.photoURL}`,
+      isPublished: false,
+    };
+    console.log(rev);
+    const review = await new ReviewsModel(rev).save();
+    console.log(review.id);
+    if (review?.id) {
+      /*       console.log(review);
+      const nReview = new ReviewsModel({ id: `${review.id}` }).getOne();
+      console.log("new review ", nReview);
+      if (nReview) {
+        toast.success("Review added successfully");
+        setReviews([nReview, ...reviews]);
+      } */
+      setUpdateReviews(!updateReviews);
+    }
+  };
+
   return (
     <div className="w-100 pt-4">
-      <div className="w-100 d-flex mb-3">
-        <div className="position-relative square-75 overflow-hidden rounded-circle cover-img-img me-4">
-          <Image src="/images/cover/ts-5.jpeg" layout="fill" />
-        </div>
-        <div className="w-100">
-          <div className="w-100 d-flex justify-content-between">
-            <div>
-              <h4 className="fs-16 text-primary">Mary Smith</h4>
-              <p className="fs-14">May 30 2020</p>
+      {reviews.length > 0 && (
+        <>
+          {reviews.map((review) => (
+            <div key={review.mId} className="w-100 d-flex mb-3">
+              <div className="position-relative square-75 overflow-hidden rounded-circle cover-img-img me-4">
+                {review.photoUrl ? (
+                  <Image src={review.photoUrl} layout="fill" />
+                ) : (
+                  <div className="d-flex align-items-center justify-content-center text-gray-300">
+                    <i className="bi bi-user-fill"></i>
+                  </div>
+                )}
+              </div>
+              <div className="w-100">
+                <div className="w-100 d-flex justify-content-between">
+                  <div>
+                    <h4 className="fs-16 text-primary">{review.name}</h4>
+                    {review.createdAt.seconds ? (
+                      <p className="fs-14">
+                        {unixToDate(review.createdAt.seconds)}
+                      </p>
+                    ) : (
+                      <p className="fs-14">{review.createdAt}</p>
+                    )}
+                  </div>
+                  <ReviewStars rating={review.rating} />
+                </div>
+                <p>{review.review}</p>
+              </div>
             </div>
-            <div className="d-flex text-primary">
-              <div className="me-1">
-                <i className="bi bi-star-fill"></i>
-              </div>
-              <div className="me-1">
-                <i className="bi bi-star-fill"></i>
-              </div>
-              <div className="me-1">
-                <i className="bi bi-star-fill"></i>
-              </div>
-              <div className="me-1">
-                <i className="bi bi-star"></i>
-              </div>
-              <div className="me-1">
-                <i className="bi bi-star"></i>
-              </div>
-            </div>
-          </div>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras
-            aliquam, quam congue dictum luctus, lacus magna congue ante, in
-            finibus dui sapien eu dolor. Integer tincidunt suscipit erat, nec
-            laoreet ipsum vestibulum sed.
-          </p>
-        </div>
+          ))}
+        </>
+      )}
+
+      {/* Review Form */}
+      <div className="w-100 mt-3">
+        <HeadingWithLine
+          text="Add Review"
+          classNames="text-dark fs-18 fw-bold ls-6"
+        />
+        <ReviewForm addNewReview={addNewReview} resetFields={resetFields} />
       </div>
     </div>
   );

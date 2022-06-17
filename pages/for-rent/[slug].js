@@ -1,12 +1,12 @@
-import Image from "next/image";
 import { useEffect, useState } from "react";
+import Image from "next/image";
+
 import HeadingWithLine from "../../components/HeadingWithLine";
 import ImageSlider from "../../components/ImageSlider";
 import Reviews from "../../components/Reviews";
 import ReviewForm from "../../components/ReviewForm";
 import ContactRequestForm from "../../components/ContactRequestForm";
 import ProfileCard from "../../components/ProfileCard";
-
 import admin from "../../firebase/nodeApp";
 import StorageUploads from "../../models/storageUploads";
 import { ProfileModel } from "../../models";
@@ -175,15 +175,7 @@ export default function singleListingForRent(props) {
               text="3 Reviews"
               classNames="text-dark fs-18 fw-bold ls-6"
             />
-            <Reviews />
-          </div>
-          {/* Review Form */}
-          <div className="w-100 bg-white shadow p-3 mt-3">
-            <HeadingWithLine
-              text="Add Review"
-              classNames="text-dark fs-18 fw-bold ls-6"
-            />
-            <ReviewForm />
+            <Reviews propertyId={listing.mId} />
           </div>
         </div>
         <div className="col-12 col-md-4">

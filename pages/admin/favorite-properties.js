@@ -22,12 +22,16 @@ export default function favoriteProperties() {
       const sorted = apartments.sort((a, b) => {
         return a.createdAt.seconds - b.createdAt.seconds;
       });
-      const thumbnails = await new StorageUploads(
-        `apartments/thumbnails`
-      ).getListAllWithPath();
-      setThumbnails(thumbnails);
-      setFavApartments(sorted);
-      setLoading(false);
+      if (sorted.length > 0) {
+        const thumbnails = await new StorageUploads(
+          `apartments/thumbnails`
+        ).getListAllWithPath();
+        setThumbnails(thumbnails);
+        setFavApartments(sorted);
+        setLoading(false);
+      } else {
+        setLoading(false);
+      }
     };
 
     if (currentUser) {
@@ -112,12 +116,12 @@ export default function favoriteProperties() {
                       </Link>
                     </td>
                     <td className="py-3">
-                      {apartment.likes.indexOf(apartment.userId) >= 0 && (
+                      {apartment.likes.indexOf(currentUser.mId) >= 0 && (
                         <button
                           data-bs-toggle="tooltip"
                           title="unlike"
                           onClick={() =>
-                            removeLike(apartment.id, apartment.userId)
+                            removeLike(apartment.id, currentUser.mId)
                           }
                           className="btn btn-primary text-danger bg-transparent border-0 p-0"
                         >
