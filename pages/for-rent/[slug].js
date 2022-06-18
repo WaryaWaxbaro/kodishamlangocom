@@ -19,6 +19,7 @@ export default function singleListingForRent(props) {
   const [agentProfile, setAgentProfile] = useState(null);
   const [profileImageUrl, setProfileImageUrl] = useState(null);
   const [reload, setReload] = useState(true);
+  const [reviewCount, setReviewCount] = useState(0);
 
   useEffect(() => {
     const getImages = async (id) => {
@@ -172,10 +173,10 @@ export default function singleListingForRent(props) {
           {/* Reviews */}
           <div className="w-100 bg-white shadow p-3 mt-3">
             <HeadingWithLine
-              text="3 Reviews"
+              text={`${reviewCount} Reviews`}
               classNames="text-dark fs-18 fw-bold ls-6"
             />
-            <Reviews propertyId={listing.mId} />
+            <Reviews propertyId={listing.mId} setReviewCount={setReviewCount} />
           </div>
         </div>
         <div className="col-12 col-md-4">

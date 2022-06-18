@@ -9,7 +9,7 @@ import HeadingWithLine from "./HeadingWithLine";
 import ReviewForm from "./ReviewForm";
 import ReviewStars from "./ReviewStars";
 
-export default function Reviews({ propertyId }) {
+export default function Reviews({ propertyId, setReviewCount }) {
   const { currentUser } = useUser();
   const [reviews, setReviews] = useState([]);
   const [resetFields, setResetFields] = useState(false);
@@ -27,6 +27,7 @@ export default function Reviews({ propertyId }) {
           return a.createdAt.seconds - b.createdAt.seconds;
         });
         setReviews(sortedRevs);
+        setReviewCount(sortedRevs.length);
         setResetFields(!resetFields);
       }
     };
