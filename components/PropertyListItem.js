@@ -1,17 +1,35 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { toast } from "react-toastify";
 import ReviewStars from "./ReviewStars";
-import { unixToDate } from "../utils";
-import { ApartmentModel } from "../models/index";
+import { unixToDate, getAverageRating } from "../utils";
+import { ApartmentModel, ReviewsModel } from "../models/index";
 import StorageUploads from "../models/storageUploads";
 
 export default function PropertyListItem({ listing, thumbnail }) {
   const router = useRouter();
   const { pathname } = router;
   const [isDeleting, setIsDeleting] = useState(false);
+  const [reviews, setReviews] = useState([]);
+
+  useEffect(() => {
+    const getReviews = async () => {
+      console.log(listing?.mId);
+      const revs = await new ReviewsModel({
+        propertyId: `${listing?.mId}`,
+      }).getAllByQuery();
+      console.log(revs);
+      if (revs && revs.length > 0) {
+        setReviews(revs);
+      }
+    };
+
+    if (listing?.mId) {
+      getReviews();
+    }
+  }, [listing]);
 
   const handleDelete = async () => {
     setIsDeleting(true);
@@ -25,6 +43,7 @@ export default function PropertyListItem({ listing, thumbnail }) {
     toast.success("Listing deleted successfully");
     router.reload();
   };
+
   if (!listing && !thumbnail) return null;
   return (
     <tr>
@@ -43,12 +62,15 @@ export default function PropertyListItem({ listing, thumbnail }) {
             <p className="fs-12 ls-6">
               {listing.street}, {listing.sub_city}, {listing.city}
             </p>
-            <ReviewStars rating={4} count={6} />
+            <ReviewStars
+              rating={getAverageRating(reviews)}
+              count={reviews.length}
+            />
           </div>
         </div>
       </td>
       <td className="py-3">{unixToDate(listing.createdAt.seconds)}</td>
-      <td className="py-3">164</td>
+      <td className="py-3">{listing.views ? listing.views : 0}</td>
       <td className="py-3">
         <Link href={`${pathname}/${listing.mId}`}>
           <a className="btn btn-primary text-warning bg-transparent border-0 p-0">

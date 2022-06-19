@@ -10,6 +10,7 @@ import {
   where,
   query,
   deleteDoc,
+  increment,
 } from "firebase/firestore";
 
 import { randomKeys } from "../utils";
@@ -148,6 +149,12 @@ class BaseModel {
     });
 
     return data;
+  }
+
+  async incrementValue() {
+    await updateDoc(doc(this.db, this.collectionName, this.getId()), {
+      views: increment(1),
+    });
   }
 }
 

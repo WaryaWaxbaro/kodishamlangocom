@@ -8,6 +8,11 @@ export default function ReviewStars(props) {
     // Set rating to 4
     rating = 0;
   }
+
+  if (count === 0) {
+    return null;
+  }
+
   return (
     <div className="text-primary">
       {Array.from({ length: 5 }).map((_, i) => (

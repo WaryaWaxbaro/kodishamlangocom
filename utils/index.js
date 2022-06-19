@@ -137,3 +137,11 @@ export const sortDataByQuery = (data, query) => {
 
   return sortedData;
 };
+
+export const getAverageRating = (ratings) => {
+  let sum = 0;
+  ratings.forEach((rating) => {
+    sum += rating.rating;
+  });
+  return sum / ratings.length;
+};

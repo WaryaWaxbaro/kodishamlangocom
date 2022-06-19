@@ -12,6 +12,7 @@ import StorageUploads from "../../models/storageUploads";
 import { ProfileModel } from "../../models";
 import { formatPrice, property_features, toUnderscoreKey } from "../../utils";
 import Loader from "../../components/Loader";
+import ViewCounter from "../../components/ViewCounter";
 
 export default function singleListingForRent(props) {
   const listing = props.listing ? JSON.parse(props.listing) : {};
@@ -20,6 +21,8 @@ export default function singleListingForRent(props) {
   const [profileImageUrl, setProfileImageUrl] = useState(null);
   const [reload, setReload] = useState(true);
   const [reviewCount, setReviewCount] = useState(0);
+
+  console.log(listing);
 
   useEffect(() => {
     const getImages = async (id) => {
@@ -217,6 +220,7 @@ export default function singleListingForRent(props) {
           </div>
         </div>
       </div>
+      <ViewCounter id={listing.id} propertyId={listing.mId} />
     </div>
   );
 }
@@ -251,7 +255,7 @@ export const getStaticProps = async ({ params }) => {
     .get();
 
   const data = querySnapshot.docs.map((doc) => {
-    return doc.data();
+    return { id: doc.id, ...doc.data() };
   });
 
   return {
