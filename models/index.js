@@ -23,3 +23,15 @@ export class ReviewsModel extends BaseModel {
     super("reviews", data);
   }
 }
+
+export class ContactRequestModel extends BaseModel {
+  constructor(data) {
+    super("contact_requests", data);
+  }
+}
+
+export class ContactModel extends BaseModel {
+  constructor(data) {
+    super("contacts", data);
+  }
+}

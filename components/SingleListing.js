@@ -202,7 +202,10 @@ export default function SingleListing({ listing, listingType }) {
               <hr />
               <div className="w-100">
                 <h5 className="fs-16 fw-bold ls-6">Request Inquiry</h5>
-                <ContactRequestForm />
+                <ContactRequestForm
+                  listing={listing}
+                  listingType={listingType}
+                />
               </div>
             </div>
           )}
