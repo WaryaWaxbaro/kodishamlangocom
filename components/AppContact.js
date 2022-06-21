@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { ContactRequestModel } from "../models";
+import { ContactModel } from "../models";
 import { validateEmail } from "../utils";
 
 const contactRequestData = {
@@ -10,7 +10,7 @@ const contactRequestData = {
   message: "",
 };
 
-export default function ContactRequestForm({ listing, listingType }) {
+export default function AppContact() {
   const [contactRequest, setContactRequest] = useState(contactRequestData);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -18,12 +18,7 @@ export default function ContactRequestForm({ listing, listingType }) {
 
   useEffect(() => {
     const createContactRequest = async () => {
-      const cRequest = await new ContactRequestModel({
-        ...contactRequest,
-        listingId: listing.mId,
-        userId: listing.userId,
-        listingType,
-      }).save();
+      const cRequest = await new ContactModel(contactRequest).save();
       if (cRequest.id) {
         setIsSubmitted(true);
         setContactRequest(contactRequestData);
@@ -64,7 +59,7 @@ export default function ContactRequestForm({ listing, listingType }) {
   };
 
   return (
-    <div className="w-100 mt-3">
+    <div className="w-100 mt-3 min-height-300px">
       {isSubmitting ? (
         <div className="d-flex justify-content-center">
           <div className="spinner-grow" role="status">
@@ -74,9 +69,9 @@ export default function ContactRequestForm({ listing, listingType }) {
       ) : (
         <>
           {isSubmitted ? (
-            <div className="d-flex align-items-center justify-content-center">
-              <p className="fs-12 text-success">
-                Your Request has been recieved
+            <div className="d-flex align-items-center">
+              <p className="text-success">
+                Thank you for contacting us. We will get back to you shortly.
               </p>
             </div>
           ) : (
@@ -135,7 +130,7 @@ export default function ContactRequestForm({ listing, listingType }) {
                   disabled={isSubmitting}
                   className="btn btn-primary text-light fs-18 rounded-0"
                 >
-                  Submit Request
+                  Submit
                 </button>
               </div>
             </form>

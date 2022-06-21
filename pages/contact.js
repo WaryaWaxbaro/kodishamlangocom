@@ -1,7 +1,7 @@
 import Image from "next/image";
 import dynamic from "next/dynamic";
-import ContactRequestForm from "../components/ContactRequestForm";
 import HeadingWithLine from "../components/HeadingWithLine";
+import AppContact from "../components/AppContact";
 
 export default function contact() {
   const MapWithNoSSR = dynamic(() => import("../components/Map"), {
@@ -38,7 +38,7 @@ export default function contact() {
                 <h2 className="mb-2 fs-18 fw-bold text-uppercase">
                   Contact Us
                 </h2>
-                <ContactRequestForm />
+                <AppContact />
               </div>
               <div className="col-12 col-md-5 col-xl-4 mb-4">
                 <div className="w-100 h-100 h-md-450 position-relative">
