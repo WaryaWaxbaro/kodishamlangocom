@@ -35,6 +35,7 @@ const fieldValues = {
   name: "John Doe",
   email: "john.doe@gmail.com",
   phone: "0712345678",
+  likes: [],
 };
 const property_features_keys = property_features.map((feature) => {
   let k = toUnderscoreKey(feature);

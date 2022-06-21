@@ -176,7 +176,7 @@ export default function SmallCard({
                 <span
                   data-bs-toggle="tooltip"
                   data-bs-placement="top"
-                  title={apartment.likes.length}
+                  title={apartment.likes ? apartment.likes.length : 0}
                   onClick={() => setUpdateLikes(true)}
                   className="d-block cursor-pointer"
                 >

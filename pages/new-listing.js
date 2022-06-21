@@ -9,7 +9,7 @@ import { useUser } from "../context/userContext";
 
 import { slugString } from "../utils";
 
-export default function newListing(props) {
+export default function NewListing(props) {
   const [formData, setFormData] = useState({});
   const [formImages, setFormImages] = useState([]);
   const [syncData, setSyncData] = useState(false);
@@ -37,10 +37,17 @@ export default function newListing(props) {
         if (savedApartment.mId) {
           if (formImages.length > 0) {
             toast.warning("Uploading images...");
-            await new StorageUploads(
-              `apartments/thumbnails/${savedApartment.mId}`,
-              thumbnailImage
-            ).uploadResumable("shalow");
+            if (thumbnailImage) {
+              await new StorageUploads(
+                `apartments/thumbnails/${savedApartment.mId}`,
+                thumbnailImage
+              ).uploadResumable("shalow");
+            } else {
+              await new StorageUploads(
+                `apartments/thumbnails/${savedApartment.mId}`,
+                [formImages[0]]
+              ).uploadResumable("shalow");
+            }
 
             const uploadStorage = await new StorageUploads(
               `apartments/${savedApartment.mId}`,
@@ -62,19 +69,60 @@ export default function newListing(props) {
           toast.success("Listing added successfully");
           setSyncData(false);
           setDisableBtn(false);
-          let slug = savedApartment.property_status_rent
-            ? "/for-rent"
-            : savedApartment.property_status_rent
-            ? "/for-sale"
-            : "for-rent";
+          await fetch(`/api/updateStatus`, {
+            method: "POST",
+            body: JSON.stringify({
+              status_data: {
+                id: savedApartment.mId,
+                city: savedApartment.city,
+                country: savedApartment.country,
+                price: savedApartment.price,
+                area: savedApartment.area,
+                property_status: savedApartment.property_status,
+              },
+              action: "update",
+            }),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+          let slug =
+            savedApartment.property_status.indexOf("rent") > -1
+              ? "/for-rent"
+              : savedApartment.property_status.indexOf("sale") > -1
+              ? "/for-sale"
+              : savedApartment.property_status.indexOf("short stay") > -1
+              ? "/short-stay"
+              : "for-rent";
           router.push(`${slug}/${savedApartment.slug}`);
         }
       }
     };
 
+    const updateStatus = async () => {
+      await fetch(`/api/updateStatus`, {
+        method: "POST",
+        body: JSON.stringify({
+          status_data: {
+            id: 12,
+            city: formData.city,
+            country: formData.country,
+            price: formData.price,
+            area: formData.area,
+            property_status: formData.property_status,
+          },
+          action: "update",
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+    };
+
     if (syncData && currentUser?.mId) {
       if (currentUser.mId) {
-        addNewListing(currentUser.mId);
+        //addNewListing(currentUser.mId);
+        updateStatus();
       } else {
         toast.error("Please login to add listing");
       }
