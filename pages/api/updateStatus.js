@@ -13,6 +13,7 @@ export default async function handler(req, res) {
     const objectData = JSON.parse(jsonData);
     console.log("objectData ", objectData);
 
+    let oldData = objectData.data;
     let cities = objectData.cities;
     let countries = objectData.countries;
     let price =
@@ -31,7 +32,16 @@ export default async function handler(req, res) {
       countries.push(status_data.country);
     }
 
-    let newData = { cities, countries, price, area };
+    if (action === "update") {
+      oldData.push({
+        id: status_data.id,
+        city: status_data.city,
+      });
+    } else {
+      oldData = oldData.filter((item) => item.id !== status_data.id);
+    }
+
+    let newData = { cities, countries, price, area, data: oldData };
     console.log("newData ", newData);
 
     fs.writeFile(

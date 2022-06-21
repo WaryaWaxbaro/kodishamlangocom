@@ -99,30 +99,9 @@ export default function NewListing(props) {
       }
     };
 
-    const updateStatus = async () => {
-      await fetch(`/api/updateStatus`, {
-        method: "POST",
-        body: JSON.stringify({
-          status_data: {
-            id: 12,
-            city: formData.city,
-            country: formData.country,
-            price: formData.price,
-            area: formData.area,
-            property_status: formData.property_status,
-          },
-          action: "update",
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-    };
-
     if (syncData && currentUser?.mId) {
       if (currentUser.mId) {
-        //addNewListing(currentUser.mId);
-        updateStatus();
+        addNewListing(currentUser.mId);
       } else {
         toast.error("Please login to add listing");
       }

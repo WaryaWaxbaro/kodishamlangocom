@@ -56,9 +56,7 @@ export default function myProperties() {
     const foundThumbnail = thumnails.find(
       (thumbnail) => thumbnail.id === listingId
     );
-    return foundThumbnail?.img
-      ? foundThumbnail.img
-      : "/images/cover/nairobi.png";
+    return foundThumbnail?.img ? foundThumbnail.img : "";
   };
   return (
     <AdminLayout>

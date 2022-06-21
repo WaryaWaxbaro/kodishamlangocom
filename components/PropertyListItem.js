@@ -36,15 +36,31 @@ export default function PropertyListItem({ listing, thumbnail }) {
     const deleteListing = await new ApartmentModel({
       id: listing.id,
     }).remove();
-    const removeImages = await new StorageUploads(
-      `/apartments/${listing.mId}`
-    ).removeAllWithThumbnail();
+    console.log(thumbnail);
+    if (thumbnail) {
+      const removeImages = await new StorageUploads(
+        `/apartments/${listing.mId}`
+      ).removeAllWithThumbnail();
+    }
+
+    await fetch(`/api/updateStatus`, {
+      method: "POST",
+      body: JSON.stringify({
+        status_data: {
+          id: listing.mId,
+        },
+        action: "delete",
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
     toast.success("Listing deleted successfully");
     router.reload();
   };
 
-  if (!listing && !thumbnail) return null;
+  if (!listing) return null;
   return (
     <tr>
       <td className="py-3">
@@ -54,7 +70,10 @@ export default function PropertyListItem({ listing, thumbnail }) {
               className="position-relative cover-img-img rounded-5 overflow-hidden"
               style={{ width: "130px", height: "100px" }}
             >
-              <Image src={thumbnail} layout="fill" />
+              <Image
+                src={thumbnail ? thumbnail : "/images/cover/nairobi.png"}
+                layout="fill"
+              />
             </div>
           </div>
           <div className="min-width-350">
