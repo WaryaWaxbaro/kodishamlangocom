@@ -4,7 +4,7 @@ import queryString from "query-string";
 
 import AppDropdown from "./AppDropdown";
 import AppSlider from "./AppSlider";
-import cities from "../utils/cities";
+import savedData from "./../data.json";
 import { property_features, toUnderscoreKey, property_types } from "../utils";
 
 const searchFormFields = {
@@ -36,6 +36,10 @@ const property_status_routes = {
 };
 
 const emptyParams = ["Bedrooms", "Bathrooms", "Property Type", "Select City"];
+
+const cities = savedData.cities.filter((city) => Boolean(city));
+const maxPrice = savedData.price ?? 1000000;
+const maxArea = savedData.area ?? 1000;
 
 export default function Search(props) {
   const router = useRouter();
@@ -239,7 +243,7 @@ export default function Search(props) {
               <div className="col-12 col-md-6 mb-2">
                 <div className="my-3">
                   <AppSlider
-                    minMax={[0, 100000]}
+                    minMax={[0, maxArea]}
                     labelName="Area Size"
                     unit="m"
                     setSelectedRange={setSelectedArea}
@@ -247,7 +251,7 @@ export default function Search(props) {
                 </div>
                 <div className="my-3">
                   <AppSlider
-                    minMax={[0, 1000000]}
+                    minMax={[0, maxPrice]}
                     labelName="Price Range"
                     unit="Kshs"
                     formatUnit={true}

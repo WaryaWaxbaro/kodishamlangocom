@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
@@ -12,6 +12,16 @@ export default function NavbarLinks() {
   const { pathname } = router;
   const { user: currentUser, setUser, loadingUser, setCurrentUser } = useUser();
   const auth = getAuth(createFirebaseApp());
+
+  const drawerBtnRef = useRef(null);
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    if (canvasRef.current.classList.contains("show")) {
+      drawerBtnRef.current.click();
+    }
+  }, [pathname]);
+
   const handleSignOut = (e) => {
     e.preventDefault();
     signOut(auth)
@@ -25,6 +35,7 @@ export default function NavbarLinks() {
         console.log(error);
       });
   };
+
   return (
     <div className="container-xl h-100">
       <Logo imgUrl="/images/logo_dark_door.png" />
@@ -38,6 +49,7 @@ export default function NavbarLinks() {
         <i className="bi bi-list text-dark fs-28"></i>
       </button>
       <div
+        ref={canvasRef}
         className="offcanvas offcanvas-start drawer"
         tabIndex="-1"
         id="offcanvasNavbar"
@@ -46,6 +58,7 @@ export default function NavbarLinks() {
         <div className="offcanvas-header bg-primary p-2 h-104">
           <Logo imgUrl="/images/logo_dark_door.png" />
           <button
+            ref={drawerBtnRef}
             type="button"
             className="btn-close text-reset"
             data-bs-dismiss="offcanvas"
@@ -243,17 +256,17 @@ const mainLinks = [
   {
     name: "For Rent",
     url: "/for-rent",
-    icon: "bi bi-card-list",
+    icon: "bi bi-house-heart",
   },
   {
     name: "For Sale",
     url: "/for-sale",
-    icon: "bi bi-card-text",
+    icon: "bi bi-house-heart-fill",
   },
   {
-    name: "Contact",
-    url: "/contact",
-    icon: "bi bi-envelope-fill",
+    name: "Short Stay",
+    url: "/short-stay",
+    icon: "bi bi-emoji-sunglasses",
   },
 ];
 

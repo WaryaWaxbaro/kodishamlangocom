@@ -300,7 +300,7 @@ export default function NewListingForm(props) {
           <label className="form-label">
             Property Status <span className="text-primary">*</span>
           </label>
-          {["rent", "sale", "short stay"].map((status) => (
+          {["rent", "sale", "short stay", "plot"].map((status) => (
             <div key={status} className="form-check me-5">
               <input
                 className="form-check-input"
@@ -315,7 +315,9 @@ export default function NewListingForm(props) {
                 className="form-check-label text-capitalize"
                 htmlFor={status}
               >
-                {status}
+                {status === "plot"
+                  ? "Plot (No need of filling all the fields. For example Pictures)"
+                  : status}
               </label>
             </div>
           ))}

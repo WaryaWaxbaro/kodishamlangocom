@@ -1,8 +1,4 @@
 import { useState, useRef, useEffect } from "react";
-import Link from "next/link";
-import { Router, useRouter } from "next/router";
-import Logo from "../components/Logo";
-import Image from "next/image";
 import NavbarLinks from "./NavbarLinks";
 
 export default function Navbar(props) {
