@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-
 import Image from "next/image";
 
 import HeadingWithLine from "../components/HeadingWithLine";
@@ -18,8 +17,6 @@ export default function SingleListing({ listing, listingType }) {
   const [profileImageUrl, setProfileImageUrl] = useState(null);
   const [reload, setReload] = useState(true);
   const [reviewCount, setReviewCount] = useState(0);
-
-  console.log(listing);
 
   useEffect(() => {
     const getImages = async (id) => {
@@ -123,11 +120,7 @@ export default function SingleListing({ listing, listingType }) {
               text="Property Details"
               classNames="text-dark fs-18 fw-bold ls-6"
             />
-            <ul className="list-unstyled d-flex justify-content-between flex-wrap">
-              <li className="w-columns-30 mb-3">
-                <span>Property ID: </span>
-                <span>V254680</span>
-              </li>
+            <ul className="list-unstyled d-flex flex-wrap">
               <li className="w-columns-30 mb-3">
                 <span>Property Type: </span>
                 <span>{listing.apartment_type}</span>
@@ -135,9 +128,8 @@ export default function SingleListing({ listing, listingType }) {
               <li className="w-columns-30 mb-3">
                 <span>Property status: </span>
                 <span>
-                  {listing.property_status.indexOf("rent") >= 0 && "For Rent "}{" "}
-                  ,{listing.property_status.indexOf("sale") >= 0 && "For Sale "}
-                  ,
+                  {listing.property_status.indexOf("rent") >= 0 && "For Rent, "}{" "}
+                  {listing.property_status.indexOf("sale") >= 0 && "For Sale, "}
                   {listing.property_status.indexOf("short stay") >= 0 &&
                     "For Holiday"}
                 </span>
@@ -147,7 +139,7 @@ export default function SingleListing({ listing, listingType }) {
               text="Amenities"
               classNames="text-dark fs-18 fw-bold ls-6"
             />
-            <ul className="list-unstyled d-flex justify-content-between flex-wrap">
+            <ul className="list-unstyled d-flex flex-wrap">
               {property_features.map((feature, index) => {
                 return (
                   listing[toUnderscoreKey(feature)] && (
@@ -164,21 +156,6 @@ export default function SingleListing({ listing, listingType }) {
                 );
               })}
             </ul>
-          </div>
-          {/* Floor Plans */}
-          <div className="w-100 bg-white shadow p-3 mt-3">
-            <HeadingWithLine
-              text="Floor Plans"
-              classNames="text-dark fs-18 fw-bold ls-6"
-            />
-            <div className="w-100 position-relative">
-              <Image
-                src="/images/cover/floor-plan-1.png"
-                layout="responsive"
-                width={450}
-                height={250}
-              />
-            </div>
           </div>
           {/* Reviews */}
           <div className="w-100 bg-white shadow p-3 mt-3">

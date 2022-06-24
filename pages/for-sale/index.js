@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import nookies from "nookies";
 
 import admin from "../../firebase/nodeApp";
 import StorageUploads from "../../models/storageUploads";
