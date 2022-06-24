@@ -140,7 +140,7 @@ export default function SmallCard({
                       />
                     </span>
                     <span className="d-block">
-                      {apartment.bathroom} Bathrooms
+                      {apartment.bathrooms} Bathrooms
                     </span>
                   </p>
                 </div>

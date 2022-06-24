@@ -6,7 +6,7 @@ import { useUser } from "../../../context/userContext";
 import AdminLayout from "../../../layout/AdminLayout";
 import PropertyListItem from "../../../components/PropertyListItem";
 
-export default function myProperties() {
+export default function MyProperties() {
   const [listings, setListings] = useState([]);
   const [thumnails, setThumnails] = useState([]);
 

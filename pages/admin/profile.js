@@ -20,7 +20,7 @@ const formInputs = {
   showProfile: true,
 };
 
-export default function profile() {
+export default function Profile() {
   const router = useRouter();
   const { loadingUser, currentUser } = useUser();
 

@@ -31,6 +31,7 @@ export default function MyProperty(props) {
         mId: `${id}`,
       }).getAllByQuery();
       if (listing) {
+        console.log(listing);
         setListing(listing[0]);
         setFormData(listing[0]);
       }

@@ -315,9 +315,7 @@ export default function NewListingForm(props) {
                 className="form-check-label text-capitalize"
                 htmlFor={status}
               >
-                {status === "plot"
-                  ? "Plot (No need of filling all the fields. For example Pictures)"
-                  : status}
+                {status}
               </label>
             </div>
           ))}
@@ -372,7 +370,7 @@ export default function NewListingForm(props) {
                 className="form-control"
                 id="bathroom"
                 name="bathroom"
-                value={formFields.bathroom}
+                value={formFields.bathrooms}
                 onChange={handleChange}
                 placeholder="4"
               />

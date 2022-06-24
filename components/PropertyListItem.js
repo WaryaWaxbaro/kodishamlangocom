@@ -70,10 +70,13 @@ export default function PropertyListItem({ listing, thumbnail }) {
               className="position-relative cover-img-img rounded-5 overflow-hidden"
               style={{ width: "130px", height: "100px" }}
             >
-              <Image
-                src={thumbnail ? thumbnail : "/images/cover/nairobi.png"}
-                layout="fill"
-              />
+              {thumbnail ? (
+                <Image src={thumbnail} layout="fill" />
+              ) : (
+                <div className="w-100 h-100 fs-18 border border-1 border-dark d-flex align-items-center justify-content-center rounded-3">
+                  <i className="bi bi-house-door-fill"></i>
+                </div>
+              )}
             </div>
           </div>
           <div className="min-width-350">
