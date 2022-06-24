@@ -8,7 +8,7 @@ import StorageUploads from "../../models/storageUploads";
 import { unixToDate, getApartmentPath } from "../../utils";
 import Loader from "../../components/Loader";
 
-export default function favoriteProperties() {
+export default function FavoriteProperties() {
   const { currentUser } = useUser();
   const [favApartments, setFavApartments] = useState([]);
   const [thumbnails, setThumbnails] = useState([]);
@@ -102,7 +102,7 @@ export default function favoriteProperties() {
                     <td className="py-3">
                       {unixToDate(apartment.createdAt.seconds)}
                     </td>
-                    <td className="py-3">164</td>
+                    <td className="py-3">{apartment.views}</td>
                     <td className="py-3">
                       <Link
                         href={`${getApartmentPath(
