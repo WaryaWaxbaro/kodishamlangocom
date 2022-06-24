@@ -75,7 +75,9 @@ export default function Listings({ apartments, setApartments, apartmentType }) {
   return (
     <div className="container-lg">
       <div className="mt-3 mb-5">
-        <h1 className="fs-34 fw-bold ls-6">Listings</h1>
+        <h1 className="fs-34 fw-bold ls-6 text-capitalize">
+          Properties for {apartmentType}
+        </h1>
       </div>
       <div className="w-100 mb-5">
         <Search />

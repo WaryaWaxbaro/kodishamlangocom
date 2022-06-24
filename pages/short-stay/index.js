@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import nookies from "nookies";
 
 import admin from "../../firebase/nodeApp";
 import StorageUploads from "../../models/storageUploads";
@@ -60,7 +59,7 @@ export async function getServerSideProps(context) {
     const listingEntries = await admin
       .firestore()
       .collection("apartments")
-      .where("property_status_short_stay", "==", true)
+      .where("property_status", "array-contains", "short stay")
       .get();
 
     const listings = JSON.stringify(

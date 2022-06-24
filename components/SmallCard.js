@@ -116,8 +116,13 @@ export default function SmallCard({
               <div className="mw-lg-80 d-flex justify-content-between flex-wrap">
                 <div className="w-50">
                   <p className="d-flex fs-14 ls-6">
-                    <span className="d-block me-2">
-                      <i className="bi bi-alarm-fill"></i>
+                    <span className="d-block square-20 me-2">
+                      <Image
+                        width={20}
+                        height="20"
+                        src="/icons/double-bed.svg"
+                        alt={apartment.city}
+                      />
                     </span>
                     <span className="d-block">
                       {apartment.bedrooms} Bedrooms
@@ -126,8 +131,13 @@ export default function SmallCard({
                 </div>
                 <div className="w-50">
                   <p className="d-flex fs-14 ls-6">
-                    <span className="d-block me-2">
-                      <i className="bi bi-alarm-fill"></i>
+                    <span className="d-block square-20 me-2">
+                      <Image
+                        width={20}
+                        height="20"
+                        src="/icons/shower.png"
+                        alt={apartment.city}
+                      />
                     </span>
                     <span className="d-block">
                       {apartment.bathroom} Bathrooms
@@ -136,20 +146,17 @@ export default function SmallCard({
                 </div>
                 <div className="w-50">
                   <p className="d-flex fs-14 ls-6">
-                    <span className="d-block me-2">
-                      <i className="bi bi-alarm-fill"></i>
+                    <span className="d-block square-20 me-2">
+                      <Image
+                        width={20}
+                        height="20"
+                        src="/icons/area.svg"
+                        alt={apartment.city}
+                      />
                     </span>
                     <span className="d-block">
                       {apartment.area} m<sup>2</sup>
                     </span>
-                  </p>
-                </div>
-                <div className="w-50">
-                  <p className="d-flex fs-14 ls-6">
-                    <span className="d-block me-2">
-                      <i className="bi bi-alarm-fill"></i>
-                    </span>
-                    <span className="d-block">{apartment.parking} Parking</span>
                   </p>
                 </div>
               </div>

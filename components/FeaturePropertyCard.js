@@ -88,16 +88,26 @@ export default function FeaturePropertyCard({
               <div className="mw-lg-80 d-flex justify-content-between flex-wrap">
                 <div className="w-50" style={{ minWidth: "180px" }}>
                   <p className="d-flex fs-14 ls-6">
-                    <span className="d-block me-2">
-                      <i className="bi bi-alarm-fill"></i>
+                    <span className="d-block square-20 me-2">
+                      <Image
+                        width={20}
+                        height="20"
+                        src="/icons/double-bed.svg"
+                        alt={listing.city}
+                      />
                     </span>
                     <span className="d-block">{listing.bedrooms} Bedrooms</span>
                   </p>
                 </div>
                 <div className="w-50" style={{ minWidth: "180px" }}>
                   <p className="d-flex fs-14 ls-6">
-                    <span className="d-block me-2">
-                      <i className="bi bi-alarm-fill"></i>
+                    <span className="d-block square-20 me-2">
+                      <Image
+                        width={20}
+                        height="20"
+                        src="/icons/shower.png"
+                        alt={listing.city}
+                      />
                     </span>
                     <span className="d-block">
                       {listing.bathrooms} Bathrooms
@@ -106,22 +116,20 @@ export default function FeaturePropertyCard({
                 </div>
                 <div className="w-50" style={{ minWidth: "180px" }}>
                   <p className="d-flex fs-14 ls-6">
-                    <span className="d-block me-2">
-                      <i className="bi bi-alarm-fill"></i>
+                    <span className="d-block square-20 me-2">
+                      <Image
+                        width={20}
+                        height="20"
+                        src="/icons/area.svg"
+                        alt={listing.city}
+                      />
                     </span>
                     <span className="d-block">
                       {listing.area} m<sup>2</sup>
                     </span>
                   </p>
                 </div>
-                <div className="w-50" style={{ minWidth: "180px" }}>
-                  <p className="d-flex fs-14 ls-6">
-                    <span className="d-block me-2">
-                      <i className="bi bi-alarm-fill"></i>
-                    </span>
-                    <span className="d-block">2 Garages</span>
-                  </p>
-                </div>
+                <div className="w-100 h-60"></div>
               </div>
             </div>
           </a>
