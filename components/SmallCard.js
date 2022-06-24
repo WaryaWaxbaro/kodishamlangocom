@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { toast } from "react-toastify";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -56,9 +57,12 @@ export default function SmallCard({
         like: currentUser.mId,
       }).updateLikes();
     };
-    if (updateLikes && currentUser) {
+    if (currentUser && updateLikes) {
       handleLike();
       setLiked(!liked);
+      setUpdateLikes(false);
+    } else if (updateLikes) {
+      toast.error("Please login to like this apartment");
       setUpdateLikes(false);
     }
   }, [updateLikes]);

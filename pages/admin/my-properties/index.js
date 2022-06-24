@@ -1,6 +1,4 @@
 import { useState, useEffect } from "react";
-import Image from "next/image";
-import ReviewStars from "../../../components/ReviewStars";
 
 import { ApartmentModel } from "../../../models";
 import StorageUploads from "../../../models/storageUploads";

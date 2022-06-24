@@ -11,6 +11,8 @@ import {
   query,
   deleteDoc,
   increment,
+  orderBy,
+  limit,
 } from "firebase/firestore";
 
 import { randomKeys } from "../utils";
@@ -115,6 +117,21 @@ class BaseModel {
     return data;
   }
 
+  async getAllByQueryWithLimit(count = 10) {
+    const key = Object.keys(this.data)[0];
+    const q = query(
+      collection(this.db, this.collectionName),
+      where(`${key}`, "==", this.get(key))
+    );
+
+    const querySnapshot = await getDocs(q, orderBy("createdAt"), limit(count));
+    const data = querySnapshot.docs.map((doc) => {
+      return { id: doc.id, ...doc.data() };
+    });
+
+    return data;
+  }
+
   async getAllByMultipleQueries() {}
 
   async remove() {
@@ -144,6 +161,21 @@ class BaseModel {
     );
 
     const querySnapshot = await getDocs(q);
+    const data = querySnapshot.docs.map((doc) => {
+      return { id: doc.id, ...doc.data() };
+    });
+
+    return data;
+  }
+
+  async findByContainsWithLimit(count = 10) {
+    const key = Object.keys(this.data)[0];
+    const q = query(
+      collection(this.db, this.collectionName),
+      where(`${key}`, "array-contains", `${this.get(key)}`)
+    );
+
+    const querySnapshot = await getDocs(q, orderBy("createdAt"), limit(count));
     const data = querySnapshot.docs.map((doc) => {
       return { id: doc.id, ...doc.data() };
     });

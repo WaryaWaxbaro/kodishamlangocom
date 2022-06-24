@@ -151,3 +151,29 @@ export const validateEmail = (email) => {
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(String(email).toLowerCase());
 };
+
+export const countByCity = (data) => {
+  let cityCount = {};
+  data.forEach((listing) => {
+    if (cityCount[listing.city]) {
+      cityCount[listing.city]++;
+    } else {
+      cityCount[listing.city] = 1;
+    }
+  });
+  return cityCount;
+};
+
+// sort countByCity by count
+export const sortByCount = (countByCity) => {
+  let sortedCount = [];
+  Object.keys(countByCity).forEach((city) => {
+    sortedCount.push({ city, count: countByCity[city] });
+  });
+
+  sortedCount = sortedCount.sort((a, b) => {
+    return b.count - a.count;
+  });
+
+  return sortedCount;
+};

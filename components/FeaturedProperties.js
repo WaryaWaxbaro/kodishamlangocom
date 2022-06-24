@@ -1,7 +1,31 @@
+import { useState, useRef } from "react";
 import Link from "next/link";
 import FeaturePropertyCard from "./FeaturePropertyCard";
+import SharingModal from "./SharingModal";
+import { useUser } from "../context/userContext";
 
-export default function FeaturedProperties() {
+export default function FeaturedProperties({ thumbnails, listings }) {
+  const [sharingInfo, setSharingInfo] = useState({ url: "", title: "" });
+  const { currentUser, user } = useUser();
+
+  const sharingModalButton = useRef(null);
+
+  const getThumbnail = (listingId) => {
+    const foundThumbnail = thumbnails.find(
+      (thumbnail) => thumbnail.id === listingId
+    );
+    return foundThumbnail?.img ? foundThumbnail.img : "";
+  };
+
+  const handleSetsSharingInfo = (url, title) => {
+    setSharingInfo({ url, title });
+    sharingModalButton.current.click();
+  };
+
+  if (!listings) {
+    return;
+  }
+
   return (
     <section className="py-5 bg-gray-200">
       <div className="container-lg">
@@ -10,12 +34,19 @@ export default function FeaturedProperties() {
           <p>These are our featured properties</p>
         </div>
         <div className="row row-cols-1 row-cols-lg-2 g-4 mt-5">
-          <div className="col">
-            <FeaturePropertyCard />
-          </div>
-          <div className="col">
-            <FeaturePropertyCard />
-          </div>
+          {listings.map((listing, index) => {
+            return (
+              <div id={listing.mId} key={listing.mId} className="col">
+                <FeaturePropertyCard
+                  listing={listing}
+                  thumbnail={getThumbnail(listing.mId)}
+                  index={index + 1}
+                  setSharingInfo={handleSetsSharingInfo}
+                  currentUser={currentUser}
+                />
+              </div>
+            );
+          })}
         </div>
         <div className="w-100 text-center mt-5">
           <Link href="/">
@@ -30,6 +61,16 @@ export default function FeaturedProperties() {
           </Link>
         </div>
       </div>
+      <SharingModal sharingInfo={sharingInfo} />
+      <button
+        ref={sharingModalButton}
+        type="button"
+        className="btn btn-primary d-none"
+        data-bs-toggle="modal"
+        data-bs-target="#sharingLinksModal"
+      >
+        Open sharing modal
+      </button>
     </section>
   );
 }
