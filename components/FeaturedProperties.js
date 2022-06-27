@@ -51,7 +51,7 @@ export default function FeaturedProperties({ thumbnails, listings }) {
           })}
         </div>
         <div className="w-100 text-center mt-5">
-          <Link href={`/${urls[Math.floor(Math.random() * 3)]}`}>
+          <Link href="/for-sale">
             <a className="btn btn-primary btn-lg text-light fs-14 px-4 py-08 rounded-pill">
               <span className="d-flex align-item-center justify-content-center">
                 <span className="d-block me-2">View More</span>

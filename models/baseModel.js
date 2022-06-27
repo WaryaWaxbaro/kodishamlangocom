@@ -106,7 +106,7 @@ class BaseModel {
     const key = Object.keys(this.data)[0];
     const q = query(
       collection(this.db, this.collectionName),
-      where(`${key}`, "==", this.get(key))
+      where(`${key}`, "==", `${this.get(key)}`)
     );
 
     const querySnapshot = await getDocs(q);
@@ -121,10 +121,11 @@ class BaseModel {
     const key = Object.keys(this.data)[0];
     const q = query(
       collection(this.db, this.collectionName),
-      where(`${key}`, "==", this.get(key))
+      where(`${key}`, "==", `${this.get(key)}`),
+      limit(count)
     );
 
-    const querySnapshot = await getDocs(q, orderBy("createdAt"), limit(count));
+    const querySnapshot = await getDocs(q);
     const data = querySnapshot.docs.map((doc) => {
       return { id: doc.id, ...doc.data() };
     });

@@ -37,7 +37,7 @@ export async function getServerSideProps(context) {
     const listingEntries = await admin
       .firestore()
       .collection("apartments")
-      .where("property_status_short_stay", "==", true)
+      .where("property_status", "array-contains", "plot")
       .get();
 
     const listings = JSON.stringify(

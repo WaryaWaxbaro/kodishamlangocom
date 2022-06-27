@@ -4,6 +4,7 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   FacebookAuthProvider,
+  signOut,
 } from "firebase/auth";
 import { increment } from "firebase/firestore";
 import { useRouter } from "next/router";
@@ -25,6 +26,15 @@ export default function login() {
     const token = sessionStorage.getItem("token");
     if (token) {
       router.push("/admin");
+    } else {
+      signOut(auth)
+        .then(() => {
+          setUser(null);
+          setCurrentUser(null);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
   }, []);
 

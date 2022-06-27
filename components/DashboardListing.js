@@ -1,12 +1,13 @@
+import { useState } from "react";
 import Link from "next/link";
-import React from "react";
 
 import { formatPrice, unixToDate } from "../utils";
 
 export default function DashboardListing({ listings }) {
+  const apartments = listings.slice(0, 5);
   return (
     <div className="w-100 p-2 p-sm-3 shadow mb-4">
-      <h2 className="fs-22 fw-bold ls-6 mb-4">Listing</h2>
+      <h2 className="fs-22 fw-bold ls-6 mb-4">Properties</h2>
       <div className="table-responsive">
         <table className="table table-striped">
           <thead>
@@ -19,7 +20,7 @@ export default function DashboardListing({ listings }) {
             </tr>
           </thead>
           <tbody>
-            {listings.map((listing) => (
+            {apartments.map((listing) => (
               <tr key={listing.mId}>
                 <td>{listing.title}</td>
                 <td>{formatPrice(listing.price)}</td>

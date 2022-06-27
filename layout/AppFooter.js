@@ -12,7 +12,7 @@ export default function AppFooter() {
               <Logo imgUrl="/images/logo_orange_door.png" />
             </div>
             <div className="max-width-350 text-light my-4">
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+              <p>Choose from wide range of properties.</p>
             </div>
             <div className="mt-4 text-light text-center-md">
               <p className="d-flex align-items-center">
@@ -131,12 +131,12 @@ const footerLinks = [
     url: "/",
   },
   {
-    name: "Homes for Rent",
-    url: "/houses-for-rent",
+    name: "For Rent",
+    url: "/for-rent",
   },
   {
-    name: "Buy home",
-    url: "/houses-for-sell",
+    name: "For Sale",
+    url: "/for-sale",
   },
   {
     name: "Short stay (Holiday)",
@@ -144,7 +144,7 @@ const footerLinks = [
   },
   {
     name: "New Advertisement",
-    url: "/new-advertisement",
+    url: "/new-listing",
   },
 ];
 
@@ -154,8 +154,8 @@ const footerLinksSm = [
     url: "/about-us",
   },
   {
-    name: "Contact",
-    url: "/contact-us",
+    name: "Contact Us",
+    url: "/contact",
   },
   {
     name: "Terms and Conditions",
