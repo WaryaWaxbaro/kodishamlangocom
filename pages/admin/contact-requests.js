@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import AdminLayout from "../../layout/AdminLayout";
 import { useUser } from "../../context/userContext";
-import { getApartmentPath, slugString, unixToDate } from "../../utils";
+import { getApartmentPath } from "../../utils";
 import { ApartmentModel, ContactRequestModel } from "../../models/index";
 import { formatPrice } from "../../utils/index";
 import ContactRequestCollapse from "../../components/ContactRequestCollapse";
@@ -38,7 +38,7 @@ export default function ContactRequests() {
     const getContactRequests = async (userId) => {
       const contactRequest = await new ContactRequestModel({
         userId: `${userId}`,
-      }).getAllByQueryWithLimit(5);
+      }).getAllByQuery();
 
       if (contactRequest) {
         // Sort the listings by date

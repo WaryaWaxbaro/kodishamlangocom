@@ -20,7 +20,8 @@ export default function Reviews({ propertyId, setReviewCount }) {
       console.log(propertyId);
       const revs = await new ReviewsModel({
         propertyId: `${propertyId}`,
-      }).getAllByQuery();
+        isPublished: true,
+      }).getAllByQueryDouble(["propertyId", "isPublished"]);
       console.log(revs);
       if (revs && revs.length > 0) {
         const sortedRevs = revs.sort((a, b) => {

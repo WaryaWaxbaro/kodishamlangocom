@@ -117,6 +117,21 @@ class BaseModel {
     return data;
   }
 
+  async getAllByQueryDouble(keys) {
+    const q = query(
+      collection(this.db, this.collectionName),
+      where(`${keys[0]}`, "==", `${this.get(keys[0])}`),
+      where(`${keys[1]}`, "==", this.get(keys[1]))
+    );
+
+    const querySnapshot = await getDocs(q);
+    const data = querySnapshot.docs.map((doc) => {
+      return { id: doc.id, ...doc.data() };
+    });
+
+    return data;
+  }
+
   async getAllByQueryWithLimit(count = 10) {
     const key = Object.keys(this.data)[0];
     const q = query(
