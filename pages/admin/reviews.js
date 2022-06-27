@@ -6,7 +6,7 @@ import { useUser } from "../../context/userContext";
 import { getApartmentPath } from "../../utils";
 import { ApartmentModel, ReviewsModel } from "../../models/index";
 import { formatPrice } from "../../utils/index";
-import ContactRequestCollapse from "../../components/ContactRequestCollapse";
+import ContactRequestCollapse from "../../components/ContactRequestCard";
 import Pagination from "../../components/Pagination";
 import ReviewCard from "../../components/ReviewCard";
 

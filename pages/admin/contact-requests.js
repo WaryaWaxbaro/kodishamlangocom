@@ -6,7 +6,7 @@ import { useUser } from "../../context/userContext";
 import { getApartmentPath } from "../../utils";
 import { ApartmentModel, ContactRequestModel } from "../../models/index";
 import { formatPrice } from "../../utils/index";
-import ContactRequestCollapse from "../../components/ContactRequestCollapse";
+import ContactRequestCard from "../../components/ContactRequestCard";
 import Pagination from "../../components/Pagination";
 
 let PageSize = 25;
@@ -14,7 +14,6 @@ let PageSize = 25;
 export default function ContactRequests() {
   const [listings, setListings] = useState([]);
   const [paginatedListings, setPaginatedListings] = useState([]);
-  const [contactRequests, setContactRequests] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
 
   const { currentUser, loadingUser } = useUser();
@@ -35,24 +34,8 @@ export default function ContactRequests() {
       }
     };
 
-    const getContactRequests = async (userId) => {
-      const contactRequest = await new ContactRequestModel({
-        userId: `${userId}`,
-      }).getAllByQuery();
-
-      if (contactRequest) {
-        // Sort the listings by date
-        console.log(contactRequest);
-        const sortedContactRequests = contactRequest.sort((a, b) => {
-          return b.createdAt.seconds - a.createdAt.seconds;
-        });
-        setContactRequests(sortedContactRequests);
-      }
-    };
-
     if (currentUser?.mId) {
       getApartments(currentUser.mId);
-      getContactRequests(currentUser.mId);
     }
   }, [loadingUser, currentUser]);
 
@@ -62,13 +45,6 @@ export default function ContactRequests() {
     const paginatedListings = listings.slice(firstPageIndex, lastPageIndex);
     setPaginatedListings(paginatedListings);
   }, [currentPage, listings]);
-
-  const findContactRequests = (listingId) => {
-    const foundContactRequests = contactRequests.filter(
-      (contactRequest) => contactRequest.listingId === listingId
-    );
-    return foundContactRequests;
-  };
 
   const setItemIndex = (index, currentPage) => {
     let currentIndex = index + 1;
@@ -114,12 +90,10 @@ export default function ContactRequests() {
                         <a className="fs-14">View Property</a>
                       </Link>
                     </p>
-                    {findContactRequests(listing.mId).map((contactRequest) => (
-                      <ContactRequestCollapse
-                        key={listing.mId}
-                        contactRequest={contactRequest}
-                      />
-                    ))}
+                    <ContactRequestCard
+                      key={listing.mId}
+                      listingId={listing.mId}
+                    />
                   </div>
                 </div>
               ))}
