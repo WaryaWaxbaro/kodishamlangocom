@@ -59,6 +59,7 @@ export default function Reviews() {
     <AdminLayout>
       <div className="container-lg">
         <div className="max-width-960 mx-auto shadow rounded-10 my-4 p-2 p-sm-3 p-lg-4">
+          <h2 className="fs-24 fw-bold ls-6 mb-5">Reviews</h2>
           {listings.length > 0 ? (
             <div className="w-100">
               {paginatedListings.map((listing, index) => (
