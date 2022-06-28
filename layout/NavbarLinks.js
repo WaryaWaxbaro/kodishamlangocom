@@ -287,6 +287,16 @@ const dropdownLinks = [
     icon: "bi bi-list-ul",
   },
   {
+    name: "Contact Requests",
+    url: "/admin/contact-requests",
+    icon: "bi bi-telephone-inbound-fill",
+  },
+  {
+    name: "Reviews",
+    url: "/admin/reviews",
+    icon: "bi bi-person-lines-fill",
+  },
+  {
     name: "Favorite Properties",
     url: "/admin/favorite-properties",
     icon: "bi bi-heart-fill",
