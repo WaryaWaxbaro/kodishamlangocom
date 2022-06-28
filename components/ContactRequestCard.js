@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import { unixToDate } from "../utils";
+import { unixToDate, getYesterdayDate } from "../utils";
 import { ContactRequestModel } from "../models/index";
 
 export default function ContactRequestCard({ listingId }) {
   const [contactRequests, setContactRequests] = useState([]);
+  const [todayContactRequests, setTodayContactRequests] = useState([]);
 
   useEffect(() => {
     const getContactRequests = async () => {
@@ -17,13 +18,22 @@ export default function ContactRequestCard({ listingId }) {
         const sortedContactRequests = contactRequest.sort((a, b) => {
           return b.createdAt.seconds - a.createdAt.seconds;
         });
+        let todayContacts = sortedContactRequests.filter(
+          (contactRequest) =>
+            new Date(contactRequest.createdAt.seconds * 1000).getTime() >
+            getYesterdayDate().getTime()
+        );
+        console.log(todayContacts);
         setContactRequests(sortedContactRequests);
+        setTodayContactRequests(todayContacts);
       }
     };
     if (listingId) {
       getContactRequests();
     }
   }, []);
+
+  console.log("yesterday date", getYesterdayDate().getTime());
 
   if (contactRequests.length === 0) {
     return null;
@@ -32,18 +42,23 @@ export default function ContactRequestCard({ listingId }) {
     <div className="w-100">
       <div className="w-100 mb-3">
         <button
-          className="btn btn-primary btn-sm rounded-pill px-4"
+          className="btn btn-primary btn-sm rounded-pill px-4 position-relative"
           data-bs-toggle="collapse"
           data-bs-target={`#contactRequest-${listingId}`}
           aria-expanded="false"
           aria-controls={`#contactRequest-${listingId}`}
         >
           View Contact Requests ({contactRequests.length})
+          {todayContactRequests.length > 0 && (
+            <span className="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
+              <span className="visually-hidden">New alerts</span>
+            </span>
+          )}
         </button>
       </div>
       <div className="collapse" id={`contactRequest-${listingId}`}>
         {contactRequests.map((contactRequest, index) => (
-          <div className="card card-body mb-3">
+          <div key={contactRequest.mId} className="card card-body mb-3">
             <table>
               <tbody>
                 <tr>

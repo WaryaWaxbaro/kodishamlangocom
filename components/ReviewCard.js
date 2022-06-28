@@ -2,18 +2,28 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 
 import { ReviewsModel } from "../models";
-import { unixToDate } from "../utils";
+import { unixToDate, getYesterdayDate } from "../utils";
 import ReviewStars from "./ReviewStars";
 
 export default function ReviewCard({ propertyId }) {
   const [reviews, setReviews] = useState([]);
+  const [todayReviews, setTodayReviews] = useState([]);
 
   useEffect(() => {
     const getReview = async () => {
       const revs = await new ReviewsModel({ propertyId }).getAllByQuery();
       console.log(revs);
       if (revs.length > 0) {
-        setReviews(revs);
+        const sortedReviews = revs.sort((a, b) => {
+          return b.createdAt.seconds - a.createdAt.seconds;
+        });
+        let todayReviews = sortedReviews.filter(
+          (review) =>
+            new Date(review.createdAt.seconds * 1000).getTime() >
+            getYesterdayDate().getTime()
+        );
+        setReviews(sortedReviews);
+        setTodayReviews(todayReviews);
       }
     };
     if (propertyId) {
@@ -22,7 +32,11 @@ export default function ReviewCard({ propertyId }) {
   }, []);
 
   const updateReview = async (id, isPublished) => {
-    const review = await new ReviewsModel({ id, isPublished }).update();
+    console.log(foundReview);
+    const review = await new ReviewsModel({
+      id,
+      isPublished,
+    }).update();
     const updatedReviews = reviews.map((rev) => {
       if (rev.id === id) {
         return { ...rev, isPublished };
@@ -39,13 +53,18 @@ export default function ReviewCard({ propertyId }) {
     <div className="w-100">
       <div className="w-100 mb-3">
         <button
-          className="btn btn-primary btn-sm rounded-pill px-4"
+          className="btn btn-primary btn-sm rounded-pill px-4 position-relative"
           data-bs-toggle="collapse"
           data-bs-target={`#review-${propertyId}`}
           aria-expanded="false"
           aria-controls={`#review-${propertyId}`}
         >
           View Reviews ({reviews.length})
+          {todayReviews.length > 0 && (
+            <span className="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
+              <span className="visually-hidden">New alerts</span>
+            </span>
+          )}
         </button>
       </div>
       <div className="collapse" id={`review-${propertyId}`}>

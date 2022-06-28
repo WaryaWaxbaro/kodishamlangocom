@@ -164,7 +164,6 @@ export const countByCity = (data) => {
   return cityCount;
 };
 
-// sort countByCity by count
 export const sortByCount = (countByCity) => {
   let sortedCount = [];
   Object.keys(countByCity).forEach((city) => {
@@ -176,4 +175,11 @@ export const sortByCount = (countByCity) => {
   });
 
   return sortedCount;
+};
+
+export const getYesterdayDate = () => {
+  let date = new Date();
+  date.setDate(date.getDate() - 1);
+  date.setHours(0, 0, 0, 0);
+  return date;
 };

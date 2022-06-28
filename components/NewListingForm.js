@@ -71,6 +71,7 @@ export default function NewListingForm(props) {
     removedCurrentImages,
     setRemovedCurrentImages,
   } = props;
+
   const [formFields, setFormFields] = useState(fieldValues);
   const [selectedThumbnail, setSelectedThumbnail] = useState(null);
 
@@ -85,7 +86,7 @@ export default function NewListingForm(props) {
         setFormFields(fieldValues);
       }
     }
-  }, []);
+  }, [formFieldValues]);
 
   const [propertyImages, setPropertyImages] = useState([]);
   const [uploadedFiles, setUploadedFiles] = useState([]);
