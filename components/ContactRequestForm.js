@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { ContactRequestModel } from "../models";
 import { validateEmail } from "../utils";
+import { useUser } from "../context/userContext";
 
 const contactRequestData = {
   name: "",
@@ -15,6 +16,7 @@ export default function ContactRequestForm({ listing, listingType }) {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const { currentUser } = useUser();
 
   useEffect(() => {
     const createContactRequest = async () => {
@@ -58,6 +60,11 @@ export default function ContactRequestForm({ listing, listingType }) {
     if (!validateEmail(contactRequest.email)) {
       toast.error("Please enter a valid email");
       return;
+    }
+
+    if (currentUser && currentUser.mId === listing.userId) {
+      toast.error("You can't contact yourself");
+      //return;
     }
 
     setIsSubmitting(true);

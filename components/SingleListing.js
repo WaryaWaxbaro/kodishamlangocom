@@ -163,7 +163,11 @@ export default function SingleListing({ listing, listingType }) {
               text={`${reviewCount} Reviews`}
               classNames="text-dark fs-18 fw-bold ls-6"
             />
-            <Reviews propertyId={listing.mId} setReviewCount={setReviewCount} />
+            <Reviews
+              propertyId={listing.mId}
+              setReviewCount={setReviewCount}
+              userId={listing.userId}
+            />
           </div>
         </div>
         <div className="col-12 col-md-4">

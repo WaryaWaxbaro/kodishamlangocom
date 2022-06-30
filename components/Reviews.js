@@ -9,7 +9,7 @@ import HeadingWithLine from "./HeadingWithLine";
 import ReviewForm from "./ReviewForm";
 import ReviewStars from "./ReviewStars";
 
-export default function Reviews({ propertyId, setReviewCount }) {
+export default function Reviews({ propertyId, setReviewCount, userId }) {
   const { currentUser } = useUser();
   const [reviews, setReviews] = useState([]);
   const [resetFields, setResetFields] = useState(false);
@@ -47,6 +47,11 @@ export default function Reviews({ propertyId, setReviewCount }) {
     if (!currentUser) {
       toast.error("You must be logged in to add review");
       return;
+    }
+
+    if (currentUser && currentUser.mId == userId) {
+      toast.error("You can't add review for your own property");
+      //return;
     }
 
     console.log(currentUser);
