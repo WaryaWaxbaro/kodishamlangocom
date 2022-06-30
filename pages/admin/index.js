@@ -12,7 +12,11 @@ import { ContactRequestModel } from "../../models/index";
 
 export default function dashboard() {
   const [listings, setListings] = useState([]);
-  const [publishedProperties, setPublishedProperties] = useState(0);
+  const [dashboardCount, setDashboardCount] = useState({
+    properties: 0,
+    reviews: 0,
+    messages: 0,
+  });
   const [contactRequests, setContactRequests] = useState([]);
   const [reviews, setReviews] = useState([]);
 
@@ -30,59 +34,61 @@ export default function dashboard() {
         const sortedListings = listing.sort((a, b) => {
           return b.createdAt.seconds - a.createdAt.seconds;
         });
+
         setListings(sortedListings);
+        setDashboardCount({
+          ...dashboardCount,
+          properties: listings.filter((listing) => listing.published).length,
+        });
+        let listingIds = listing.map((listing) => listing.mId);
+        getReviews(listingIds);
+        getContacts(listingIds);
       }
     };
 
-    const getContactRequests = async (userId) => {
-      const contactRequest = await new ContactRequestModel({
-        userId: `${userId}`,
-      }).getAllByQueryWithLimit(5);
-
-      if (contactRequest) {
-        // Sort the listings by date
-        console.log(contactRequest);
-        const sortedContactRequests = contactRequest.sort((a, b) => {
-          return b.createdAt.seconds - a.createdAt.seconds;
+    const getReviews = async (ids) => {
+      const allRevs = await new ReviewsModel({}).getListOfItems(
+        "propertyId",
+        ids
+      );
+      if (allRevs.length > 0) {
+        setReviews(allRevs);
+        setDashboardCount({
+          ...dashboardCount,
+          reviews: allRevs.length,
         });
-        setContactRequests(sortedContactRequests);
+      }
+    };
+
+    const getContacts = async (ids) => {
+      const allContacts = await new ContactRequestModel({}).getListOfItems(
+        "listingId",
+        ids
+      );
+      if (allContacts.length > 0) {
+        setContactRequests(allContacts);
+        setDashboardCount({
+          ...dashboardCount,
+          messages: allContacts.length,
+        });
       }
     };
 
     if (currentUser?.mId) {
       getApartments(currentUser.mId);
-      getContactRequests(currentUser.mId);
     }
   }, [loadingUser, currentUser]);
-
-  useEffect(() => {
-    const publishedPropertiesCount = listings.filter(
-      (listing) => listing.published
-    );
-    setPublishedProperties(publishedPropertiesCount.length);
-
-    const getReviews = async () => {
-      const ids = listings.map((listing) => listing.mId);
-      ids.forEach(async (id) => {
-        const review = await new ReviewsModel({
-          propertyId: id,
-        }).getAllByQueryWithLimit(1);
-
-        if (review.length > 0) {
-          setReviews([...reviews, { ...review[0] }]);
-        }
-      });
-    };
-
-    if (publishedPropertiesCount.length > 0) {
-      getReviews();
-    }
-  }, [listings]);
 
   return (
     <AdminLayout>
       <div className="container-lg py-4">
-        <ManageDashboard publishedProperties={publishedProperties} />
+        <ManageDashboard
+          dashboardCount={{
+            properties: listings.length,
+            reviews: reviews.length,
+            messages: contactRequests.length,
+          }}
+        />
         {/* Listing */}
         <DashboardListing listings={listings} />
         {/* Message */}

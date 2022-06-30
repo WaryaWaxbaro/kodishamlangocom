@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function DashboardReview({ reviews, listings }) {
   console.log("reviews", reviews);
-  const firstReviews = reviews.slice(0, 3);
+  const firstReviews = reviews.slice(0, 5);
 
   const getPropertyTitle = (propertyId) => {
     const listing = listings.find((listing) => listing.mId === propertyId);

@@ -149,6 +149,23 @@ class BaseModel {
     return data;
   }
 
+  async getListOfItems(key, list) {
+    let allItems = [];
+    for (let item of list) {
+      const q = query(
+        collection(this.db, this.collectionName),
+        where(`${key}`, "==", `${item}`)
+      );
+      const querySnapshot = await getDocs(q);
+      const data = querySnapshot.docs.map((doc) => {
+        return { id: doc.id, ...doc.data() };
+      });
+      allItems.push(...data);
+    }
+
+    return allItems;
+  }
+
   async getAllByMultipleQueries() {}
 
   async remove() {
