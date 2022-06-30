@@ -5,7 +5,11 @@ import Link from "next/link";
 import { toast } from "react-toastify";
 import ReviewStars from "./ReviewStars";
 import { unixToDate, getAverageRating } from "../utils";
-import { ApartmentModel, ReviewsModel } from "../models/index";
+import {
+  ApartmentModel,
+  ReviewsModel,
+  ContactRequestModel,
+} from "../models/index";
 import StorageUploads from "../models/storageUploads";
 
 export default function PropertyListItem({ listing, thumbnail }) {
@@ -13,6 +17,7 @@ export default function PropertyListItem({ listing, thumbnail }) {
   const { pathname } = router;
   const [isDeleting, setIsDeleting] = useState(false);
   const [reviews, setReviews] = useState([]);
+  const [contactRequests, setContactRequests] = useState([]);
 
   useEffect(() => {
     const getReviews = async () => {
@@ -26,8 +31,19 @@ export default function PropertyListItem({ listing, thumbnail }) {
       }
     };
 
+    const getContacts = async () => {
+      const contacts = await new ContactRequestModel({
+        listingId: `${listing?.mId}`,
+      }).getAllByQuery();
+      console.log(contacts);
+      if (contacts && contacts.length > 0) {
+        setContactRequests(contacts);
+      }
+    };
+
     if (listing?.mId) {
       getReviews();
+      getContacts();
     }
   }, [listing]);
 
@@ -41,6 +57,18 @@ export default function PropertyListItem({ listing, thumbnail }) {
       const removeImages = await new StorageUploads(
         `/apartments/${listing.mId}`
       ).removeAllWithThumbnail();
+    }
+    let contactsList = contactRequests.map((contact) => contact.id);
+    let reviewsList = reviews.map((review) => review.id);
+    if (contactsList.length > 0) {
+      const removeContacts = await new ContactRequestModel(
+        {}
+      ).removeListOfItems(contactsList);
+    }
+    if (reviewsList.length > 0) {
+      const removeReviews = await new ReviewsModel({}).removeListOfItems(
+        reviewsList
+      );
     }
 
     await fetch(`/api/updateStatus`, {

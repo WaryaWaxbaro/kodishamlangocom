@@ -172,6 +172,30 @@ class BaseModel {
     return await deleteDoc(doc(this.db, this.collectionName, this.getId()));
   }
 
+  async removeListOfItems(list) {
+    for (let item of list) {
+      console.log("item", item);
+      await deleteDoc(doc(this.db, this.collectionName, `${item}`));
+    }
+  }
+
+  async removeByKeyAndValue(key, value) {
+    const q = query(
+      collection(this.db, this.collectionName),
+      where(`${key}`, "==", `${value}`)
+    );
+    const querySnapshot = await getDocs(q);
+    const data = querySnapshot.docs.map((doc) => {
+      return `${doc.id}`;
+    });
+
+    for (let id of data) {
+      await deleteDoc(doc(this.db, this.collectionName, id));
+    }
+
+    return data;
+  }
+
   async updateLikes() {
     const docSnap = await this.getOne();
     const likes = docSnap.likes || [];

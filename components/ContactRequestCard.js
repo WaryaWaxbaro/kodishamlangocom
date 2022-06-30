@@ -36,7 +36,9 @@ export default function ContactRequestCard({ listingId }) {
   console.log("yesterday date", getYesterdayDate().getTime());
 
   if (contactRequests.length === 0) {
-    return null;
+    return (
+      <p className="fs-12 text-info">No Contacts ({contactRequests.length})</p>
+    );
   }
   return (
     <div className="w-100">

@@ -47,7 +47,7 @@ export default function ReviewCard({ propertyId }) {
   };
 
   if (reviews.length < 1) {
-    return null;
+    return <p className="fs-12 text-info">No Reviews ({reviews.length})</p>;
   }
   return (
     <div className="w-100">
