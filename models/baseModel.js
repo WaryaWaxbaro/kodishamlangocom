@@ -61,7 +61,7 @@ class BaseModel {
   }
 
   dataWithoutId(generalMId = false) {
-    this.setCreatedAt(new Date());
+    //this.setCreatedAt(new Date());
     this.setUpdatedAt(new Date());
     if (generalMId) {
       this.setModalId(randomKeys(20));

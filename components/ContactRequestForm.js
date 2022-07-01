@@ -64,7 +64,7 @@ export default function ContactRequestForm({ listing, listingType }) {
 
     if (currentUser && currentUser.mId === listing.userId) {
       toast.error("You can't contact yourself");
-      //return;
+      return;
     }
 
     setIsSubmitting(true);

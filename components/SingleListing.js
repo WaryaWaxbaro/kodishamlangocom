@@ -172,24 +172,23 @@ export default function SingleListing({ listing, listingType }) {
         </div>
         <div className="col-12 col-md-4">
           {/* Agent Information */}
-          {agentProfile?.showProfile && (
-            <div className="w-100 bg-white shadow p-3 mb-3">
-              <h3 className="fs-18 fw-bold ls-6">Agent Information</h3>
-              <hr />
-              <ProfileCard
-                profile={agentProfile}
-                profileImageUrl={profileImageUrl}
-              />
-              <hr />
-              <div className="w-100">
-                <h5 className="fs-16 fw-bold ls-6">Request Inquiry</h5>
-                <ContactRequestForm
-                  listing={listing}
-                  listingType={listingType}
+          <div className="w-100 bg-white shadow p-3 mb-3">
+            {agentProfile?.showProfile && (
+              <div>
+                <h3 className="fs-18 fw-bold ls-6">Agent Information</h3>
+                <hr />
+                <ProfileCard
+                  profile={agentProfile}
+                  profileImageUrl={profileImageUrl}
                 />
+                <hr />
               </div>
+            )}
+            <div className="w-100">
+              <h5 className="fs-16 fw-bold ls-6">Request Inquiry</h5>
+              <ContactRequestForm listing={listing} listingType={listingType} />
             </div>
-          )}
+          </div>
           {/* Recent Properties */}
           <div className="w-100 bg-white shadow p-3 mb-3">
             <h3 className="fs-18 fw-bold ls-6">Recent Properties</h3>

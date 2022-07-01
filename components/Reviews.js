@@ -51,7 +51,7 @@ export default function Reviews({ propertyId, setReviewCount, userId }) {
 
     if (currentUser && currentUser.mId == userId) {
       toast.error("You can't add review for your own property");
-      //return;
+      return;
     }
 
     console.log(currentUser);

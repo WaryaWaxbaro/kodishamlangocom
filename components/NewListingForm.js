@@ -330,10 +330,10 @@ export default function NewListingForm(props) {
               <select
                 className="form-select"
                 id="apartment_type"
-                name="propery_type"
+                name="apartment_type"
                 value={formFields.apartment_type}
                 onChange={handleChange}
-                aria-label="Property Type"
+                aria-label="partment Type"
               >
                 {property_types.map((property, index) => (
                   <option key={property}>{property}</option>
@@ -361,7 +361,7 @@ export default function NewListingForm(props) {
           </div>
           <div className="col-sm-12 col-md-6 col-lg-4">
             <div className="mb-3">
-              <label htmlFor="bathroom" className="form-label">
+              <label htmlFor="bathrooms" className="form-label">
                 Bathrooms
               </label>
               <input
@@ -369,8 +369,8 @@ export default function NewListingForm(props) {
                 min={1}
                 max={20}
                 className="form-control"
-                id="bathroom"
-                name="bathroom"
+                id="bathrooms"
+                name="bathrooms"
                 value={formFields.bathrooms}
                 onChange={handleChange}
                 placeholder="4"
