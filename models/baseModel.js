@@ -100,7 +100,13 @@ class BaseModel {
   }
 
   async getAll() {
-    return await collection(this.db, this.collectionName).get();
+    const querySnapshot = await getDocs(
+      collection(this.db, this.collectionName)
+    );
+    const data = querySnapshot.docs.map((doc) => {
+      return { id: doc.id, ...doc.data() };
+    });
+    return data;
   }
 
   async getAllByQuery() {

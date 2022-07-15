@@ -1,13 +1,25 @@
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { countByCity, sortByCount } from "../utils";
-import savedData from "../data.json";
-
-const popularPlacesData = countByCity(savedData.data);
-const sortedCityByCount = sortByCount(popularPlacesData).slice(0, 8);
+import { StatusModel } from "../models";
 
 export default function PopularPlaces() {
-  if (sortedCityByCount.length === 0) {
+  const [cities, setCities] = useState([]);
+
+  useEffect(() => {
+    const getCities = async () => {
+      const citiesList = await new StatusModel().getAll();
+      if (citiesList.length > 0) {
+        const status = JSON.parse(citiesList[0].status);
+        const popularPlacesData = countByCity(status.data);
+        const sortedCityByCount = sortByCount(popularPlacesData).slice(0, 8);
+        setCities(sortedCityByCount);
+      }
+    };
+    getCities();
+  }, []);
+  if (cities.length === 0) {
     return null;
   }
   return (
@@ -18,7 +30,7 @@ export default function PopularPlaces() {
           <p>Properties In Most Popular Places</p>
         </div>
         <div className="row mt-4">
-          {sortedCityByCount.map((sortedCity, index) => {
+          {cities.map((sortedCity, index) => {
             return (
               <div
                 key={sortedCity.city}

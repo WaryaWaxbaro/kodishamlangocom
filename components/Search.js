@@ -4,8 +4,9 @@ import queryString from "query-string";
 
 import AppDropdown from "./AppDropdown";
 import AppSlider from "./AppSlider";
-import savedData from "./../data.json";
 import { property_features, toUnderscoreKey, property_types } from "../utils";
+
+import { StatusModel } from "../models";
 
 const searchFormFields = {
   location: "",
@@ -37,10 +38,6 @@ const property_status_routes = {
 
 const emptyParams = ["Bedrooms", "Bathrooms", "Property Type", "Select City"];
 
-const cities = savedData.cities.filter((city) => Boolean(city));
-const maxPrice = savedData.price ?? 1000000;
-const maxArea = savedData.area ?? 1000;
-
 export default function Search(props) {
   const router = useRouter();
   const { route, query } = router;
@@ -67,6 +64,23 @@ export default function Search(props) {
 
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [homePageRoute, setHomePageRoute] = useState("/for-sale");
+
+  const [cities, setCities] = useState([]);
+  const [maxPrice, setMaxPrice] = useState([0, 1000000]);
+  const [maxArea, setMaxArea] = useState([0, 1000]);
+
+  useEffect(() => {
+    const getCities = async () => {
+      const citiesList = await new StatusModel().getAll();
+      if (citiesList.length > 0) {
+        const status = JSON.parse(citiesList[0].status);
+        setCities(status.cities);
+        setMaxPrice([0, status.price]);
+        setMaxArea([0, status.area]);
+      }
+    };
+    getCities();
+  }, []);
 
   useEffect(() => {
     setSearchValues({
@@ -243,7 +257,7 @@ export default function Search(props) {
               <div className="col-12 col-md-6 mb-2">
                 <div className="my-3">
                   <AppSlider
-                    minMax={[0, maxArea]}
+                    minMax={maxArea}
                     labelName="Area Size"
                     unit="m"
                     setSelectedRange={setSelectedArea}
@@ -251,7 +265,7 @@ export default function Search(props) {
                 </div>
                 <div className="my-3">
                   <AppSlider
-                    minMax={[0, maxPrice]}
+                    minMax={maxPrice}
                     labelName="Price Range"
                     unit="Kshs"
                     formatUnit={true}

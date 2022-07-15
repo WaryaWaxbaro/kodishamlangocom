@@ -35,3 +35,9 @@ export class ContactModel extends BaseModel {
     super("contacts", data);
   }
 }
+
+export class StatusModel extends BaseModel {
+  constructor(data) {
+    super("statuses", data);
+  }
+}

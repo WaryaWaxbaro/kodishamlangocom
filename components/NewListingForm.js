@@ -11,6 +11,8 @@ import {
   urlToObject,
 } from "../utils";
 
+let dataWithNumbers = ["bedrooms", "bathrooms", "area", "guest", "price"];
+
 const fieldValues = {
   title: "Luxury Apartment",
   description:
@@ -134,6 +136,10 @@ export default function NewListingForm(props) {
     let { name, value } = e.target;
     const elemType = e.target.type;
     let isChecked = e.target.checked;
+
+    if (dataWithNumbers.includes(name)) {
+      value = parseInt(value);
+    }
 
     if (name === "property_status") {
       let currentStatus = formFields.property_status;
