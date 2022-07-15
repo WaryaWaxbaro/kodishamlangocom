@@ -60,6 +60,7 @@ export default function login() {
           loginCount: 1,
           lastLogin: new Date(),
           id: uid,
+          roles: ["member"],
         }).create();
       }
     };

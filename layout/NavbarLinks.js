@@ -6,11 +6,13 @@ import { createFirebaseApp } from "../firebase/clientApp";
 import { getAuth, signOut } from "firebase/auth";
 import { useUser } from "../context/userContext";
 import Logo from "../components/Logo";
+import NavbarLinkItem from "../components/NavbarLinkItem";
+import NavbarLinkItemWithIcon from "../components/NavbarLinkItemWithIcon";
 
 export default function NavbarLinks() {
   const router = useRouter();
   const { pathname } = router;
-  const { user: currentUser, setUser, loadingUser, setCurrentUser } = useUser();
+  const { currentUser, setUser, loadingUser, setCurrentUser } = useUser();
   const auth = getAuth(createFirebaseApp());
 
   const drawerBtnRef = useRef(null);
@@ -69,7 +71,7 @@ export default function NavbarLinks() {
           <div className="d-none h-100 nav-section-width d-lg-flex flex-column flex-lg-row align-items-center justify-content-end justify-content-xl-between ms-xl-auto">
             <ul className="navbar-nav">
               {mainLinks.map((link) => (
-                <li key={link.name} className="nav-item ls-1 p-lg-3">
+                <li key={`${link.name}`} className="nav-item ls-1 p-lg-3">
                   <span
                     className={
                       link.url === pathname
@@ -112,22 +114,26 @@ export default function NavbarLinks() {
                     className="dropdown-menu dropdown-menu-dark dropdown-menu-end"
                     aria-labelledby="navbarDarkDropdownMenuLink"
                   >
-                    {dropdownLinks.map((link) => (
-                      <li key={link.name} className="cursor-pointer">
-                        {link.name === "Logout" ? (
-                          <span
-                            onClick={handleSignOut}
-                            className="dropdown-item"
-                          >
-                            {link.name}
-                          </span>
+                    {dropdownLinks.map((link) => {
+                      {
+                        return currentUser.roles?.includes("admin") &&
+                          link.name === "Site Owner" ? (
+                          <NavbarLinkItem
+                            key={`${link.name}`}
+                            link={link}
+                            isBtn={link.name === "Logout"}
+                            handleSignOut={handleSignOut}
+                          />
                         ) : (
-                          <Link href={link.url}>
-                            <span className="dropdown-item">{link.name}</span>
-                          </Link>
-                        )}
-                      </li>
-                    ))}
+                          <NavbarLinkItem
+                            key={`${link.name}`}
+                            link={link}
+                            isBtn={link.name === "Logout"}
+                            handleSignOut={handleSignOut}
+                          />
+                        );
+                      }
+                    })}
                   </ul>
                 </li>
               ) : (
@@ -162,35 +168,13 @@ export default function NavbarLinks() {
                 </div>
                 <ul className="list-unstyled px-3">
                   {dropdownLinks.map((link, index) => (
-                    <li key={`${link.name}_${index}`} className="mb-2">
-                      {link.name === "Logout" ? (
-                        <a onClick={handleSignOut} className="dropdown-item">
-                          <span className="d-flex align-items-center">
-                            <span className="d-block me-3">
-                              <i className={link.icon}></i>
-                            </span>
-                            <span className="d-block">{link.name}</span>
-                          </span>
-                        </a>
-                      ) : (
-                        <Link href={link.url}>
-                          <a
-                            className={
-                              link.url === pathname
-                                ? "dropdown-item active"
-                                : "dropdown-item"
-                            }
-                          >
-                            <span className="d-flex align-items-center">
-                              <span className="d-block me-3">
-                                <i className={link.icon}></i>
-                              </span>
-                              <span className="d-block">{link.name}</span>
-                            </span>
-                          </a>
-                        </Link>
-                      )}
-                    </li>
+                    <NavbarLinkItemWithIcon
+                      key={`${link.name}_${index}`}
+                      link={link}
+                      isBtn={link.name === "Logout"}
+                      handleSignOut={handleSignOut}
+                      pathname={pathname}
+                    />
                   ))}
                 </ul>
               </>
@@ -219,24 +203,13 @@ export default function NavbarLinks() {
             <hr className="mx-3" />
             <ul className="list-unstyled px-3">
               {mainLinks.map((link, index) => (
-                <li key={`${link.name}_${index}`} className="mb-2">
-                  <Link href={link.url}>
-                    <a
-                      className={
-                        link.url === pathname
-                          ? "dropdown-item active"
-                          : "dropdown-item"
-                      }
-                    >
-                      <span className="d-flex align-items-center">
-                        <span className="d-block me-3">
-                          <i className={link.icon}></i>
-                        </span>
-                        <span className="d-block">{link.name}</span>
-                      </span>
-                    </a>
-                  </Link>
-                </li>
+                <NavbarLinkItemWithIcon
+                  key={`${link.name}_b_${index}`}
+                  link={link}
+                  isBtn={link.name === "Logout"}
+                  handleSignOut={handleSignOut}
+                  pathname={pathname}
+                />
               ))}
             </ul>
             <div className="h-40 w-100 my-5"></div>
@@ -315,6 +288,11 @@ const dropdownLinks = [
     name: "Invoices",
     url: "/admin/invoices",
     icon: "bi bi-journals",
+  },
+  {
+    name: "Site Owner",
+    url: "/admin/site-owner",
+    icon: "bi bi-person-badge",
   },
   {
     name: "Logout",

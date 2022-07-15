@@ -6,15 +6,20 @@ import { useRouter } from "next/router";
 
 export default function AdminLayout({ children }) {
   const auth = getAuth(createFirebaseApp());
-  const { user } = useUser();
+  const { user, loadingUser } = useUser();
   const router = useRouter();
 
   useEffect(() => {
-    let token = sessionStorage.getItem("token");
+    /*     let token = sessionStorage.getItem("token");
     if (!token) {
       router.push("/login");
+    } */
+    if (!loadingUser) {
+      if (!user) {
+        router.push("/login");
+      }
     }
-  }, []);
+  }, [loadingUser]);
 
   return (
     <div className="min-80vh">
