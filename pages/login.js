@@ -61,6 +61,7 @@ export default function login() {
           lastLogin: new Date(),
           id: uid,
           roles: ["member"],
+          isBlocked: false,
         }).create();
       }
     };

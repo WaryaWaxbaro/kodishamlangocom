@@ -41,3 +41,9 @@ export class StatusModel extends BaseModel {
     super("statuses", data);
   }
 }
+
+export class GeneralSettingsModel extends BaseModel {
+  constructor(data) {
+    super("generalSettings", data);
+  }
+}

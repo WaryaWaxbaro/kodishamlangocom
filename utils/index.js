@@ -183,3 +183,8 @@ export const getYesterdayDate = () => {
   date.setHours(0, 0, 0, 0);
   return date;
 };
+
+export const getFileUrl = (file) => {
+  let url = URL.createObjectURL(file);
+  return url;
+};

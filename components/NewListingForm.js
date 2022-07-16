@@ -9,6 +9,7 @@ import {
   removeWhiteSpace,
   toUnderscoreKey,
   urlToObject,
+  getFileUrl,
 } from "../utils";
 
 let dataWithNumbers = ["bedrooms", "bathrooms", "area", "guest", "price"];
@@ -205,11 +206,6 @@ export default function NewListingForm(props) {
     let b = new ClipboardEvent("").clipboardData || new DataTransfer();
     for (let i = 0, len = files.length; i < len; i++) b.items.add(files[i]);
     return b.files;
-  };
-
-  const getFileUrl = (file) => {
-    let url = URL.createObjectURL(file);
-    return url;
   };
 
   const removeImageFile = (imageFile) => {

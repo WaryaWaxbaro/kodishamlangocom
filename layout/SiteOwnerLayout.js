@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import { useUser } from "../context/userContext";
 import { useRouter } from "next/router";
 
-export default function AdminLayout({ children }) {
-  const { user, loadingUser } = useUser();
+export default function SiteOwnerLayout({ children }) {
+  const { currentUser, loadingUser } = useUser();
   const router = useRouter();
+  const { pathname } = router;
 
   useEffect(() => {
     if (!loadingUser) {
-      if (!user) {
+      if (!currentUser) {
         router.push("/login");
       }
     }
@@ -16,8 +17,8 @@ export default function AdminLayout({ children }) {
 
   return (
     <div className="min-80vh">
-      {user ? (
-        children
+      {currentUser && currentUser.roles?.includes("admin") ? (
+        <div className="container-xl">{children}</div>
       ) : (
         <div
           className="d-flex align-items-center justify-content-center"
