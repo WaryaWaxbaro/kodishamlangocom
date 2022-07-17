@@ -1,7 +1,13 @@
 import { useState, useEffect } from "react";
 import SiteOwnerLayout from "../../../layout/SiteOwnerLayout";
-import { GeneralSettingsModel } from "../../../models";
+import {
+  GeneralSettingsModel,
+  UserModel,
+  ApartmentModel,
+} from "../../../models";
 import GeneralSettings from "../../../components/GeneralSettings";
+import MainUsers from "../../../components/MainUsers";
+import MainApartments from "../../../components/MainApartments";
 
 const mainSettings = {
   title: "Site Owner",
@@ -33,16 +39,47 @@ export default function Home() {
   const [contacts, setContacts] = useState([]);
 
   useEffect(() => {
-    const getGeneralSettings = async () => {
+    /*     const getGeneralSettings = async () => {
       const gSettings = await new GeneralSettingsModel().getAll();
       if (gSettings.length > 0) {
         setGeneralSettings(gSettings[0]);
       } else if (gSettings.length === 0) {
         await new GeneralSettingsModel(mainSettings).save();
       }
+    }; */
+
+    const getUsers = async () => {
+      const users = await new UserModel().getAll();
+      if (users && users.length > 0) {
+        console.log(users);
+        setUsers(users);
+      }
     };
-    getGeneralSettings();
+
+    const getApartments = async () => {
+      const apartments = await new ApartmentModel().getAll();
+      if (apartments && apartments.length > 0) {
+        setApartments(apartments);
+      }
+    };
+    getUsers();
+    getApartments();
   }, []);
+
+  const handleBlockUser = async (userId) => {
+    const blockingUser = users.find((user) => user.id === userId);
+    if (blockingUser) {
+      const isBlocked = !blockingUser.isBlocked;
+      const updateAllUsers = users.map((user) => {
+        if (user.id === userId) {
+          user.isBlocked = isBlocked;
+        }
+        return user;
+      });
+      setUsers(updateAllUsers);
+      await new UserModel({ id: userId, isBlocked }).update();
+    }
+  };
 
   return (
     <SiteOwnerLayout>
@@ -86,15 +123,15 @@ export default function Home() {
           </button>
           <button
             className="nav-link"
-            id="nav-settings-tab"
+            id="nav-contacts-tab"
             data-bs-toggle="tab"
-            data-bs-target="#nav-settings"
+            data-bs-target="#nav-contacts"
             type="button"
             role="tab"
-            aria-controls="nav-settings"
+            aria-controls="nav-contacts"
             aria-selected="false"
           >
-            Settings
+            Contacts
           </button>
         </div>
       </nav>
@@ -105,7 +142,11 @@ export default function Home() {
           role="tabpanel"
           aria-labelledby="nav-users-tab"
         >
-          ... Users management
+          <MainUsers
+            users={users}
+            apartments={apartments}
+            handleBlockUser={handleBlockUser}
+          />
         </div>
         <div
           className="tab-pane fade"
@@ -113,15 +154,15 @@ export default function Home() {
           role="tabpanel"
           aria-labelledby="nav-apartments-tab"
         >
-          ... Apartments management
+          <MainApartments apartments={apartments} users={users} />
         </div>
         <div
           className="tab-pane fade py-3"
-          id="nav-settings"
+          id="nav-contacts"
           role="tabpanel"
-          aria-labelledby="nav-settings-tab"
+          aria-labelledby="nav-contacts-tab"
         >
-          <GeneralSettings gSettings={generalSettings} />
+          Contacts will appear hear
         </div>
       </div>
     </SiteOwnerLayout>
