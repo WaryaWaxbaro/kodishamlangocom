@@ -20,23 +20,15 @@ export default function login() {
   const fProvider = new FacebookAuthProvider();
 
   const [authUser, setAuthUser] = useState(null);
-  const { loadingUser, setUser, setCurrentUser } = useUser();
+  const { loadingUser, user, setUser, setCurrentUser } = useUser();
 
   useEffect(() => {
-    const token = sessionStorage.getItem("token");
-    if (token) {
-      router.push("/admin");
-    } else {
-      signOut(auth)
-        .then(() => {
-          setUser(null);
-          setCurrentUser(null);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+    if (!loadingUser) {
+      if (user) {
+        router.push("/admin");
+      }
     }
-  }, []);
+  }, [loadingUser]);
 
   useEffect(() => {
     const updateUser = async () => {

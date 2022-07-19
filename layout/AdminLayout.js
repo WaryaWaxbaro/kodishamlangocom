@@ -8,9 +8,11 @@ export default function AdminLayout({ children }) {
 
   useEffect(() => {
     if (!loadingUser) {
-      if (!currentUser) {
-        router.push("/login");
-      }
+      setTimeout(() => {
+        if (!currentUser) {
+          router.push("/login");
+        }
+      }, 1000);
     }
   }, [loadingUser]);
 
