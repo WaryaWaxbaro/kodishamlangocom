@@ -58,6 +58,23 @@ export default function MyProperty(props) {
         ...formData,
         id: listing.id,
       }).update();
+      await fetch(`/api/updateStatus`, {
+        method: "POST",
+        body: JSON.stringify({
+          status_data: {
+            id: listing.mId,
+            city: formData.city,
+            country: formData.country,
+            price: formData.price,
+            area: formData.area,
+            property_status: formData.property_status,
+          },
+          action: "update",
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
     };
     const updateImages = async () => {
       if (formImages.length > 0) {

@@ -37,10 +37,14 @@ export default async function handler(req, res) {
         : objectData.area;
 
     if (action === "update") {
-      oldData.push({
-        id: status_data.id,
-        city: status_data.city,
-      });
+      // Find item by id
+      let item = oldData.find((item) => item.id === status_data.id);
+      if (!item) {
+        oldData.push({
+          id: status_data.id,
+          city: status_data.city,
+        });
+      }
       if (cities.indexOf(status_data.city) < 0) {
         cities.push(status_data.city);
       }

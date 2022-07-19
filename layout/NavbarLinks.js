@@ -10,10 +10,10 @@ import NavbarLinkItem from "../components/NavbarLinkItem";
 import NavbarLinkItemWithIcon from "../components/NavbarLinkItemWithIcon";
 
 export default function NavbarLinks() {
+  const auth = getAuth(createFirebaseApp());
   const router = useRouter();
   const { pathname } = router;
   const { currentUser, setUser, loadingUser, setCurrentUser } = useUser();
-  const auth = getAuth(createFirebaseApp());
 
   const drawerBtnRef = useRef(null);
   const canvasRef = useRef(null);
