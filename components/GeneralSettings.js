@@ -65,16 +65,12 @@ export default function GeneralSettings({ gSettings }) {
       ).uploadResumable("shalow");
       if (uploadedFiles && uploadedFiles.length > 0) {
         const { downloadURL, error } = uploadedFiles[0];
-        console.log(downloadURL);
-        console.log(error);
-        console.log(uploadedFiles);
         const newSettings = generalSettings.map((item) => {
           if (item.id === key) {
             return { ...item, value: downloadURL };
           }
           return item;
         });
-        console.log("newSettings", newSettings);
         setGeneralSettings(() => newSettings);
       }
       if (index === previewKeys.length - 1) {
@@ -89,7 +85,6 @@ export default function GeneralSettings({ gSettings }) {
 
   useEffect(() => {
     const startUpdate = async (e) => {
-      console.log("generalSettings", generalSettings);
       // get object from array of objects
       const settings = generalSettings.reduce((acc, item) => {
         acc[item.id] = item.value;

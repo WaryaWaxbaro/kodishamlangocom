@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { unixToDate, getYesterdayDate } from "../utils";
 import { ContactRequestModel } from "../models/index";
+import { sortByTimestamp } from "../utils/index";
 
 export default function ContactRequestCard({ listingId }) {
   const [contactRequests, setContactRequests] = useState([]);
@@ -13,17 +14,12 @@ export default function ContactRequestCard({ listingId }) {
       }).getAllByQuery();
 
       if (contactRequest) {
-        // Sort the listings by date
-        console.log(contactRequest);
-        const sortedContactRequests = contactRequest.sort((a, b) => {
-          return b.createdAt.seconds - a.createdAt.seconds;
-        });
+        const sortedContactRequests = sortByTimestamp(contactRequest);
         let todayContacts = sortedContactRequests.filter(
           (contactRequest) =>
             new Date(contactRequest.createdAt.seconds * 1000).getTime() >
             getYesterdayDate().getTime()
         );
-        console.log(todayContacts);
         setContactRequests(sortedContactRequests);
         setTodayContactRequests(todayContacts);
       }
@@ -32,8 +28,6 @@ export default function ContactRequestCard({ listingId }) {
       getContactRequests();
     }
   }, []);
-
-  console.log("yesterday date", getYesterdayDate().getTime());
 
   if (contactRequests.length === 0) {
     return (

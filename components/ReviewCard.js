@@ -4,6 +4,7 @@ import Image from "next/image";
 import { ReviewsModel } from "../models";
 import { unixToDate, getYesterdayDate } from "../utils";
 import ReviewStars from "./ReviewStars";
+import { sortByTimestamp } from "../utils/index";
 
 export default function ReviewCard({ propertyId }) {
   const [reviews, setReviews] = useState([]);
@@ -12,11 +13,8 @@ export default function ReviewCard({ propertyId }) {
   useEffect(() => {
     const getReview = async () => {
       const revs = await new ReviewsModel({ propertyId }).getAllByQuery();
-      console.log(revs);
       if (revs.length > 0) {
-        const sortedReviews = revs.sort((a, b) => {
-          return b.createdAt.seconds - a.createdAt.seconds;
-        });
+        const sortedReviews = sortByTimestamp(revs);
         let todayReviews = sortedReviews.filter(
           (review) =>
             new Date(review.createdAt.seconds * 1000).getTime() >

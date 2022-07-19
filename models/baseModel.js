@@ -86,7 +86,6 @@ class BaseModel {
 
   async update() {
     this.setUpdatedAt(new Date());
-    console.log("this.dataWithoutId()", this.dataWithoutId());
     const docSnap = await updateDoc(
       doc(this.db, this.collectionName, this.getId()),
       this.dataWithoutId()
@@ -181,7 +180,6 @@ class BaseModel {
 
   async removeListOfItems(list) {
     for (let item of list) {
-      console.log("item", item);
       await deleteDoc(doc(this.db, this.collectionName, `${item}`));
     }
   }

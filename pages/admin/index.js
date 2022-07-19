@@ -9,6 +9,7 @@ import DashboardListing from "../../components/DashboardListing";
 import DashboardMessage from "../../components/DashboardMessage";
 import DashboardReview from "../../components/DashboardReview";
 import { ContactRequestModel } from "../../models/index";
+import { sortByTimestamp } from "../../utils/index";
 
 export default function dashboard() {
   const [listings, setListings] = useState([]);
@@ -29,13 +30,7 @@ export default function dashboard() {
       }).getAllByQuery();
 
       if (listing) {
-        // Sort the listings by date
-        console.log(listing.length);
-        const sortedListings = listing.sort((a, b) => {
-          return b.createdAt.seconds - a.createdAt.seconds;
-        });
-
-        setListings(sortedListings);
+        setListings(sortByTimestamp(listing));
         setDashboardCount({
           ...dashboardCount,
           properties: listings.filter((listing) => listing.published).length,

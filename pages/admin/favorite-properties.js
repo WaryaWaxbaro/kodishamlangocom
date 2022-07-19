@@ -8,6 +8,7 @@ import Loader from "../../components/Loader";
 import AdminLayout from "../../layout/AdminLayout";
 
 import FavoritePropertiesRow from "../../components/FavoritePropertiesRow";
+import { sortByTimestamp } from "../../utils/index";
 
 export default function FavoriteProperties() {
   const { currentUser } = useUser();
@@ -20,9 +21,7 @@ export default function FavoriteProperties() {
       const apartments = await new ApartmentModel({
         likes: currentUser.mId,
       }).findByContains();
-      const sorted = apartments.sort((a, b) => {
-        return a.createdAt.seconds - b.createdAt.seconds;
-      });
+      const sorted = sortByTimestamp(apartments);
       if (sorted.length > 0) {
         const thumbnails = await new StorageUploads(
           `apartments/thumbnails`

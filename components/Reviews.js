@@ -8,6 +8,7 @@ import { unixToDate } from "../utils";
 import HeadingWithLine from "./HeadingWithLine";
 import ReviewForm from "./ReviewForm";
 import ReviewStars from "./ReviewStars";
+import { sortByTimestamp } from "../utils/index";
 
 export default function Reviews({ propertyId, setReviewCount, userId }) {
   const { currentUser } = useUser();
@@ -17,16 +18,12 @@ export default function Reviews({ propertyId, setReviewCount, userId }) {
 
   useEffect(() => {
     const getReviews = async () => {
-      console.log(propertyId);
       const revs = await new ReviewsModel({
         propertyId: `${propertyId}`,
         isPublished: true,
       }).getAllByQueryDouble(["propertyId", "isPublished"]);
-      console.log(revs);
       if (revs && revs.length > 0) {
-        const sortedRevs = revs.sort((a, b) => {
-          return a.createdAt.seconds - b.createdAt.seconds;
-        });
+        const sortedRevs = sortByTimestamp(revs);
         setReviews(sortedRevs);
         setReviewCount(sortedRevs.length);
         setResetFields(!resetFields);
@@ -54,8 +51,6 @@ export default function Reviews({ propertyId, setReviewCount, userId }) {
       return;
     }
 
-    console.log(currentUser);
-
     let rev = {
       ...data,
       name: currentUser.displayName,
@@ -65,17 +60,10 @@ export default function Reviews({ propertyId, setReviewCount, userId }) {
       photoUrl: `${currentUser.photoURL}`,
       isPublished: false,
     };
-    console.log(rev);
+
     const review = await new ReviewsModel(rev).save();
-    console.log(review.id);
+
     if (review?.id) {
-      /*       console.log(review);
-      const nReview = new ReviewsModel({ id: `${review.id}` }).getOne();
-      console.log("new review ", nReview);
-      if (nReview) {
-        toast.success("Review added successfully");
-        setReviews([nReview, ...reviews]);
-      } */
       setUpdateReviews(!updateReviews);
     }
   };

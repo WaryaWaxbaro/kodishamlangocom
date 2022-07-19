@@ -22,11 +22,9 @@ export default function SingleReviewStar({
                 onClick={() => setReviewRating(index)}
                 onMouseEnter={() => {
                   setTempReviewRating(index);
-                  console.log(index);
                 }}
                 onMouseLeave={() => {
                   setTempReviewRating(rating);
-                  console.log(rating);
                 }}
                 className="bi bi-star-fill me-2"
               ></i>
@@ -35,11 +33,9 @@ export default function SingleReviewStar({
                 onClick={() => setReviewRating(index)}
                 onMouseEnter={() => {
                   setTempReviewRating(index);
-                  console.log(index);
                 }}
                 onMouseLeave={() => {
                   setTempReviewRating(rating);
-                  console.log(rating);
                 }}
                 className="bi bi-star me-2"
               ></i>

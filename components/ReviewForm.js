@@ -20,7 +20,6 @@ export default function ReviewForm({ addNewReview, resetFields }) {
       });
       setUpdateReviewRating(false);
       setTempReviewRating(reviewRating);
-      console.log(reviewRating);
     }
   }, [updateReviewRating]);
 
@@ -34,7 +33,6 @@ export default function ReviewForm({ addNewReview, resetFields }) {
 
   useEffect(() => {
     setUpdateReviewRating(true);
-    console.log(reviewRating);
   }, [reviewRating]);
 
   const handleChange = (e) => {

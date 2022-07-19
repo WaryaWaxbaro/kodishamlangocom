@@ -47,7 +47,6 @@ export default function ContactRequestForm({ listing, listingType }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(contactRequest);
     if (
       !contactRequest.name ||
       !contactRequest.email ||

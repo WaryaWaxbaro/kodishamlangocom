@@ -25,12 +25,7 @@ export default function ContactRequests() {
       }).getAllByQuery();
 
       if (listing) {
-        // Sort the listings by date
-        console.log(listing.length);
-        const sortedListings = listing.sort((a, b) => {
-          return b.createdAt.seconds - a.createdAt.seconds;
-        });
-        setListings(sortedListings);
+        setListings(sortByTimestamp(listing));
       }
     };
 

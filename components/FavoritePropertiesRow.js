@@ -19,7 +19,6 @@ export default function FavoritePropertiesRow({
       const revs = await new ReviewsModel({
         propertyId: `${apartment.mId}`,
       }).getAllByQuery();
-      console.log(revs);
       if (revs && revs.length > 0) {
         const avgReviews =
           revs.reduce((previousValue, currentValue) => {

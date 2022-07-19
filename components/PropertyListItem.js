@@ -21,11 +21,9 @@ export default function PropertyListItem({ listing, thumbnail }) {
 
   useEffect(() => {
     const getReviews = async () => {
-      console.log(listing?.mId);
       const revs = await new ReviewsModel({
         propertyId: `${listing?.mId}`,
       }).getAllByQuery();
-      console.log(revs);
       if (revs && revs.length > 0) {
         setReviews(revs);
       }
@@ -35,7 +33,6 @@ export default function PropertyListItem({ listing, thumbnail }) {
       const contacts = await new ContactRequestModel({
         listingId: `${listing?.mId}`,
       }).getAllByQuery();
-      console.log(contacts);
       if (contacts && contacts.length > 0) {
         setContactRequests(contacts);
       }
@@ -52,7 +49,6 @@ export default function PropertyListItem({ listing, thumbnail }) {
     const deleteListing = await new ApartmentModel({
       id: listing.id,
     }).remove();
-    console.log(thumbnail);
     if (thumbnail) {
       const removeImages = await new StorageUploads(
         `/apartments/${listing.mId}`

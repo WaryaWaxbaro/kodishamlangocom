@@ -5,6 +5,7 @@ import StorageUploads from "../../../models/storageUploads";
 import { useUser } from "../../../context/userContext";
 import AdminLayout from "../../../layout/AdminLayout";
 import PropertyListItem from "../../../components/PropertyListItem";
+import { sortByTimestamp } from "../../../utils/index";
 
 export default function MyProperties() {
   const [listings, setListings] = useState([]);
@@ -18,11 +19,7 @@ export default function MyProperties() {
         userId: `${userId}`,
       }).getAllByQuery();
       if (listing) {
-        // Sort the listings by date
-        const sortedListings = listing.sort((a, b) => {
-          return b.createdAt.seconds - a.createdAt.seconds;
-        });
-        setListings(sortedListings);
+        setListings(sortByTimestamp(listing));
       }
     };
 

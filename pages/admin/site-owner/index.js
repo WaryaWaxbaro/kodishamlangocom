@@ -58,7 +58,6 @@ export default function Home() {
     const getUsers = async () => {
       const users = await new UserModel().getAll();
       if (users && users.length > 0) {
-        console.log(users);
         setUsers(sortByTimestamp(users));
       }
     };
