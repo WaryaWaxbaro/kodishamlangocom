@@ -39,7 +39,7 @@ export default function MainUsers({ users, apartments, handleBlockUser }) {
                 <td>{user.email}</td>
                 <td>{user.roles.join(", ")}</td>
                 <td>{user.isBlocked ? "Blocked" : "Active"}</td>
-                <td>{unixToDate(user.createdAt.seconds)}</td>
+                <td>{unixToDate(user.createdAt?.seconds)}</td>
                 <td>{unixToDate(user.lastLogin.seconds)}</td>
                 <td>{getUserApartmentsCount(user.mId)}</td>
                 <td>

@@ -188,3 +188,23 @@ export const getFileUrl = (file) => {
   let url = URL.createObjectURL(file);
   return url;
 };
+
+// Sort by date
+export const sortByDate = (data) => {
+  let sortedData = data;
+  sortedData = sortedData.sort((a, b) => {
+    return new Date(b.createdAt) - new Date(a.createdAt);
+  });
+
+  return sortedData;
+};
+
+// Sort by timestamp
+export const sortByTimestamp = (data) => {
+  let sortedData = data;
+  sortedData = sortedData.sort((a, b) => {
+    return b.createdAt - a.createdAt;
+  });
+
+  return sortedData;
+};

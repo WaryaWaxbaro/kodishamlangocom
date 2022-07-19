@@ -72,6 +72,7 @@ class BaseModel {
   }
 
   async create() {
+    this.setCreatedAt(new Date());
     const usersRef = collection(this.db, this.collectionName);
     return setDoc(doc(usersRef, this.getId()), this.dataWithoutId(true));
   }

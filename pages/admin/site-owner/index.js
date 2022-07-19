@@ -4,10 +4,15 @@ import {
   GeneralSettingsModel,
   UserModel,
   ApartmentModel,
+  ReviewsModel,
+  ContactRequestModel,
+  ContactModel,
 } from "../../../models";
 import GeneralSettings from "../../../components/GeneralSettings";
 import MainUsers from "../../../components/MainUsers";
 import MainApartments from "../../../components/MainApartments";
+import { sortByTimestamp } from "../../../utils/index";
+import MainContacts from "../../../components/MainContacts";
 
 const mainSettings = {
   title: "Site Owner",
@@ -33,7 +38,6 @@ export default function Home() {
   const [generalSettings, setGeneralSettings] = useState({});
   const [users, setUsers] = useState([]);
   const [apartments, setApartments] = useState([]);
-  const [likes, setLikes] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [contactRequests, setContactRequests] = useState([]);
   const [contacts, setContacts] = useState([]);
@@ -52,18 +56,42 @@ export default function Home() {
       const users = await new UserModel().getAll();
       if (users && users.length > 0) {
         console.log(users);
-        setUsers(users);
+        setUsers(sortByTimestamp(users));
       }
     };
 
     const getApartments = async () => {
       const apartments = await new ApartmentModel().getAll();
       if (apartments && apartments.length > 0) {
-        setApartments(apartments);
+        setApartments(sortByTimestamp(apartments));
+      }
+    };
+
+    const getReviews = async () => {
+      const reviews = await new ReviewsModel().getAll();
+      if (reviews && reviews.length > 0) {
+        setReviews(sortByTimestamp(reviews));
+      }
+    };
+
+    const getContactRequests = async () => {
+      const contactRequests = await new ContactRequestModel().getAll();
+      if (contactRequests && contactRequests.length > 0) {
+        setContactRequests(sortByTimestamp(contactRequests));
+      }
+    };
+
+    const getContacts = async () => {
+      const contacts = await new ContactModel().getAll();
+      if (contacts && contacts.length > 0) {
+        setContacts(sortByTimestamp(contacts));
       }
     };
     getUsers();
     getApartments();
+    getReviews();
+    getContactRequests();
+    getContacts();
   }, []);
 
   const handleBlockUser = async (userId) => {
@@ -83,17 +111,12 @@ export default function Home() {
 
   return (
     <SiteOwnerLayout>
-      <div className="max-width-460">
-        <p>This section you can manage some section of the website</p>
-        <p>Things that you can manage include</p>
-        <ul>
-          <li>
-            Updating and Changing general settings. Update header logo, footer
-            logo, main heading picture and some texts.
-          </li>
-          <li>Users management; View users, Block abusive users</li>
-          <li>Manage Apartment. Check owners. Remove apartments</li>
-        </ul>
+      <div className="max-width-460 my-4">
+        <p>This is the management section for the website.</p>
+        <p>
+          This section you can manage Users, Apartments and Contacts for the
+          website.
+        </p>
       </div>
       <nav>
         <div className="nav nav-tabs" id="nav-tab" role="tablist">
@@ -154,7 +177,12 @@ export default function Home() {
           role="tabpanel"
           aria-labelledby="nav-apartments-tab"
         >
-          <MainApartments apartments={apartments} users={users} />
+          <MainApartments
+            apartments={apartments}
+            users={users}
+            reviews={reviews}
+            contactRequests={contactRequests}
+          />
         </div>
         <div
           className="tab-pane fade py-3"
@@ -162,7 +190,7 @@ export default function Home() {
           role="tabpanel"
           aria-labelledby="nav-contacts-tab"
         >
-          Contacts will appear hear
+          <MainContacts contacts={contacts} />
         </div>
       </div>
     </SiteOwnerLayout>

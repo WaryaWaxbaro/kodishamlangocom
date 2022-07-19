@@ -32,7 +32,6 @@ export default function ReviewCard({ propertyId }) {
   }, []);
 
   const updateReview = async (id, isPublished) => {
-    console.log(foundReview);
     const review = await new ReviewsModel({
       id,
       isPublished,

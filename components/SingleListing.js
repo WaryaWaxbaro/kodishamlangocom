@@ -17,6 +17,13 @@ export default function SingleListing({ listing, listingType }) {
   const [profileImageUrl, setProfileImageUrl] = useState(null);
   const [reload, setReload] = useState(true);
   const [reviewCount, setReviewCount] = useState(0);
+  const [tokenAvailable, setTokenAvailable] = useState(false);
+
+  useEffect(() => {
+    if (!sessionStorage.getItem("token")) {
+      setTokenAvailable(true);
+    }
+  }, []);
 
   useEffect(() => {
     const getImages = async (id) => {
@@ -190,7 +197,7 @@ export default function SingleListing({ listing, listingType }) {
             </div>
           </div>
           {/* Recent Properties */}
-          <div className="w-100 bg-white shadow p-3 mb-3">
+          <div className="w-100 d-none bg-white shadow p-3 mb-3">
             <h3 className="fs-18 fw-bold ls-6">Recent Properties</h3>
             <hr />
             <div className="w-100">
@@ -210,7 +217,9 @@ export default function SingleListing({ listing, listingType }) {
           </div>
         </div>
       </div>
-      <ViewCounter id={listing.id} propertyId={listing.mId} />
+      {tokenAvailable && (
+        <ViewCounter id={listing.id} propertyId={listing.mId} />
+      )}
     </div>
   );
 }
