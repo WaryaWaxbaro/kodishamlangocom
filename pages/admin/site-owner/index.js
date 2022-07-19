@@ -13,6 +13,7 @@ import MainUsers from "../../../components/MainUsers";
 import MainApartments from "../../../components/MainApartments";
 import { sortByTimestamp } from "../../../utils/index";
 import MainContacts from "../../../components/MainContacts";
+import { useUser } from "../../../context/userContext";
 
 const mainSettings = {
   title: "Site Owner",
@@ -41,6 +42,8 @@ export default function Home() {
   const [reviews, setReviews] = useState([]);
   const [contactRequests, setContactRequests] = useState([]);
   const [contacts, setContacts] = useState([]);
+
+  const { currentUser, loadingUser } = useUser();
 
   useEffect(() => {
     /*     const getGeneralSettings = async () => {
@@ -87,12 +90,14 @@ export default function Home() {
         setContacts(sortByTimestamp(contacts));
       }
     };
-    getUsers();
-    getApartments();
-    getReviews();
-    getContactRequests();
-    getContacts();
-  }, []);
+    if (currentUser && currentUser.roles.includes("admin")) {
+      getUsers();
+      getApartments();
+      getReviews();
+      getContactRequests();
+      getContacts();
+    }
+  }, [loadingUser]);
 
   const handleBlockUser = async (userId) => {
     const blockingUser = users.find((user) => user.id === userId);

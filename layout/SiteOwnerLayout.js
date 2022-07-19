@@ -9,8 +9,13 @@ export default function SiteOwnerLayout({ children }) {
 
   useEffect(() => {
     if (!loadingUser) {
+      console.log("currentUser", currentUser);
       if (!currentUser) {
         router.push("/login");
+      } else {
+        if (!currentUser.roles.includes("admin")) {
+          router.push("/admin");
+        }
       }
     }
   }, [loadingUser]);

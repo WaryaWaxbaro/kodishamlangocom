@@ -3,12 +3,12 @@ import { useUser } from "../context/userContext";
 import { useRouter } from "next/router";
 
 export default function AdminLayout({ children }) {
-  const { user, loadingUser } = useUser();
+  const { currentUser, loadingUser } = useUser();
   const router = useRouter();
 
   useEffect(() => {
     if (!loadingUser) {
-      if (!user) {
+      if (!currentUser) {
         router.push("/login");
       }
     }
@@ -16,8 +16,21 @@ export default function AdminLayout({ children }) {
 
   return (
     <div className="min-80vh">
-      {user ? (
-        children
+      {currentUser ? (
+        <>
+          {currentUser.isBlocked ? (
+            <div
+              className="w-100 h-50 d-flex align-items-center justify-content-center"
+              style={{ marginTop: "150px" }}
+            >
+              <div className="text-center p-4 border border-danger rounded-5">
+                Please contact the Admin to check your account
+              </div>
+            </div>
+          ) : (
+            children
+          )}
+        </>
       ) : (
         <div
           className="d-flex align-items-center justify-content-center"
