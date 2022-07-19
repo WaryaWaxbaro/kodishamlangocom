@@ -93,7 +93,7 @@ export default function Search(props) {
       price: selectedPrice,
       city: searchCity,
     });
-    if (selectedPropertyStatus) {
+    if (property_status_routes[selectedPropertyStatus]) {
       setHomePageRoute(property_status_routes[selectedPropertyStatus]);
     }
   }, [
