@@ -159,7 +159,7 @@ const footerLinksSm = [
   },
   {
     name: "Terms and Conditions",
-    url: "/terms-and-conditions",
+    url: "/terms",
   },
   {
     name: "Privacy",
@@ -167,6 +167,6 @@ const footerLinksSm = [
   },
   {
     name: "How to register",
-    url: "/how-to-register",
+    url: "/registration",
   },
 ];
