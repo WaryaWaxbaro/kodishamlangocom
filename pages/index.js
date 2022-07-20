@@ -43,7 +43,7 @@ export default function Home({ listings }) {
   );
 }
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps({ locale }) {
   try {
     const rentEntries = await admin
       .firestore()

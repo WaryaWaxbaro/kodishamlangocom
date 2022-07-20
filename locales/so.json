@@ -1,5 +1,41 @@
 {
   "Home": {
     "hello": "Haye"
+  },
+  "Navigations": {
+    "hello": "Haye",
+    "home": "Bogga Hore",
+    "about": "Kusaabsan",
+    "about_us": "Nagusaabsan",
+    "contact": "Nala soo xariir",
+    "contact_us": "Nala soo xariir",
+    "rent": "Kiro",
+    "for_rent": "Kiro",
+    "sale": "Iib",
+    "for_sale": "Iib",
+    "holiday": "Nasasho",
+    "for_holiday": "Guri nasasho",
+    "short_stay": "Mudo Gaaban",
+    "dashboard": "Bogga Maamulka",
+    "profile": "Profeelka",
+    "my_properties": "Guryahayga",
+    "contact_requests": "Codsiyada Xariirka",
+    "reviews": "Faallooyin",
+    "favorite_properties": "Guryaha aad jeceshahay",
+    "add_property": "Kudarso Guri",
+    "payments": "Lacagta aad bixisay",
+    "invoices": "Rasiidyada",
+    "site_owner": "Bogga Milkiilaha",
+    "site_settings": "Bogga Maamulida",
+    "login": "Kudaha U Gal",
+    "logout": "Kabax",
+    "add_listing": "Kudar Guri",
+    "new_advertisement": "Xayaysiis cusub",
+    "terms_and_conditions": "Shuruudaha",
+    "privacy": "Xuquuqda Kali ahaashada",
+    "how_to_register": "Isdiiwan galinta",
+    "footer_paragraph": "Bogan waxa uu kuu sahlayaa iibsashada iyo kireenta Guryaha.",
+    "copy_right": "Xuquuqda daabacaada",
+    "all_rights_reserved": "Xuquuqda Bogan way dhoorantahay"
   }
 }

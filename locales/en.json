@@ -1,5 +1,41 @@
 {
   "Home": {
-    "hello": "Hello"
+    "hello": "Haye"
+  },
+  "Navbar": {
+    "hello": "hello",
+    "home": "Home",
+    "about": "About",
+    "about_us": "About Us",
+    "contact": "Contact",
+    "contact_us": "Contact Us",
+    "rent": "Rent",
+    "for_rent": "For Rent",
+    "sale": "Sale",
+    "for_sale": "For Sale",
+    "holiday": "Holiday",
+    "for_holiday": "For Holiday",
+    "short_stay": "Short Stay",
+    "dashboard": "Dashboard",
+    "profile": "Profile",
+    "my_properties": "My Properties",
+    "contact_requests": "Contact Requests",
+    "reviews": "Reviews",
+    "favorite_properties": "Favorite Properties",
+    "add_property": "Add Property",
+    "payments": "Payments",
+    "invoices": "Invoices",
+    "site_owner": "Site Owner",
+    "site_settings": "Site Settings",
+    "login": "Login",
+    "logout": "Logout",
+    "add_listing": "Add Listing",
+    "new_advertisement": "New Advertisement",
+    "terms_and_conditions": "Terms and Conditions",
+    "privacy": "Privacy Policy",
+    "how_to_register": "How to Register",
+    "footer_paragraph": "We help you find the best places to buy and rent properties.",
+    "copy_right": "Copyright",
+    "all_rights_reserved": "All Rights Reserved"
   }
 }

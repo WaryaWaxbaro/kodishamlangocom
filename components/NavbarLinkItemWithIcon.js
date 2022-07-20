@@ -5,6 +5,7 @@ export default function NavbarLinkItemWithIcon({
   isBtn,
   handleSignOut,
   pathname,
+  name,
 }) {
   return (
     <li className="mb-2">
@@ -14,7 +15,7 @@ export default function NavbarLinkItemWithIcon({
             <span className="d-block me-3">
               <i className={link.icon}></i>
             </span>
-            <span className="d-block">{link.name}</span>
+            <span className="d-block">{name}</span>
           </span>
         </a>
       ) : (
@@ -28,7 +29,7 @@ export default function NavbarLinkItemWithIcon({
               <span className="d-block me-3">
                 <i className={link.icon}></i>
               </span>
-              <span className="d-block">{link.name}</span>
+              <span className="d-block">{name}</span>
             </span>
           </a>
         </Link>

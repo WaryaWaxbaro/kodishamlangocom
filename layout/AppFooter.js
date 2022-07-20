@@ -1,8 +1,9 @@
 import Link from "next/link";
-import React from "react";
+import { useTranslations } from "next-intl";
 import Logo from "../components/Logo";
 
 export default function AppFooter() {
+  const t = useTranslations("Navigations");
   return (
     <footer className="pt-5 bg-dark">
       <div className="container mb-4">
@@ -12,7 +13,7 @@ export default function AppFooter() {
               <Logo imgUrl="/images/logo_orange_door.png" />
             </div>
             <div className="max-width-350 text-light my-4">
-              <p>Choose from wide range of properties.</p>
+              <p>{t("footer_paragraph")}</p>
             </div>
             <div className="mt-4 text-light text-center-md">
               <p className="d-flex align-items-center">
@@ -50,7 +51,7 @@ export default function AppFooter() {
                       key={link.name}
                       className="footer-links light-links-primary mb-1 p-1 py-lg-2"
                     >
-                      <Link href={link.url}>{link.name}</Link>
+                      <Link href={link.url}>{t(`${link.t_name}`)}</Link>
                     </li>
                   ))}
                 </ul>
@@ -62,7 +63,7 @@ export default function AppFooter() {
                       key={link.name}
                       className="footer-links light-links-primary mb-1 p-1 py-lg-2"
                     >
-                      <Link href={link.url}>{link.name}</Link>
+                      <Link href={link.url}>{t(`${link.t_name}`)}</Link>
                     </li>
                   ))}
                 </ul>
@@ -77,10 +78,10 @@ export default function AppFooter() {
             <div className="col-12 col-md-6 mb-3 mb-md-4">
               <div className="h-100 w-100 d-flex align-items-center">
                 <p className="mb-0 text-light fs-12 footer-links light-links-primary">
-                  Copyright &copy; {new Date().getFullYear()}{" "}
+                  {t("copy_right")} &copy; {new Date().getFullYear()}{" "}
                   <Link href="/">Gurikiro.com</Link>.{" "}
                   <span className="d-inline-block ms-2">
-                    All rights reserved
+                    {t("all_rights_reserved")}
                   </span>
                 </p>
               </div>
@@ -128,22 +129,27 @@ export default function AppFooter() {
 const footerLinks = [
   {
     name: "Home page",
+    t_name: "home",
     url: "/",
   },
   {
     name: "For Rent",
+    t_name: "for_rent",
     url: "/for-rent",
   },
   {
     name: "For Sale",
+    t_name: "for_sale",
     url: "/for-sale",
   },
   {
     name: "Short stay (Holiday)",
+    t_name: "short_stay",
     url: "/short-stay",
   },
   {
     name: "New Advertisement",
+    t_name: "new_advertisement",
     url: "/new-listing",
   },
 ];
@@ -151,22 +157,27 @@ const footerLinks = [
 const footerLinksSm = [
   {
     name: "About us",
+    t_name: "about_us",
     url: "/about-us",
   },
   {
     name: "Contact Us",
+    t_name: "contact_us",
     url: "/contact",
   },
   {
     name: "Terms and Conditions",
+    t_name: "terms_and_conditions",
     url: "/terms",
   },
   {
     name: "Privacy",
+    t_name: "privacy",
     url: "/privacy",
   },
   {
     name: "How to register",
+    t_name: "how_to_register",
     url: "/registration",
   },
 ];

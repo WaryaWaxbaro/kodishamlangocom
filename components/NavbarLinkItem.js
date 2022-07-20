@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export default function NavbarLinkItem({ link, isBtn, handleSignOut }) {
+export default function NavbarLinkItem({ link, isBtn, handleSignOut, name }) {
   return (
     <li className="cursor-pointer fs-14">
       {isBtn ? (
@@ -9,7 +9,7 @@ export default function NavbarLinkItem({ link, isBtn, handleSignOut }) {
         </span>
       ) : (
         <Link href={link.url}>
-          <span className="dropdown-item">{link.name}</span>
+          <span className="dropdown-item">{name}</span>
         </Link>
       )}
     </li>

@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useRouter } from "next/router";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import Image from "next/image";
 import { createFirebaseApp } from "../firebase/clientApp";
@@ -10,6 +11,7 @@ import NavbarLinkItem from "../components/NavbarLinkItem";
 import NavbarLinkItemWithIcon from "../components/NavbarLinkItemWithIcon";
 
 export default function NavbarLinks() {
+  const t = useTranslations("Navigations");
   const auth = getAuth(createFirebaseApp());
   const router = useRouter();
   const { pathname } = router;
@@ -85,7 +87,7 @@ export default function NavbarLinks() {
                       }
                     >
                       <Link href={link.url}>
-                        <a>{link.name}</a>
+                        <a>{t(`${link.t_name}`)}</a>
                       </Link>
                     </span>
                   </li>
@@ -110,7 +112,7 @@ export default function NavbarLinks() {
                           <Image src={currentUser.photoURL} layout="fill" />
                         </span>
                         <span className="d-block">
-                          Hello {currentUser.displayName}
+                          {t("hello")} {currentUser.displayName}
                         </span>
                       </span>
                     </span>
@@ -126,6 +128,7 @@ export default function NavbarLinks() {
                           <NavbarLinkItem
                             key={`${link.name}`}
                             link={link}
+                            name={t(`${link.t_name}`)}
                             isBtn={link.name === "Logout"}
                             handleSignOut={handleSignOut}
                           />
@@ -133,6 +136,7 @@ export default function NavbarLinks() {
                           <NavbarLinkItem
                             key={`${link.name}`}
                             link={link}
+                            name={t(`${link.t_name}`)}
                             isBtn={link.name === "Logout"}
                             handleSignOut={handleSignOut}
                           />
@@ -145,7 +149,7 @@ export default function NavbarLinks() {
                 <li className="nav-item ls-1 p-lg-3">
                   <span className="main-nav-links">
                     <Link href="/login">
-                      <a>Login</a>
+                      <a>{t("login")}</a>
                     </Link>
                   </span>
                 </li>
@@ -157,7 +161,7 @@ export default function NavbarLinks() {
               </li>
               <li className="nav-item ls-1 p-lg-3">
                 <span className="btn btn-primary rounded-8 dark-links text-nowrap">
-                  <Link href="/new-listing">Add Listing</Link>
+                  <Link href="/new-listing">{t("add_property")}</Link>
                 </span>
               </li>
             </ul>
@@ -176,6 +180,7 @@ export default function NavbarLinks() {
                     <NavbarLinkItemWithIcon
                       key={`${link.name}_${index}`}
                       link={link}
+                      name={t(`${link.t_name}`)}
                       isBtn={link.name === "Logout"}
                       handleSignOut={handleSignOut}
                       pathname={pathname}
@@ -198,7 +203,7 @@ export default function NavbarLinks() {
                         <span className="d-block me-3">
                           <i className="bi bi-box-arrow-in-right"></i>
                         </span>
-                        <span className="d-block">Login</span>
+                        <span className="d-block">{t("login")}</span>
                       </span>
                     </a>
                   </Link>
@@ -211,6 +216,7 @@ export default function NavbarLinks() {
                 <NavbarLinkItemWithIcon
                   key={`${link.name}_b_${index}`}
                   link={link}
+                  name={t(`${link.t_name}`)}
                   isBtn={link.name === "Logout"}
                   handleSignOut={handleSignOut}
                   pathname={pathname}
@@ -228,30 +234,35 @@ export default function NavbarLinks() {
 const mainLinks = [
   {
     name: "Home",
+    t_name: "home",
     url: "/",
     icon: "bi bi-house-door-fill",
     topNav: true,
   },
   {
     name: "For Rent",
+    t_name: "for_rent",
     url: "/for-rent",
     icon: "bi bi-house-heart",
     topNav: true,
   },
   {
     name: "For Sale",
+    t_name: "for_sale",
     url: "/for-sale",
     icon: "bi bi-house-heart-fill",
     topNav: true,
   },
   {
     name: "Short Stay",
+    t_name: "short_stay",
     url: "/short-stay",
     icon: "bi bi-emoji-sunglasses",
     topNav: false,
   },
   {
     name: "Holiday",
+    t_name: "holiday",
     url: "/holiday",
     icon: "bi bi-tv",
     topNav: false,
@@ -261,56 +272,67 @@ const mainLinks = [
 const dropdownLinks = [
   {
     name: "Dashboard",
+    t_name: "dashboard",
     url: "/admin",
     icon: "bi bi-speedometer",
   },
   {
     name: "Profile",
+    t_name: "profile",
     url: "/admin/profile",
     icon: "bi bi-person-fill",
   },
   {
     name: "My properties",
+    t_name: "my_properties",
     url: "/admin/my-properties",
     icon: "bi bi-list-ul",
   },
   {
     name: "Contact Requests",
+    t_name: "contact_requests",
     url: "/admin/contact-requests",
     icon: "bi bi-telephone-inbound-fill",
   },
   {
     name: "Reviews",
+    t_name: "reviews",
     url: "/admin/reviews",
     icon: "bi bi-person-lines-fill",
   },
   {
     name: "Favorite Properties",
+    t_name: "favorite_properties",
     url: "/admin/favorite-properties",
     icon: "bi bi-heart-fill",
   },
   {
     name: "Add Property",
+    t_name: "add_property",
     url: "/new-listing",
     icon: "bi bi-plus-circle-fill",
   },
   {
     name: "Payments",
+    t_name: "payments",
     url: "/admin/payments",
     icon: "bi bi-credit-card-fill",
   },
   {
     name: "Invoices",
+    t_name: "invoices",
     url: "/admin/invoices",
     icon: "bi bi-journals",
   },
   {
     name: "Site Owner",
+    t_name: "site_owner",
     url: "/admin/site-owner",
     icon: "bi bi-person-badge",
   },
   {
     name: "Logout",
+    t_name: "logout",
     url: "/",
     icon: "bi bi-box-arrow-in-left",
   },
