@@ -68,23 +68,28 @@ export default function NavbarLinks() {
           ></button>
         </div>
         <div className="offcanvas-body">
-          <div className="d-none h-100 nav-section-width d-lg-flex flex-column flex-lg-row align-items-center justify-content-end justify-content-xl-between ms-xl-auto">
+          <div className="d-none h-100 nav-section-width d-lg-flex flex-column flex-lg-row align-items-center justify-content-between ms-xl-auto ps-4 ps-xl-0">
             <ul className="navbar-nav">
-              {mainLinks.map((link) => (
-                <li key={`${link.name}`} className="nav-item ls-1 p-lg-3">
-                  <span
-                    className={
-                      link.url === pathname
-                        ? "main-nav-links active"
-                        : "main-nav-links"
-                    }
+              {mainLinks
+                .filter((l) => l.topNav)
+                .map((link) => (
+                  <li
+                    key={`${link.name}`}
+                    className="nav-item ls-1 p-lg-2 w-no-wrap"
                   >
-                    <Link href={link.url}>
-                      <a>{link.name}</a>
-                    </Link>
-                  </span>
-                </li>
-              ))}
+                    <span
+                      className={
+                        link.url === pathname
+                          ? "main-nav-links active"
+                          : "main-nav-links"
+                      }
+                    >
+                      <Link href={link.url}>
+                        <a>{link.name}</a>
+                      </Link>
+                    </span>
+                  </li>
+                ))}
             </ul>
             <ul className="navbar-nav align-items-center justify-content-end">
               {currentUser ? (
@@ -101,7 +106,7 @@ export default function NavbarLinks() {
                       style={{ marginTop: "10px" }}
                     >
                       <span className="d-flex align-items-center">
-                        <span className="d-block position-relative square-50 bg-danger rounded-circle overflow-hidden me-3">
+                        <span className="d-block position-relative square-50 bg-danger rounded-circle overflow-hidden me-2">
                           <Image src={currentUser.photoURL} layout="fill" />
                         </span>
                         <span className="d-block">
@@ -225,21 +230,31 @@ const mainLinks = [
     name: "Home",
     url: "/",
     icon: "bi bi-house-door-fill",
+    topNav: true,
   },
   {
     name: "For Rent",
     url: "/for-rent",
     icon: "bi bi-house-heart",
+    topNav: true,
   },
   {
     name: "For Sale",
     url: "/for-sale",
     icon: "bi bi-house-heart-fill",
+    topNav: true,
   },
   {
     name: "Short Stay",
     url: "/short-stay",
     icon: "bi bi-emoji-sunglasses",
+    topNav: false,
+  },
+  {
+    name: "Holiday",
+    url: "/holiday",
+    icon: "bi bi-emoji-sunglasses",
+    topNav: false,
   },
 ];
 
