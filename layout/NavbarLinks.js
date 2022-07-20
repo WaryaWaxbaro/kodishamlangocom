@@ -75,7 +75,7 @@ export default function NavbarLinks() {
                 .map((link) => (
                   <li
                     key={`${link.name}`}
-                    className="nav-item ls-1 p-lg-2 w-no-wrap"
+                    className="nav-item ls-1 p-lg-2 text-nowrap"
                   >
                     <span
                       className={
@@ -253,7 +253,7 @@ const mainLinks = [
   {
     name: "Holiday",
     url: "/holiday",
-    icon: "bi bi-emoji-sunglasses",
+    icon: "bi bi-tv",
     topNav: false,
   },
 ];

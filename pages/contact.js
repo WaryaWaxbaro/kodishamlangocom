@@ -81,7 +81,7 @@ export default function Contact() {
                         <span className="d-block me-3">
                           <i className="bi bi-envelope-fill"></i>
                         </span>
-                        <span className="d-block">info@kodishamlango.com</span>
+                        <span className="d-block">info@gurikiro.com</span>
                       </p>
                       <p className="mb-2 d-flex">
                         <span className="d-block me-3">

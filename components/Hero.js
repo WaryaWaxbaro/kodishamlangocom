@@ -11,7 +11,7 @@ export default function Hero() {
     <>
       <div className="position-fixed start-0 top-0 w-100 h-90-vh z-1">
         <div className="position-relative w-100 h-100 cover-img-bottom">
-          <Image src="/bg-img.jpeg" layout="fill" alt="Kodishamlango.com" />
+          <Image src="/bg-img.jpeg" layout="fill" alt="gurikiro.com" />
           <div className="position-absolute start-0 top-0 w-100 h-100 hero-bg"></div>
         </div>
       </div>

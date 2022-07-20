@@ -32,11 +32,11 @@ export default function AppFooter() {
                   <i className="bi bi-envelope-fill text-light"></i>
                 </span>
                 <a
-                  href="mailto: info@kodishamlango.com"
+                  href="mailto: info@gurikiro.com"
                   rel="no-referer"
                   className="text-light d-inline-block"
                 >
-                  info@kodishamlango.com
+                  info@gurikiro.com
                 </a>
               </p>
             </div>
@@ -78,7 +78,7 @@ export default function AppFooter() {
               <div className="h-100 w-100 d-flex align-items-center">
                 <p className="mb-0 text-light fs-12 footer-links light-links-primary">
                   Copyright &copy; {new Date().getFullYear()}{" "}
-                  <Link href="/">Kodishamlango.com</Link>.{" "}
+                  <Link href="/">Gurikiro.com</Link>.{" "}
                   <span className="d-inline-block ms-2">
                     All rights reserved
                   </span>
@@ -90,7 +90,7 @@ export default function AppFooter() {
                 <ul className="list-unstyled d-flex">
                   <li className="me-3">
                     <a
-                      href="mailto: info@kodishamlango.com"
+                      href="mailto: info@gurikiro.com"
                       rel="no-referer"
                       className="whatsapp-icon d-inline-block text-decoration-none"
                     >
@@ -99,7 +99,7 @@ export default function AppFooter() {
                   </li>
                   <li className="me-3">
                     <a
-                      href="mailto: info@kodishamlango.com"
+                      href="mailto: info@gurikiro.com"
                       rel="no-referer"
                       className="facebook-icon d-inline-block text-decoration-none"
                     >
@@ -108,7 +108,7 @@ export default function AppFooter() {
                   </li>
                   <li className="me-3">
                     <a
-                      href="mailto: info@kodishamlango.com"
+                      href="mailto: info@gurikiro.com"
                       rel="no-referer"
                       className="twitter-icon d-inline-block text-decoration-none"
                     >
