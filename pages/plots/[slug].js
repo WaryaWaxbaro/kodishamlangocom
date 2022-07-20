@@ -2,7 +2,7 @@ import admin from "../../firebase/nodeApp";
 import Loader from "../../components/Loader";
 import SingleListing from "../../components/SingleListing";
 
-export default function singleListingForSale(props) {
+export default function SingleListingForPlots(props) {
   const listing = props.listing ? JSON.parse(props.listing) : {};
 
   if (Object.keys(listing).length < 1) {

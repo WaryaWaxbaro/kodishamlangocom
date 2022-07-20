@@ -14,7 +14,7 @@ import Loader from "../components/Loader";
 import { UserModel } from "../models";
 import { randomKeys } from "../utils";
 
-export default function login() {
+export default function Login() {
   const router = useRouter();
   const gProvider = new GoogleAuthProvider();
   const fProvider = new FacebookAuthProvider();

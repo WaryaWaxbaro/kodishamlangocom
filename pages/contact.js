@@ -3,7 +3,7 @@ import dynamic from "next/dynamic";
 import HeadingWithLine from "../components/HeadingWithLine";
 import AppContact from "../components/AppContact";
 
-export default function contact() {
+export default function Contact() {
   const MapWithNoSSR = dynamic(() => import("../components/Map"), {
     ssr: false,
   });

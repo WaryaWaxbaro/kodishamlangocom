@@ -7,7 +7,7 @@ import Listings from "../../components/Listings";
 import Loader from "../../components/Loader";
 import { sortDataByQuery } from "../../utils";
 
-export default function holiday(props) {
+export default function ShortStay(props) {
   let { listings } = props;
   const router = useRouter();
   const { query } = router;

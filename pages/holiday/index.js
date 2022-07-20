@@ -8,7 +8,7 @@ import Listings from "../../components/Listings";
 import Loader from "../../components/Loader";
 import { sortDataByQuery } from "../../utils";
 
-export default function holiday(props) {
+export default function Holiday(props) {
   let { listings } = props;
   const router = useRouter();
   const { query } = router;
@@ -60,7 +60,7 @@ export async function getServerSideProps(context) {
     const listingEntries = await admin
       .firestore()
       .collection("apartments")
-      .where("property_status_short_stay", "==", true)
+      .where("property_status", "array-contains", "short stay")
       .get();
 
     const listings = JSON.stringify(

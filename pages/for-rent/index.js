@@ -7,7 +7,7 @@ import Listings from "../../components/Listings";
 import Loader from "../../components/Loader";
 import { sortDataByQuery } from "../../utils";
 
-export default function forRent(props) {
+export default function ForRent(props) {
   let { listings } = props;
   const router = useRouter();
   const { query } = router;

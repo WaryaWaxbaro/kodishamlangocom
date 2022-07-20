@@ -76,7 +76,9 @@ export default function Listings({ apartments, setApartments, apartmentType }) {
     <div className="container-lg">
       <div className="mt-3 mb-5">
         <h1 className="fs-34 fw-bold ls-6 text-capitalize">
-          Properties for {apartmentType}
+          {apartmentType === "plots"
+            ? "Plots"
+            : `Properties for ${apartmentType}`}
         </h1>
       </div>
       <div className="w-100 mb-5">
