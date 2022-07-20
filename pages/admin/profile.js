@@ -58,6 +58,7 @@ export default function Profile() {
       setDataLoading(false);
     };
     if (currentUser?.profileId) {
+      console.log(currentUser);
       getUserProfile(currentUser.profileId);
     } else {
       if (!loadingUser) {
@@ -94,14 +95,28 @@ export default function Profile() {
   useEffect(() => {
     const createUpdateProfile = async (action) => {
       let hasImage = false;
-      let profileMid = null;
-      if (action === "new") {
+      let currentUserProfileId = currentUser.profileId;
+      if (currentUserProfileId) {
+        const foundProfile = await new ProfileModel({
+          mId: `${currentUser.profileId}`,
+        }).getAllByQuery();
+        if (foundProfile && foundProfile.length > 0) {
+          const docSnap = await new ProfileModel({
+            id: `${foundProfile[0].id}`,
+            ...profileForm,
+          }).update();
+
+          if (profileImage) {
+            hasImage = true;
+          }
+        }
+      } else {
         // Save new profile
         const profile = await new ProfileModel({
           ...profileForm,
           userId: currentUser.mId,
         }).save();
-        if (profile.id && currentUser.uid) {
+        if (profile.id && currentUser.mId) {
           // Get saved profile data
           const savedProfile = await new ProfileModel({
             id: `${profile.id}`,
@@ -117,22 +132,6 @@ export default function Profile() {
             hasImage = true;
           }
           setUserProfile(savedProfile);
-        }
-      } else if (action === "update") {
-        if (currentUser?.profileId) {
-          const foundProfile = await new ProfileModel({
-            mId: `${currentUser.profileId}`,
-          }).getAllByQuery();
-          if (foundProfile && foundProfile.length > 0) {
-            const docSnap = await new ProfileModel({
-              id: `${foundProfile[0].id}`,
-              ...profileForm,
-            }).update();
-
-            if (profileImage) {
-              hasImage = true;
-            }
-          }
         }
       }
 

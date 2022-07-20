@@ -58,12 +58,13 @@ export default function Reviews({ propertyId, setReviewCount, userId }) {
       userId: `${currentUser.mId}`,
       propertyId: `${propertyId}`,
       photoUrl: `${currentUser.photoURL}`,
-      isPublished: false,
+      isPublished: true,
     };
 
     const review = await new ReviewsModel(rev).save();
 
     if (review?.id) {
+      toast.success("Review submitted successfully");
       setUpdateReviews(!updateReviews);
     }
   };

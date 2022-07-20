@@ -41,7 +41,7 @@ export const getStaticProps = async ({ params }) => {
     .get();
 
   const data = querySnapshot.docs.map((doc) => {
-    return doc.data();
+    return { ...doc.data(), id: doc.id };
   });
 
   return {

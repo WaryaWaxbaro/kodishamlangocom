@@ -54,6 +54,7 @@ export default function Login() {
           id: uid,
           roles: ["member"],
           isBlocked: false,
+          profileId: "",
         }).create();
       }
     };
