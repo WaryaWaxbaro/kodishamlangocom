@@ -10,7 +10,7 @@ export default function Terms() {
           page periodically to review the terms and conditions, to which you are
           bound.
         </p>
-        <h5 class="fs-5">Terms of Use</h5>
+        <h5 className="fs-5">Terms of Use</h5>
         <p>
           Users may not use the Website in order to transmit, distribute, store
           or destroy material:

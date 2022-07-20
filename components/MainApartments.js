@@ -69,17 +69,17 @@ export default function MainApartments({
                   <td>{apartment.property_status.join(", ")}</td>
                   <td>
                     {apartment.published ? (
-                      <i class="bi bi-check-square-fill text-success"></i>
+                      <i className="bi bi-check-square-fill text-success"></i>
                     ) : (
-                      <i class="bi bi-x-square-fill text-danger"></i>
+                      <i className="bi bi-x-square-fill text-danger"></i>
                     )}
                   </td>
                   <td>{unixToDate(apartment.createdAt.seconds)}</td>
                 </tr>
                 <tr>
                   <td className="p-0" colSpan="15">
-                    <div class="collapse" id={`collapse_${index}`}>
-                      <div class="card card-body">
+                    <div className="collapse" id={`collapse_${index}`}>
+                      <div className="card card-body">
                         <div className="row">
                           <div className="col-12">
                             <table>

@@ -44,11 +44,11 @@ export default function AppFooter() {
           <div className="col-12 col-md-6">
             <div className="row">
               <div className="col-12 col-lg-6">
-                <ul className="list-unstyled">
+                <ul className="list-unstyled mb-2">
                   {footerLinks.map((link) => (
                     <li
                       key={link.name}
-                      className="footer-links light-links-primary mb-2 p-1 py-lg-2"
+                      className="footer-links light-links-primary mb-1 p-1 py-lg-2"
                     >
                       <Link href={link.url}>{link.name}</Link>
                     </li>
@@ -60,7 +60,7 @@ export default function AppFooter() {
                   {footerLinksSm.map((link) => (
                     <li
                       key={link.name}
-                      className="footer-links light-links-primary mb-2 p-1 py-lg-2"
+                      className="footer-links light-links-primary mb-1 p-1 py-lg-2"
                     >
                       <Link href={link.url}>{link.name}</Link>
                     </li>
