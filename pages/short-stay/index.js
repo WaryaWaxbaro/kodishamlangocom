@@ -50,7 +50,7 @@ export default function ShortStay(props) {
   );
 }
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps({ locale }) {
   try {
     //const cookies = nookies.get(context);
     //const token = await admin.auth().verifyIdToken(cookies.token);
@@ -69,14 +69,10 @@ export async function getServerSideProps(context) {
     return {
       props: {
         listings,
+        messages: require(`../../locales/${locale}.json`),
       },
     };
   } catch (error) {
     console.log("error", error);
-    return {
-      props: {
-        listings: null,
-      },
-    };
   }
 }

@@ -50,7 +50,7 @@ export default function ForRent(props) {
   );
 }
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps({ locale }) {
   try {
     const listingEntries = await admin
       .firestore()
@@ -67,14 +67,10 @@ export async function getServerSideProps(context) {
     return {
       props: {
         listings,
+        messages: require(`../../locales/${locale}.json`),
       },
     };
   } catch (error) {
     console.log("error", error);
-    return {
-      props: {
-        listings: null,
-      },
-    };
   }
 }

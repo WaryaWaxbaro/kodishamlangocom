@@ -44,6 +44,7 @@ export default function Home({ listings }) {
 }
 
 export async function getServerSideProps({ locale }) {
+  console.log("locale", locale);
   try {
     const rentEntries = await admin
       .firestore()

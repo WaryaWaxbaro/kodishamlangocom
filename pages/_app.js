@@ -26,7 +26,7 @@ function MyApp({ Component, pageProps }) {
   });
 
   return (
-    <NextIntlProvider messages={msg}>
+    <NextIntlProvider messages={pageProps.messages}>
       <UserProvider>
         <MainLayout>
           <Component {...pageProps} />

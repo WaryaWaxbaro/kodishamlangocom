@@ -32,7 +32,7 @@ export const getStaticPaths = async () => {
   };
 };
 
-export const getStaticProps = async ({ params }) => {
+export const getStaticProps = async ({ params, locale }) => {
   const { slug } = params;
   const querySnapshot = await admin
     .firestore()
@@ -47,6 +47,7 @@ export const getStaticProps = async ({ params }) => {
   return {
     props: {
       listing: JSON.stringify(data[0]),
+      messages: require(`../../locales/${locale}.json`),
     },
     //revalidate: 10, // In seconds
   };
