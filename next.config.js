@@ -8,6 +8,10 @@ const nextConfig = {
       "firebasestorage.googleapis.com",
     ],
   },
+  i18n: {
+    locales: ["so", "en"],
+    defaultLocale: "so",
+  },
 };
 
 module.exports = nextConfig;

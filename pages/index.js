@@ -59,14 +59,10 @@ export async function getServerSideProps(context) {
     return {
       props: {
         listings: JSON.stringify(rentListings),
+        messages: require(`../locales/${locale}.json`),
       },
     };
   } catch (error) {
     console.log("error", error);
-    return {
-      props: {
-        listings: null,
-      },
-    };
   }
 }
