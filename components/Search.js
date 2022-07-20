@@ -7,6 +7,7 @@ import AppSlider from "./AppSlider";
 import { property_features, toUnderscoreKey, property_types } from "../utils";
 
 import { StatusModel } from "../models";
+import { currency } from "../utils/staticSetup";
 
 const searchFormFields = {
   location: "",
@@ -267,7 +268,7 @@ export default function Search(props) {
                   <AppSlider
                     minMax={maxPrice}
                     labelName="Price Range"
-                    unit="Kshs"
+                    unit={currency}
                     formatUnit={true}
                     setSelectedRange={setSelectedPrice}
                   />

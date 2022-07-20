@@ -10,6 +10,7 @@ import StorageUploads from "../models/storageUploads";
 import { ProfileModel } from "../models";
 import { formatPrice, property_features, toUnderscoreKey } from "../utils";
 import ViewCounter from "../components/ViewCounter";
+import { currency } from "../utils/staticSetup";
 
 export default function SingleListing({ listing, listingType }) {
   const [images, setImages] = useState([]);
@@ -102,7 +103,7 @@ export default function SingleListing({ listing, listingType }) {
               </p>
             </div>
             <p className="fs-28 fw-bold text-primary ls-6">
-              Kshs {formatPrice(listing.price)}
+              {currency} {formatPrice(listing.price)}
             </p>
           </div>
           {/* Gallery */}
@@ -210,7 +211,7 @@ export default function SingleListing({ listing, listingType }) {
                 </div>
                 <div className="w-100">
                   <h3 className="fs-16 fw-normal">Family Home</h3>
-                  <p className="fs-14">Kshs 230,000</p>
+                  <p className="fs-14">{currency} 230,000</p>
                 </div>
               </div>
             </div>

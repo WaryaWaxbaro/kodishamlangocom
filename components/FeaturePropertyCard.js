@@ -5,6 +5,7 @@ import { ApartmentModel } from "../models";
 
 import Image from "next/image";
 import Link from "next/link";
+import { currency } from "../utils/staticSetup";
 
 export default function FeaturePropertyCard({
   listing,
@@ -140,7 +141,7 @@ export default function FeaturePropertyCard({
             <hr className="bg-gray-500" />
             <div className="d-flex align-item-center justify-content-between">
               <p className="mb-0 fw-bold ls-6">
-                Kshs {formatPrice(listing.price)}
+                {currency} {formatPrice(listing.price)}
                 {listing.property_status.indexOf("rent") >= 0 &&
                   listing.property_status.indexOf("sale") < 0 &&
                   ` / ${listing.price_duration}`}

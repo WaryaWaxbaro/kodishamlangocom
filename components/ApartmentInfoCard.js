@@ -1,8 +1,9 @@
 import Image from "next/image";
-import { formatPrice } from "../utils";
 import { useRouter } from "next/router";
-
 import Link from "next/link";
+
+import { formatPrice } from "../utils";
+import { currency } from "../utils/staticSetup";
 
 export default function ApartmentInfoCard(props) {
   let { apartment, apartment_url } = props;
@@ -131,7 +132,7 @@ export default function ApartmentInfoCard(props) {
             <h5 className="mb-0 text-black">
               <span className="fs-30">{formatPrice(apartment.price)} </span>
               <span className="fs-14 text-capitalize">
-                Kshs / {apartment.price_duration}
+                {currency} / {apartment.price_duration}
               </span>
             </h5>
           </div>

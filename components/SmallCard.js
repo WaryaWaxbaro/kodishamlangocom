@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import StorageUploads from "../models/storageUploads";
 import { ApartmentModel } from "../models";
 import { formatPrice } from "../utils";
+import { currency } from "../utils/staticSetup";
 
 export default function SmallCard({
   apartment,
@@ -169,7 +170,7 @@ export default function SmallCard({
             <hr className="bg-gray-500" />
             <div className="d-flex align-item-center justify-content-between">
               <p className="mb-0 fw-bold ls-6">
-                Kshs {formatPrice(apartment.price)}{" "}
+                {currency} {formatPrice(apartment.price)}{" "}
                 {apartmentType === "rent" && `/ ${apartment.price_duration}`}
               </p>
               <p className="mb-0 d-flex">
