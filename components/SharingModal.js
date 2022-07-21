@@ -1,7 +1,8 @@
-import React from "react";
+import { useTranslations } from "next-intl";
 import SharingLinks from "./SharingLinks";
 
 export default function SharingModal({ sharingInfo }) {
+  const t = useTranslations("Sharing");
   return (
     <div
       className="modal fade"
@@ -14,7 +15,7 @@ export default function SharingModal({ sharingInfo }) {
         <div className="modal-content">
           <div className="modal-header">
             <h5 className="modal-title" id="sharingLinksModalLabel">
-              Share
+              {t("share")}
             </h5>
             <button
               type="button"
@@ -32,7 +33,7 @@ export default function SharingModal({ sharingInfo }) {
               className="btn btn-danger rounded-0 btn-sm"
               data-bs-dismiss="modal"
             >
-              Close
+              {t("close")}
             </button>
           </div>
         </div>

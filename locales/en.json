@@ -201,5 +201,23 @@
     "Week": "Week",
     "Day": "Day",
     "Night": "Night"
+  },
+  "Listing": {
+    "no_result": "No Result Found",
+    "property_for": "Property For",
+    "search_results": "Search Results"
+  },
+  "SortOrder": {
+    "Most Recent": "Most Recent",
+    "Top Selling": "Top Selling",
+    "Most Viewed": "Most Viewed",
+    "Price (low to hight)": "Price (low to hight)",
+    "Price (hight to low)": "Price (hight to low)",
+    "Sort By": "Sort By",
+    "U Shandhee Kuwa": "U Shandhee Kuwa"
+  },
+  "Sharing": {
+    "share": "Share",
+    "close": "Close"
   }
 }

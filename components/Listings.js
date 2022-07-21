@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 import Search from "./Search";
 import AppDropdown from "./AppDropdown";
@@ -12,6 +12,10 @@ import { useUser } from "../context/userContext";
 let PageSize = 25;
 
 export default function Listings({ apartments, setApartments, apartmentType }) {
+  const t = useTranslations("Listing");
+  const t_sort_order = useTranslations("SortOrder");
+  const t_status = useTranslations("PropertyStatus");
+
   const [listedApartments, setListedApartments] = useState([]);
   const [sortBy, setSortBy] = useState("Most Recent");
   const [currentPage, setCurrentPage] = useState(1);
@@ -77,8 +81,8 @@ export default function Listings({ apartments, setApartments, apartmentType }) {
       <div className="mt-3 mb-5">
         <h1 className="fs-34 fw-bold ls-6 text-capitalize">
           {apartmentType === "plots"
-            ? "Plots"
-            : `Properties for ${apartmentType}`}
+            ? t_status("Plots")
+            : `${t("property_for")} ${t_status(apartmentType)}`}
         </h1>
       </div>
       <div className="w-100 mb-5">
@@ -87,19 +91,25 @@ export default function Listings({ apartments, setApartments, apartmentType }) {
       {listedApartments && listedApartments.length > 0 ? (
         <>
           <div className="w-100 d-flex flex-column flex-sm-row justify-content-sm-between">
-            <p>{apartments.length} Search results</p>
-            <div className="d-flex align-items-center">
+            <p>
+              {apartments.length} {t("search_results")}
+            </p>
+            <div className="d-flex align-items-center flex-wrap">
               <p className="mb-0 me-2" style={{ whiteSpace: " nowrap" }}>
-                Sort By
+                {t_sort_order("Sort By")}
               </p>
-              <AppDropdown
-                defaultItem={sortBy}
-                mainLabelName="Sort By"
-                zIndex={100}
-                mainListItem={sortOrder}
-                icon="<i class='bi bi-filter-right fs-18'></i>"
-                setSelectedListItem={setSortBy}
-              />
+              <div className="min-w-280">
+                <AppDropdown
+                  defaultItem={sortBy}
+                  mainLabelName="Sort By"
+                  zIndex={100}
+                  mainListItem={sortOrder}
+                  icon="<i class='bi bi-filter-right fs-18'></i>"
+                  setSelectedListItem={setSortBy}
+                  translation={t_sort_order}
+                  translateSection={[1, 1]}
+                />
+              </div>
             </div>
           </div>
           <div className="w-100 my-5">
@@ -125,7 +135,7 @@ export default function Listings({ apartments, setApartments, apartmentType }) {
         </>
       ) : (
         <>
-          <p className="text-center">No result</p>
+          <p className="text-center">{t("no_result")}</p>
         </>
       )}
       <SharingModal sharingInfo={sharingInfo} />

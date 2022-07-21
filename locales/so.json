@@ -168,7 +168,7 @@
     "bathrooms": "Musqulo/Qobees",
     "area": "Cabirka",
     "guests": "Martida",
-    "price": "Qiimaaha",
+    "price": "Qiimaaha (Dolar)",
     "price_duration": "Mudada Qiimaha",
     "published_or_reserved": "Daabacaada (La Wadaagida dadka oo dhan) / Waa La Qabsaday",
     "reserved": "Waa La Qabsaday",
@@ -201,5 +201,23 @@
     "Week": "Asbuucii",
     "Day": "Maalintii",
     "Night": "Habeenkii"
+  },
+  "Listing": {
+    "no_result": "Wax Natiija Ah Malahan",
+    "property_for": "Guryo",
+    "search_results": "Natiijada La Helay"
+  },
+  "SortOrder": {
+    "Most Recent": "Oogu Dambeyay",
+    "Top Selling": "Oogu Iibis Badan",
+    "Most Viewed": "Oogu Aragti Badan",
+    "Price (low to hight)": "Oogu Raqiisan",
+    "Price (hight to low)": "Oogu Qaalisan",
+    "Sort By": "U Shandhee Kuwa",
+    "U Shandhee Kuwa": "U Shandhee Kuwa"
+  },
+  "Sharing": {
+    "share": "La Wadaag",
+    "close": "Iska Xidh"
   }
 }

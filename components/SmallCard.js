@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useTranslations } from "next-intl";
 
 import StorageUploads from "../models/storageUploads";
 import { ApartmentModel } from "../models";
@@ -15,6 +16,9 @@ export default function SmallCard({
   setSharingInfo,
   currentUser,
 }) {
+  const t = useTranslations("FeaturedPropertyCard");
+  const t_price = useTranslations("PriceDuration");
+
   const router = useRouter();
   const [liked, setLiked] = useState(
     apartment.likes?.includes(currentUser?.mId)
@@ -85,13 +89,8 @@ export default function SmallCard({
               )}
               <div className="position-absolute start-0 top-0 w-100 d-flex justify-content-between">
                 {apartment.featured && (
-                  <button className="btn btn-primary btn-sm m-2 text-light fs-14">
-                    Featured
-                  </button>
-                )}
-                {apartment.featured && (
                   <button className="btn btn-sm bg-dark bg-opacity-50 m-2 text-light fs-14">
-                    Featured
+                    {t("featured")}
                   </button>
                 )}
               </div>
@@ -126,7 +125,7 @@ export default function SmallCard({
                       />
                     </span>
                     <span className="d-block">
-                      {apartment.bedrooms} Bedrooms
+                      {apartment.bedrooms} {t("bedrooms")}
                     </span>
                   </p>
                 </div>
@@ -141,7 +140,7 @@ export default function SmallCard({
                       />
                     </span>
                     <span className="d-block">
-                      {apartment.bathrooms} Bathrooms
+                      {apartment.bathrooms} {t("bathrooms")}
                     </span>
                   </p>
                 </div>
@@ -171,7 +170,8 @@ export default function SmallCard({
             <div className="d-flex align-item-center justify-content-between">
               <p className="mb-0 fw-bold ls-6">
                 {currency} {formatPrice(apartment.price)}{" "}
-                {apartmentType === "rent" && `/ ${apartment.price_duration}`}
+                {apartmentType === "rent" &&
+                  `/ ${t_price(apartment.price_duration)}`}
               </p>
               <p className="mb-0 d-flex">
                 <span

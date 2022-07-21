@@ -24,6 +24,8 @@ export default function AppDropdown(props) {
       ? mainLabelName
       : defaultItem;
 
+  console.log(translatedLabel);
+
   const [showPropertyList, setShowPropertyList] = useState(false);
   const [selectedItem, setSelectedItem] = useState(translatedLabel || "Select");
 
@@ -32,10 +34,16 @@ export default function AppDropdown(props) {
   }, [translatedLabel]);
 
   const handleListItemSelection = (val) => {
+    console.log("value is", val);
     setShowPropertyList(!showPropertyList);
     let selectedItemText = val;
     let itemVal = selectedItemText === defaultItem ? "" : selectedItemText;
-    setSelectedItem(selectedItemText);
+    console.log("itemVal is", itemVal);
+    const translateList =
+      mainListItem.indexOf("Most Recent") >= 0
+        ? translation(selectedItemText)
+        : selectedItemText;
+    setSelectedItem(translateList);
     setSelectedListItem(itemVal);
   };
 
@@ -84,8 +92,8 @@ export default function AppDropdown(props) {
               onClick={() => handleListItemSelection(item)}
               className={
                 defaultItem === item
-                  ? "px-3 py-1 hover-bg-primary cursor-pointer bg-primary text-light"
-                  : "px-3 py-1 hover-bg-primary cursor-pointer"
+                  ? "px-3 py-1 hover-bg-primary cursor-pointer bg-primary text-light mb-1"
+                  : "px-3 py-1 hover-bg-primary cursor-pointer mb-1"
               }
             >
               {translation && translateSection[1] === 1
