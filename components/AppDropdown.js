@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { removeWhiteSpace } from "../utils";
 
 export default function AppDropdown(props) {
@@ -9,13 +9,31 @@ export default function AppDropdown(props) {
     icon,
     setSelectedListItem,
     mainLabelName,
+    translation,
+    translateSection,
   } = props;
-  const [showPropertyList, setShowPropertyList] = useState(false);
-  const [selectedItem, setSelectedItem] = useState(defaultItem || "Select");
 
-  const handleListItemSelection = (e) => {
+  let translatedLabel =
+    translation && mainLabelName === defaultItem && translateSection[0] === 1
+      ? translation(mainLabelName)
+      : translation && mainLabelName && translateSection[0] === 1
+      ? translation(mainLabelName)
+      : translation && defaultItem && translateSection[0] === 1
+      ? translation(defaultItem)
+      : mainLabelName
+      ? mainLabelName
+      : defaultItem;
+
+  const [showPropertyList, setShowPropertyList] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(translatedLabel || "Select");
+
+  useEffect(() => {
+    setSelectedItem(translatedLabel || "Select");
+  }, [translatedLabel]);
+
+  const handleListItemSelection = (val) => {
     setShowPropertyList(!showPropertyList);
-    let selectedItemText = e.target.textContent;
+    let selectedItemText = val;
     let itemVal = selectedItemText === defaultItem ? "" : selectedItemText;
     setSelectedItem(selectedItemText);
     setSelectedListItem(itemVal);
@@ -53,24 +71,26 @@ export default function AppDropdown(props) {
           }}
         >
           <li
-            onClick={(e) => handleListItemSelection(e)}
+            onClick={() => handleListItemSelection(translatedLabel)}
             className="px-3 py-1 hover-bg-primary cursor-pointer"
           >
             <span className="d-flex align-items-center"></span>
-            {mainLabelName || defaultItem}
+            {translatedLabel}
           </li>
 
           {mainListItem.map((item, index) => (
             <li
               key={`${removeWhiteSpace(item)}_${index}`}
-              onClick={(e) => handleListItemSelection(e)}
+              onClick={() => handleListItemSelection(item)}
               className={
                 defaultItem === item
                   ? "px-3 py-1 hover-bg-primary cursor-pointer bg-primary text-light"
                   : "px-3 py-1 hover-bg-primary cursor-pointer"
               }
             >
-              {item}
+              {translation && translateSection[1] === 1
+                ? translation(item)
+                : item}
             </li>
           ))}
         </ul>

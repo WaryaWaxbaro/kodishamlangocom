@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import queryString from "query-string";
+import { useTranslations } from "next-intl";
 
 import AppDropdown from "./AppDropdown";
 import AppSlider from "./AppSlider";
@@ -29,17 +30,24 @@ const property_types_keys = {
   "For Sale": "sale",
   "For Rent": "rent",
   "For Holiday": "short stay",
+  Plot: "plot",
 };
 
 const property_status_routes = {
   "For Sale": "/for-sale",
   "For Rent": "/for-rent",
   "For Holiday": "/for-holiday",
+  Plot: "/plots",
 };
 
 const emptyParams = ["Bedrooms", "Bathrooms", "Property Type", "Select City"];
 
 export default function Search(props) {
+  const t = useTranslations("Search");
+  const t_property_type = useTranslations("PropertyTypes");
+  const t_property_features = useTranslations("PropertyFeatures");
+  const t_property_status = useTranslations("PropertyStatus");
+
   const router = useRouter();
   const { route, query } = router;
   const isHomePage = route === "/";
@@ -166,6 +174,8 @@ export default function Search(props) {
             mainListItem={cities}
             icon="<i class='bi bi-house-fill text-primary'></i>"
             setSelectedListItem={setSearchCity}
+            translation={t}
+            translateSection={[1, 0]}
           />
         </div>
         <div className="col-12 col-md-3 mb-2">
@@ -175,6 +185,8 @@ export default function Search(props) {
             zIndex={100}
             mainListItem={property_types}
             setSelectedListItem={setSelectedPropertyType}
+            translation={t_property_type}
+            translateSection={[1, 1]}
           />
         </div>
         <div className="col-12 col-md-3 mb-2">
@@ -185,14 +197,14 @@ export default function Search(props) {
             >
               {showAdvanced ? (
                 <>
-                  <span className="d-block">Close Search</span>
+                  <span className="d-block">{t("close_search")}</span>
                   <span className="d-block text-primary fs-16">
                     <i className="bi bi-x-lg"></i>
                   </span>
                 </>
               ) : (
                 <>
-                  <span className="d-block">Advanced Search</span>
+                  <span className="d-block">{t("advanced_search")}</span>
                   <span className="d-block text-primary fs-16">
                     <i className="bi bi-three-dots-vertical"></i>
                   </span>
@@ -207,7 +219,7 @@ export default function Search(props) {
               onClick={handleSubmitSearch}
               className="w-100 h-100 btn btn-primary text-light fs-14 rounded-5 ouline-none p-2"
             >
-              Search Now
+              {t("search_now")}
             </button>
           </div>
         </div>
@@ -229,6 +241,8 @@ export default function Search(props) {
                 mainListItem={["For Sale", "For Rent", "For Holiday"]}
                 icon="<i class='bi bi-house-fill text-primary'></i>"
                 setSelectedListItem={setSelectedPropertyStatus}
+                translation={t_property_status}
+                translateSection={[1, 1]}
               />
             </div>
           )}
@@ -241,6 +255,8 @@ export default function Search(props) {
               mainListItem={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
               icon="<i class='bi bi-house-fill text-primary'></i>"
               setSelectedListItem={setSelectedBedrooms}
+              translation={t}
+              translateSection={[1, 0]}
             />
           </div>
           <div className="col-12 col-md-6 col-lg-4 mb-2">
@@ -251,6 +267,8 @@ export default function Search(props) {
               mainListItem={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
               icon="<i class='bi bi-house-fill text-primary'></i>"
               setSelectedListItem={setSelectedBathrooms}
+              translation={t}
+              translateSection={[1, 0]}
             />
           </div>
           <div className="col-12">
@@ -259,7 +277,7 @@ export default function Search(props) {
                 <div className="my-3">
                   <AppSlider
                     minMax={maxArea}
-                    labelName="Area Size"
+                    labelName={t("area_size")}
                     unit="m"
                     setSelectedRange={setSelectedArea}
                   />
@@ -267,7 +285,7 @@ export default function Search(props) {
                 <div className="my-3">
                   <AppSlider
                     minMax={maxPrice}
-                    labelName="Price Range"
+                    labelName={t("price_range")}
                     unit={currency}
                     formatUnit={true}
                     setSelectedRange={setSelectedPrice}
@@ -290,7 +308,7 @@ export default function Search(props) {
                             onChange={handleSearchValues}
                           />
                           <label className="form-check-label" htmlFor={key}>
-                            {property_features[index]}
+                            {t_property_features(property_features[index])}
                           </label>
                         </div>
                       </div>

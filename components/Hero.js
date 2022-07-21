@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
 import Typewriter from "typewriter-effect";
 import Search from "./Search";
 
 export default function Hero() {
-  const [activeSearchValues, setActiveSearchValues] = useState([]);
+  const t = useTranslations("Hero");
+  const tn = useTranslations("Navigations");
 
   return (
     <>
@@ -20,16 +21,17 @@ export default function Hero() {
           <div className="max-width-lg-80p mx-auto">
             <div className="text-center">
               <h1 className="fs-36 text-capitalize fw-bold lh-12 text-light d-flex justify-content-center">
-                <span className="d-block me-2">Find </span>
+                <span className="d-block me-2">{t("find")} </span>
                 <span className="typewriter-container">
                   <Typewriter
                     options={{
                       strings: [
-                        "Apartments",
-                        "Homes For Sale",
-                        "Homes For Rent",
-                        "Holiday Apartments",
-                        "Plots",
+                        t("apartments"),
+                        t("homes"),
+                        t("plots"),
+                        t("homes_for_rent"),
+                        t("homes_for_sale"),
+                        t("holiday_apartments"),
                       ],
                       autoStart: true,
                       loop: true,
@@ -39,17 +41,14 @@ export default function Hero() {
                   />
                 </span>
               </h1>
-              <p className="text-light">
-                Find Apartments and Homes For Rent, For Holiday, For Sale and
-                Plots.
-              </p>
+              <p className="text-light">{t("hero_title")}</p>
             </div>
             <div className="w-100">
               <div className="w-100 text-center mt-4 mb-3">
                 {apartLinks.map((ap, index) => (
                   <Link key={ap.name} href={ap.url}>
                     <a className="btn btn-light rounded-5 fs-14 min-w-96 me-3 mb-2">
-                      {ap.name}
+                      {tn(`${ap.t_name}`)}
                     </a>
                   </Link>
                 ))}
@@ -66,19 +65,23 @@ export default function Hero() {
 const apartLinks = [
   {
     name: "For Sale",
+    t_name: "for_sale",
     url: "/for-sale",
   },
   {
     name: "For Rent",
+    t_name: "for_rent",
     url: "/for-rent",
   },
   ,
   {
     name: "For Holiday",
+    t_name: "for_holiday",
     url: "/holiday",
   },
   {
     name: "Plots",
+    t_name: "plots",
     url: "/plots",
   },
 ];
