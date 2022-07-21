@@ -468,7 +468,7 @@ export default function NewListingForm(props) {
               </select>
             </div>
           </div>
-          <div className="col-sm-12 col-md-6 col-lg-4">
+          <div className="col-sm-12 col-md-6">
             <label className="form-label">{t("published_or_reserved")}</label>
             <div className="d-flex justify-content-between flex-wrap">
               <div className="form-check me-5">
