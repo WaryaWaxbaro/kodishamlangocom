@@ -131,11 +131,22 @@ export const sortDataByQuery = (data, query) => {
   Object.keys(query).forEach((param) => {
     if (param === "price" || param === "area") {
       let val = query[param].split(",");
-      sortedData = data.filter(
+      sortedData = sortedData.filter(
         (listing) => listing[param] >= val[0] && listing[param] <= val[1]
       );
+    } else if (param === "bathrooms" || param === "bedrooms") {
+      sortedData = sortedData.filter(
+        (listing) => listing[param] >= query[param]
+      );
+    }
+    if (param === "property_status") {
+      sortedData = sortedData.filter(
+        (listing) => listing[param].indexOf(query[param]) >= 0
+      );
     } else {
-      sortedData = data.filter((listing) => listing[param] === query[param]);
+      sortedData = sortedData.filter(
+        (listing) => listing[param] === query[param]
+      );
     }
   });
 
