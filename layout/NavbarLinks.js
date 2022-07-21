@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
@@ -9,22 +9,33 @@ import { useUser } from "../context/userContext";
 import Logo from "../components/Logo";
 import NavbarLinkItem from "../components/NavbarLinkItem";
 import NavbarLinkItemWithIcon from "../components/NavbarLinkItemWithIcon";
+import AppDropdown from "../components/AppDropdown";
+import LocaleDropDown from "../components/LocaleDropDown";
 
 export default function NavbarLinks() {
   const t = useTranslations("Navigations");
   const auth = getAuth(createFirebaseApp());
   const router = useRouter();
-  const { pathname } = router;
+
+  const { pathname, locale, locales, defaultLocale } = router;
   const { currentUser, setUser, loadingUser, setCurrentUser } = useUser();
 
   const drawerBtnRef = useRef(null);
   const canvasRef = useRef(null);
 
+  const [currentLocale, setCurrentLocale] = useState(defaultLocale);
+
   useEffect(() => {
     if (canvasRef.current.classList.contains("show")) {
       drawerBtnRef.current.click();
     }
-  }, [pathname]);
+  }, [pathname, locale]);
+
+  useEffect(() => {
+    if (locale) {
+      setCurrentLocale(locale);
+    }
+  }, [locale]);
 
   const handleSignOut = (e) => {
     e.preventDefault();
@@ -92,6 +103,13 @@ export default function NavbarLinks() {
                     </span>
                   </li>
                 ))}
+              <li className="nav-item d-flex align-items-center ms-4">
+                <LocaleDropDown
+                  currentLocale={currentLocale}
+                  setCurrentLocale={setCurrentLocale}
+                  localesList={locales}
+                />
+              </li>
             </ul>
             <ul className="navbar-nav align-items-center justify-content-end">
               {currentUser ? (
@@ -222,6 +240,13 @@ export default function NavbarLinks() {
                   pathname={pathname}
                 />
               ))}
+              <li className="mb-2">
+                <LocaleDropDown
+                  currentLocale={currentLocale}
+                  setCurrentLocale={setCurrentLocale}
+                  localesList={locales}
+                />
+              </li>
             </ul>
             <div className="h-40 w-100 my-5"></div>
           </div>

@@ -58,7 +58,6 @@ export default function Profile() {
       setDataLoading(false);
     };
     if (currentUser?.profileId) {
-      console.log(currentUser);
       getUserProfile(currentUser.profileId);
     } else {
       if (!loadingUser) {
