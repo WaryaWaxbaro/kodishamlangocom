@@ -10,7 +10,7 @@ export default function AppFooter() {
         <div className="row">
           <div className="col-12 col-md-6">
             <div className="max-width-350">
-              <Logo imgUrl="/images/logo_orange_door.png" />
+              <Logo imgUrl="/images/gurikiro_logo_light.png" />
             </div>
             <div className="max-width-350 text-light my-4">
               <p>{t("footer_paragraph")}</p>

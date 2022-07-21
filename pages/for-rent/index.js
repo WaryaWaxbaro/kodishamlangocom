@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 import admin from "../../firebase/nodeApp";
 import StorageUploads from "../../models/storageUploads";
@@ -43,11 +44,16 @@ export default function ForRent(props) {
     return <Loader />;
   }
   return (
-    <Listings
-      apartments={apartments}
-      apartmentType="rent"
-      setApartments={setApartments}
-    />
+    <>
+      <Head>
+        <title>{"For Rent | "}</title>
+      </Head>
+      <Listings
+        apartments={apartments}
+        apartmentType="rent"
+        setApartments={setApartments}
+      />
+    </>
   );
 }
 
@@ -69,6 +75,8 @@ export async function getServerSideProps({ locale }) {
       props: {
         listings,
         messages: require(`../../locales/${locale}.json`),
+        title: "For Rent",
+        description: "Find your next apartment",
       },
     };
   } catch (error) {

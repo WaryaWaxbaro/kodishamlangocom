@@ -6,7 +6,7 @@ export default function Logo({ imgUrl }) {
     <Link href="/">
       <a>
         <div className="navbar-logo-img">
-          <Image src={imgUrl} height={30} width={150} layout="responsive" />
+          <Image src={imgUrl} height={30} width={160} layout="responsive" />
         </div>
       </a>
     </Link>

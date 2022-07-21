@@ -53,7 +53,7 @@ export default function NavbarLinks() {
 
   return (
     <div className="container-xl h-100">
-      <Logo imgUrl="/images/logo_dark_door.png" />
+      <Logo imgUrl="/images/gurikiro_logo_dark.png" />
       <button
         className="navbar-toggler border-2 outline-none no-shadow-btn p-1"
         type="button"
@@ -71,7 +71,7 @@ export default function NavbarLinks() {
         aria-labelledby="offcanvasNavbarLabel"
       >
         <div className="offcanvas-header bg-primary p-2 h-104">
-          <Logo imgUrl="/images/logo_dark_door.png" />
+          <Logo imgUrl="/images/gurikiro_logo_dark.png" />
           <button
             ref={drawerBtnRef}
             type="button"
