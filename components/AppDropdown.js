@@ -24,8 +24,6 @@ export default function AppDropdown(props) {
       ? mainLabelName
       : defaultItem;
 
-  console.log(translatedLabel);
-
   const [showPropertyList, setShowPropertyList] = useState(false);
   const [selectedItem, setSelectedItem] = useState(translatedLabel || "Select");
 
@@ -34,11 +32,9 @@ export default function AppDropdown(props) {
   }, [translatedLabel]);
 
   const handleListItemSelection = (val) => {
-    console.log("value is", val);
     setShowPropertyList(!showPropertyList);
     let selectedItemText = val;
     let itemVal = selectedItemText === defaultItem ? "" : selectedItemText;
-    console.log("itemVal is", itemVal);
     const translateList =
       mainListItem.indexOf("Most Recent") >= 0
         ? translation(selectedItemText)
