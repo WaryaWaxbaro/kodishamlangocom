@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import FeaturePropertyCard from "./FeaturePropertyCard";
 import SharingModal from "./SharingModal";
@@ -7,6 +8,7 @@ import { useUser } from "../context/userContext";
 const urls = ["for-rent", "for-sale", "short-stay"];
 
 export default function FeaturedProperties({ thumbnails, listings }) {
+  const t = useTranslations("FeaturedProperties");
   const [sharingInfo, setSharingInfo] = useState({ url: "", title: "" });
   const { currentUser, user } = useUser();
 
@@ -32,8 +34,8 @@ export default function FeaturedProperties({ thumbnails, listings }) {
     <section className="py-5 bg-gray-200">
       <div className="container-lg">
         <div className="text-center">
-          <h2 className="fw-bold fs-32 mb-3">Featured Properties</h2>
-          <p>These are our featured properties</p>
+          <h2 className="fw-bold fs-32 mb-3">{t("title")}</h2>
+          <p>{t("sub_title")}</p>
         </div>
         <div className="row row-cols-1 row-cols-lg-2 g-4 mt-5">
           {listings.map((listing, index) => {
@@ -54,7 +56,7 @@ export default function FeaturedProperties({ thumbnails, listings }) {
           <Link href="/for-sale">
             <a className="btn btn-primary btn-lg text-light fs-14 px-4 py-08 rounded-pill">
               <span className="d-flex align-item-center justify-content-center">
-                <span className="d-block me-2">View More</span>
+                <span className="d-block me-2">{t("view_more")}</span>
                 <span className="b-block">
                   <i className="bi bi-arrow-right-circle-fill"></i>
                 </span>

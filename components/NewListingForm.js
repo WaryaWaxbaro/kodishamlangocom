@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { toast } from "react-toastify";
+import { useTranslations } from "next-intl";
 
 import Image from "next/image";
 
@@ -74,6 +75,12 @@ export default function NewListingForm(props) {
     removedCurrentImages,
     setRemovedCurrentImages,
   } = props;
+
+  const t = useTranslations("NewListingForm");
+  const t_status = useTranslations("PropertyStatus");
+  const t_p_types = useTranslations("PropertyTypes");
+  const t_p_duration = useTranslations("PriceDuration");
+  const t_p_features = useTranslations("PropertyFeatures");
 
   const [formFields, setFormFields] = useState(fieldValues);
   const [selectedThumbnail, setSelectedThumbnail] = useState(null);
@@ -180,13 +187,15 @@ export default function NewListingForm(props) {
         let is_uploaded = propertyImages.find((img) => img.name === file.name);
         if (is_uploaded) {
           setUploadMessage(
-            `File (${is_uploaded.name}) has been already uploaded.`
+            `${t("file")} (${is_uploaded.name}) ${t("already_uploaded")}`
           );
-          toast.error(`File (${is_uploaded.name}) has been already uploaded.`);
+          toast.error(
+            `${t("file")} (${is_uploaded.name}) ${t("already_uploaded")}`
+          );
         } else {
           if (propertyImages.length > 9) {
-            setUploadMessage("Uploaded maximum photos allowed.");
-            toast.error("Uploaded maximum photos allowed.");
+            setUploadMessage(t("upladed_max_allowed"));
+            toast.error(t("upladed_max_allowed"));
             return;
           } else {
             currentFiles.push(file);
@@ -227,12 +236,12 @@ export default function NewListingForm(props) {
     });
 
     if (formFields.property_status.length === 0) {
-      toast.error("Please select at least one property status.");
+      toast.error(t("select_at_least_one_status"));
       return;
     }
 
     if (errorFields.length > 0) {
-      toast.error("Please fill all required fields.");
+      toast.error(t("fill_all_required_fields"));
       sessionStorage.setItem("newListingData", JSON.stringify(formFields));
       return;
     }
@@ -268,10 +277,12 @@ export default function NewListingForm(props) {
   return (
     <div className="w-100 p-2 p-sm-4 shadow">
       <form onSubmit={handleSubmit}>
-        <h3 className="fs-16 fw-bold text-primary mb-3">Property Details</h3>
+        <h3 className="fs-16 fw-bold text-primary mb-3">
+          {t("property_details")}
+        </h3>
         <div className="mb-3">
           <label htmlFor="title" className="form-label">
-            Property Title <span className="text-primary">*</span>
+            {t("property_title")} <span className="text-primary">*</span>
           </label>
           <input
             type="text"
@@ -286,7 +297,7 @@ export default function NewListingForm(props) {
         </div>
         <div className="mb-3">
           <label htmlFor="description" className="form-label">
-            Property Description <span className="text-primary">*</span>
+            {t("property_description")} <span className="text-primary">*</span>
           </label>
           <textarea
             className="form-control"
@@ -301,7 +312,7 @@ export default function NewListingForm(props) {
         </div>
         <div className="mb-3">
           <label className="form-label">
-            Property Status <span className="text-primary">*</span>
+            {t("property_status")} <span className="text-primary">*</span>
           </label>
           {["rent", "sale", "short stay", "plot"].map((status) => (
             <div key={status} className="form-check me-5">
@@ -318,7 +329,7 @@ export default function NewListingForm(props) {
                 className="form-check-label text-capitalize"
                 htmlFor={status}
               >
-                {status}
+                {t_status(status)}
               </label>
             </div>
           ))}
@@ -327,7 +338,7 @@ export default function NewListingForm(props) {
           <div className="col-sm-12 col-md-6 col-lg-4">
             <div className="mb-3">
               <label htmlFor="apartment_type" className="form-label">
-                Property Type <span className="text-primary">*</span>
+                {t("property_type")} <span className="text-primary">*</span>
               </label>
               <select
                 className="form-select"
@@ -338,7 +349,7 @@ export default function NewListingForm(props) {
                 aria-label="partment Type"
               >
                 {property_types.map((property, index) => (
-                  <option key={property}>{property}</option>
+                  <option key={property}>{t_p_types(property)}</option>
                 ))}
               </select>
             </div>
@@ -346,7 +357,7 @@ export default function NewListingForm(props) {
           <div className="col-sm-12 col-md-6 col-lg-4">
             <div className="mb-3">
               <label htmlFor="bedrooms" className="form-label">
-                Bedrooms <span className="text-primary">*</span>
+                {t("bedrooms")} <span className="text-primary">*</span>
               </label>
               <input
                 type="number"
@@ -364,7 +375,7 @@ export default function NewListingForm(props) {
           <div className="col-sm-12 col-md-6 col-lg-4">
             <div className="mb-3">
               <label htmlFor="bathrooms" className="form-label">
-                Bathrooms
+                {t("bathrooms")}
               </label>
               <input
                 type="number"
@@ -382,7 +393,7 @@ export default function NewListingForm(props) {
           <div className="col-sm-12 col-md-6 col-lg-4">
             <div className="mb-3">
               <label htmlFor="area" className="form-label">
-                Area{" "}
+                {t("area")}{" "}
                 <span className="text-primary">
                   m<sup>2</sup>
                 </span>
@@ -402,7 +413,7 @@ export default function NewListingForm(props) {
           <div className="col-sm-12 col-md-6 col-lg-4">
             <div className="mb-3">
               <label htmlFor="guest" className="form-label">
-                Guests
+                {t("guests")}
               </label>
               <input
                 type="number"
@@ -419,7 +430,7 @@ export default function NewListingForm(props) {
           <div className="col-sm-12 col-md-6 col-lg-4">
             <div className="mb-3">
               <label htmlFor="price" className="form-label">
-                Price <span className="text-primary">*</span>
+                {t("price")} <span className="text-primary">*</span>
               </label>
               <input
                 type="number"
@@ -437,7 +448,7 @@ export default function NewListingForm(props) {
           <div className="col-sm-12 col-md-6 col-lg-4">
             <div className="mb-3">
               <label htmlFor="price_duration" className="form-label">
-                Price Duration
+                {t("price_duration")}
               </label>
               <select
                 className="form-select"
@@ -449,16 +460,16 @@ export default function NewListingForm(props) {
               >
                 {["Month", "Week", "Day", "Night", ""].map(
                   (property, index) => (
-                    <option key={`${property}_${index}`}>{property}</option>
+                    <option key={`${property}_${index}`} value={property}>
+                      {property ? t_p_duration(property) : property}
+                    </option>
                   )
                 )}
               </select>
             </div>
           </div>
           <div className="col-sm-12 col-md-6 col-lg-4">
-            <label className="form-label">
-              Publish (Visible to others) / Reserved
-            </label>
+            <label className="form-label">{t("published_or_reserved")}</label>
             <div className="d-flex justify-content-between flex-wrap">
               <div className="form-check me-5">
                 <input
@@ -471,7 +482,7 @@ export default function NewListingForm(props) {
                   onChange={handleChange}
                 />
                 <label className="form-check-label" htmlFor="reserved">
-                  Reserved
+                  {t("reserved")}
                 </label>
               </div>
               <div className="form-check me-5">
@@ -485,14 +496,16 @@ export default function NewListingForm(props) {
                   onChange={handleChange}
                 />
                 <label className="form-check-label" htmlFor="is_published">
-                  Publish
+                  {t("publish")}
                 </label>
               </div>
             </div>
           </div>
         </div>
         <hr />
-        <h3 className="fs-16 fw-bold text-primary mb-3">Property Features</h3>
+        <h3 className="fs-16 fw-bold text-primary mb-3">
+          {t("property_features")}
+        </h3>
         <div className="row">
           {property_features_keys.map((key, index) => (
             <div key={key} className="col-sm-12 col-md-6 col-lg-4">
@@ -507,19 +520,21 @@ export default function NewListingForm(props) {
                   onChange={handleChange}
                 />
                 <label className="form-check-label" htmlFor={key}>
-                  {property_features[index]}
+                  {t_p_features(property_features[index])}
                 </label>
               </div>
             </div>
           ))}
         </div>
         <hr />
-        <h3 className="fs-16 fw-bold text-primary mb-3">Property Location</h3>
+        <h3 className="fs-16 fw-bold text-primary mb-3">
+          {t("property_location")}
+        </h3>
         <div className="row">
           <div className="col-sm-12 col-md-6 col-lg-4">
             <div className="mb-3">
               <label htmlFor="street" className="form-label">
-                Street <span className="text-primary">*</span>
+                {t("street")} <span className="text-primary">*</span>
               </label>
               <input
                 type="text"
@@ -536,7 +551,7 @@ export default function NewListingForm(props) {
           <div className="col-sm-12 col-md-6 col-lg-4">
             <div className="mb-3">
               <label htmlFor="postcode" className="form-label">
-                Postcode
+                {t("postcode")}
               </label>
               <input
                 type="number"
@@ -553,7 +568,7 @@ export default function NewListingForm(props) {
           <div className="col-sm-12 col-md-6 col-lg-4">
             <div className="mb-3">
               <label htmlFor="sub_city" className="form-label">
-                Sub City <span className="text-primary">*</span>
+                {t("sub_city")} <span className="text-primary">*</span>
               </label>
               <input
                 type="text"
@@ -570,7 +585,7 @@ export default function NewListingForm(props) {
           <div className="col-sm-12 col-md-6 col-lg-4">
             <div className="mb-3">
               <label htmlFor="city" className="form-label">
-                City <span className="text-primary">*</span>
+                {t("city")} <span className="text-primary">*</span>
               </label>
               <input
                 type="text"
@@ -587,7 +602,7 @@ export default function NewListingForm(props) {
           <div className="col-sm-12 col-md-6 col-lg-4">
             <div className="mb-3">
               <label htmlFor="province" className="form-label">
-                Province
+                {t("provice")}
               </label>
               <input
                 type="text"
@@ -603,7 +618,7 @@ export default function NewListingForm(props) {
           <div className="col-sm-12 col-md-6 col-lg-4">
             <div className="mb-3">
               <label htmlFor="country" className="form-label">
-                Country <span className="text-primary">*</span>
+                {t("country")} <span className="text-primary">*</span>
               </label>
               <input
                 type="text"
@@ -619,12 +634,14 @@ export default function NewListingForm(props) {
           </div>
         </div>
         <hr />
-        <h3 className="fs-16 fw-bold text-primary mb-3">Contact Information</h3>
+        <h3 className="fs-16 fw-bold text-primary mb-3">
+          {t("contact_information")}
+        </h3>
         <div className="row">
           <div className="col-sm-12 col-md-6 col-lg-4">
             <div className="mb-3">
               <label htmlFor="name" className="form-label">
-                Full Name <span className="text-primary">*</span>
+                {t("full_name")} <span className="text-primary">*</span>
               </label>
               <input
                 type="text"
@@ -641,7 +658,7 @@ export default function NewListingForm(props) {
           <div className="col-sm-12 col-md-6 col-lg-4">
             <div className="mb-3">
               <label htmlFor="email" className="form-label">
-                Email <span className="text-primary">*</span>
+                {t("email")} <span className="text-primary">*</span>
               </label>
               <input
                 type="email"
@@ -658,7 +675,7 @@ export default function NewListingForm(props) {
           <div className="col-sm-12 col-md-6 col-lg-4">
             <div className="mb-3">
               <label htmlFor="phone" className="form-label">
-                Phone <span className="text-primary">*</span>
+                {t("phone")} <span className="text-primary">*</span>
               </label>
               <input
                 type="phone"
@@ -674,7 +691,9 @@ export default function NewListingForm(props) {
           </div>
         </div>
         <hr />
-        <h3 className="fs-16 fw-bold text-primary mb-3">Property pictures</h3>
+        <h3 className="fs-16 fw-bold text-primary mb-3">
+          {t("upload_images")}
+        </h3>
         <div className="w-100">
           <input
             ref={fileField}
@@ -687,7 +706,7 @@ export default function NewListingForm(props) {
           />
           {currentImages?.length > 0 && (
             <>
-              <p className="h5">Current Images</p>
+              <p className="h6">{t("already_uploaded_images")}</p>
               <div className="my-3 w-100 d-flex flex-wrap">
                 {currentImages.map((img, index) => (
                   <div
@@ -748,7 +767,7 @@ export default function NewListingForm(props) {
                       onChange={() => setThumbnail(img)}
                     />
                     <label className="form-check-label" htmlFor={img.name}>
-                      Use as a thumbnail
+                      {t("use_as_thumbnail")}
                     </label>
                   </div>
                 </div>
@@ -766,7 +785,7 @@ export default function NewListingForm(props) {
             <div>
               <i className="bi bi-cloud-arrow-up-fill text-success fs-44"></i>
             </div>
-            <p className="mb-0 fs-14">Click here to add Property pictures</p>
+            <p className="mb-0 fs-14">{t("click_here_to_upload_images")}</p>
           </div>
         </div>
 
@@ -776,7 +795,7 @@ export default function NewListingForm(props) {
             className="btn btn-primary btn-lg rounded-pill"
             disabled={disableBtn}
           >
-            Save
+            {t("save")}
           </button>
         </div>
       </form>

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useTranslations } from "next-intl";
 import { toast } from "react-toastify";
 import { getApartmentPath, formatPrice } from "../utils";
 import { ApartmentModel } from "../models";
@@ -14,6 +15,8 @@ export default function FeaturePropertyCard({
   setSharingInfo,
   currentUser,
 }) {
+  const t = useTranslations("FeaturedPropertyCard");
+  const t_price_duration = useTranslations("PriceDuration");
   const [liked, setLiked] = useState(listing.likes?.includes(currentUser?.mId));
   const [updateLikes, setUpdateLikes] = useState(false);
 
@@ -33,7 +36,7 @@ export default function FeaturePropertyCard({
       setLiked(!liked);
       setUpdateLikes(false);
     } else if (updateLikes) {
-      toast.error("Please login to like this apartment");
+      toast.error(t("error_like"));
       setUpdateLikes(false);
     }
   }, [updateLikes]);
@@ -52,18 +55,18 @@ export default function FeaturePropertyCard({
               <div className="position-absolute start-0 top-0 w-100 d-flex justify-content-between">
                 {listing.isFeatured && (
                   <button className="btn btn-primary btn-sm m-3 text-light fs-14">
-                    Featured
+                    {t("featured")}
                   </button>
                 )}
 
                 {(listing.property_status.indexOf("sale") >= 0 && (
                   <button className="btn btn-sm bg-dark bg-opacity-50 m-3 text-light fs-14">
-                    For Sale
+                    {t("for_sale")}
                   </button>
                 )) ||
                   (listing.property_status.indexOf("rent") >= 0 && (
                     <button className="btn btn-sm bg-dark bg-opacity-50 m-3 text-light fs-14">
-                      For Rent
+                      {t("for_rent")}
                     </button>
                   ))}
               </div>
@@ -97,7 +100,9 @@ export default function FeaturePropertyCard({
                         alt={listing.city}
                       />
                     </span>
-                    <span className="d-block">{listing.bedrooms} Bedrooms</span>
+                    <span className="d-block">
+                      {listing.bedrooms} {t("bedrooms")}
+                    </span>
                   </p>
                 </div>
                 <div className="w-50" style={{ minWidth: "180px" }}>
@@ -111,7 +116,7 @@ export default function FeaturePropertyCard({
                       />
                     </span>
                     <span className="d-block">
-                      {listing.bathrooms} Bathrooms
+                      {listing.bathrooms} {t("bathrooms")}
                     </span>
                   </p>
                 </div>
@@ -144,7 +149,7 @@ export default function FeaturePropertyCard({
                 {currency} {formatPrice(listing.price)}
                 {listing.property_status.indexOf("rent") >= 0 &&
                   listing.property_status.indexOf("sale") < 0 &&
-                  ` / ${listing.price_duration}`}
+                  ` / ${t_price_duration(listing.price_duration)}`}
               </p>
               <p className="mb-0 d-flex">
                 <span

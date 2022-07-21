@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
+import { useTranslations } from "next-intl";
 
 import NewListingForm from "../components/NewListingForm";
 import { ApartmentModel } from "../models";
@@ -10,6 +11,7 @@ import { useUser } from "../context/userContext";
 import { slugString } from "../utils";
 
 export default function NewListing(props) {
+  const t = useTranslations("NewListing");
   const [formData, setFormData] = useState({});
   const [formImages, setFormImages] = useState([]);
   const [syncData, setSyncData] = useState(false);
@@ -36,7 +38,7 @@ export default function NewListing(props) {
 
         if (savedApartment.mId) {
           if (formImages.length > 0) {
-            toast.warning("Uploading images...");
+            toast.warning(t("uploading_images"));
             if (thumbnailImage) {
               await new StorageUploads(
                 `apartments/thumbnails/${savedApartment.mId}`,
@@ -59,14 +61,14 @@ export default function NewListing(props) {
                 const { error, downloadURL } = storage;
 
                 if (downloadURL) {
-                  toast.success("Image uploaded successfully");
+                  toast.success(t("image_upload_success"));
                 } else {
-                  toast.error("Image upload failed");
+                  toast.error(t("image_upload_fail"));
                 }
               });
             }
           }
-          toast.success("Listing added successfully");
+          toast.success(t("listing_added_success"));
           setSyncData(false);
           setDisableBtn(false);
           await fetch(`/api/updateStatus`, {
@@ -113,14 +115,9 @@ export default function NewListing(props) {
 
   return (
     <div className="container-lg py-5">
-      <h1 className="fs-28 mb-3">Add New Property Listing</h1>
-      <p className="mb-1">
-        Provide accurate information to market your property
-      </p>
-      <p>
-        Fields marked with <span className="text-primary">*</span> are
-        compulsary
-      </p>
+      <h1 className="fs-28 mb-3">{t("title")}</h1>
+      <p className="mb-1">{t("sub_title")}</p>
+      <p>{t("fields_compulsory_info")}</p>
       <div className="w-100">
         <NewListingForm
           setFormData={setFormData}
@@ -133,4 +130,12 @@ export default function NewListing(props) {
       </div>
     </div>
   );
+}
+
+export async function getServerSideProps({ locale }) {
+  return {
+    props: {
+      messages: require(`../locales/${locale}.json`),
+    },
+  };
 }

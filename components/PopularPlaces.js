@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import Image from "next/image";
 import { countByCity, sortByCount } from "../utils";
 import { StatusModel } from "../models";
 
 export default function PopularPlaces() {
+  const t = useTranslations("PopularPlaces");
   const [cities, setCities] = useState([]);
 
   useEffect(() => {
@@ -26,8 +28,8 @@ export default function PopularPlaces() {
     <section className="bg-white py-5">
       <div className="container-lg">
         <div className="text-center">
-          <h2 className="fw-bold fs-32 mb-3">Popular Places</h2>
-          <p>Properties In Most Popular Places</p>
+          <h2 className="fw-bold fs-32 mb-3">{t("title")}</h2>
+          <p>{t("sub_title")}</p>
         </div>
         <div className="row mt-4">
           {cities.map((sortedCity, index) => {
@@ -47,7 +49,7 @@ export default function PopularPlaces() {
                     <div className="h-100 w-100 d-flex flex-column justify-content-center p-3">
                       <h3 className="fs-16 fw-bold">{sortedCity.city}</h3>
                       <p className="fs-14 mb-0">
-                        {sortedCity.count} Properties
+                        {sortedCity.count} {t("properties")}
                       </p>
                     </div>
                   </div>
