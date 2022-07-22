@@ -292,7 +292,11 @@
     "review_added_success": "Faaladaada way diwaan gashay",
     "reviews": "Faallo",
     "no_reviews": "Faallooyin Malahan",
-    "more": "Kuwa Kale"
+    "more": "Kuwa Kale",
+    "view_property": "Fiiri Gurigan",
+    "not_show_to_others": "Diid (Ka Qari Dad weenaha)",
+    "show_to_others": "U ogolow (Dad weenaha ha arkaan)",
+    "view_reviews": "Fiiri Faallooyinka"
   },
   "ReviewForm": {
     "title": "Dhibcaha add siin lahayd",

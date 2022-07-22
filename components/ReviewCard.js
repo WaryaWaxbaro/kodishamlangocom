@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 import { ReviewsModel } from "../models";
 import { unixToDate, getYesterdayDate } from "../utils";
@@ -7,6 +8,7 @@ import ReviewStars from "./ReviewStars";
 import { sortByTimestamp } from "../utils/index";
 
 export default function ReviewCard({ propertyId }) {
+  const t = useTranslations("Reviews");
   const [reviews, setReviews] = useState([]);
   const [todayReviews, setTodayReviews] = useState([]);
 
@@ -44,7 +46,11 @@ export default function ReviewCard({ propertyId }) {
   };
 
   if (reviews.length < 1) {
-    return <p className="fs-12 text-info">No Reviews ({reviews.length})</p>;
+    return (
+      <p className="fs-12 text-info">
+        {t("no_reviews")} ({reviews.length})
+      </p>
+    );
   }
   return (
     <div className="w-100">
@@ -56,7 +62,7 @@ export default function ReviewCard({ propertyId }) {
           aria-expanded="false"
           aria-controls={`#review-${propertyId}`}
         >
-          View Reviews ({reviews.length})
+          {t("view_reviews")} ({reviews.length})
           {todayReviews.length > 0 && (
             <span className="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
               <span className="visually-hidden">New alerts</span>
@@ -102,7 +108,7 @@ export default function ReviewCard({ propertyId }) {
                       }
                       className="btn btn-sm btn-danger py-2 rounded-pill px-4 border-none p-0 "
                     >
-                      Deny (Hide from others)
+                      {t("not_show_to_others")}
                     </button>
                   ) : (
                     <button
@@ -111,7 +117,7 @@ export default function ReviewCard({ propertyId }) {
                       }
                       className="btn btn-sm btn-success py-2 rounded-pill px-4 border-none p-0 "
                     >
-                      Accept (Others will see)
+                      {t("show_to_others")}
                     </button>
                   )}
                 </div>

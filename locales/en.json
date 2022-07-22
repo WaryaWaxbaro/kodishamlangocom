@@ -292,7 +292,11 @@
     "review_added_success": "Review Added Successfully",
     "reviews": "Reviews",
     "no_reviews": "No Reviews",
-    "more": "More"
+    "more": "More",
+    "view_property": "View Property",
+    "not_show_to_others": "Deny (Hide from public)",
+    "show_to_others": "Allow (Show to public)",
+    "view_reviews": "View Reviews"
   },
   "ReviewForm": {
     "title": "Your rating for this listing",
