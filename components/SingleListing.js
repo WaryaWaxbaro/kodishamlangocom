@@ -11,6 +11,7 @@ import { ProfileModel } from "../models";
 import { formatPrice, property_features, toUnderscoreKey } from "../utils";
 import ViewCounter from "../components/ViewCounter";
 import { currency } from "../utils/staticSetup";
+import AppHead from "./AppHead";
 
 export default function SingleListing({ listing, listingType }) {
   const [images, setImages] = useState([]);
@@ -65,6 +66,12 @@ export default function SingleListing({ listing, listingType }) {
 
   return (
     <div className="container-lg py-5">
+      <AppHead
+        title={`${listing.title} - ${listing.sub_city} - ${
+          listing.city
+        } - ${formatPrice(listing.price)} - Gurikiro.com`}
+        description={`${listing.description}`}
+      />
       <div className="row">
         <div className="col-12 col-md-8 mb-3">
           {/* main heading */}
