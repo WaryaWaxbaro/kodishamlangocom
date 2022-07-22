@@ -371,5 +371,18 @@
     "phone": "Phone",
     "message": "Message",
     "sent_at": "Sent At"
+  },
+  "Payments": {
+    "no_payments": "No Payments"
+  },
+  "Invoices": {
+    "no_invoices": "No Invoices"
+  },
+  "FavouriteProperties": {
+    "my_properties": "My Properties",
+    "date_added": "Date Added",
+    "views": "Views",
+    "actions": "Actions",
+    "no_favourite_properties": "No Favourite Properties"
   }
 }

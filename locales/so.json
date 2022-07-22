@@ -371,5 +371,18 @@
     "phone": "Telefoonka",
     "message": "Fariinta",
     "sent_at": "Lasoo Diray"
+  },
+  "Payments": {
+    "no_payments": "Lacag add bixisay malahan"
+  },
+  "Invoices": {
+    "no_invoices": "Rasiidyo malahan"
+  },
+  "FavouriteProperties": {
+    "my_properties": "Guryahayga",
+    "date_added": "Xiliga Lagu soo daray",
+    "views": "Inta jeer la arkay",
+    "actions": "Tilaabo",
+    "no_favourite_properties": "Gurigaada aad jeceshahay malahan"
   }
 }

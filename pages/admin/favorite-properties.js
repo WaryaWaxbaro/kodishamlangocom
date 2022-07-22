@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useTranslations } from "next-intl";
 
 import { useUser } from "../../context/userContext";
 import { ApartmentModel } from "../../models/index";
@@ -11,6 +12,7 @@ import FavoritePropertiesRow from "../../components/FavoritePropertiesRow";
 import { sortByTimestamp } from "../../utils/index";
 
 export default function FavoriteProperties() {
+  const t = useTranslations("FavouriteProperties");
   const { currentUser } = useUser();
   const [favApartments, setFavApartments] = useState([]);
   const [thumbnails, setThumbnails] = useState([]);
@@ -64,11 +66,11 @@ export default function FavoriteProperties() {
               <table className="table">
                 <thead className="table">
                   <tr className="table-primary">
-                    <th>My Property</th>
-                    <th className="fw-normal">Date Added</th>
-                    <th className="fw-normal">Views</th>
+                    <th>{t("my_properties")}</th>
+                    <th className="fw-normal">{t("date_added")}</th>
+                    <th className="fw-normal">{t("views")}</th>
                     <th className="fw-normal" colSpan={2}>
-                      Actions
+                      {t("actions")}
                     </th>
                   </tr>
                 </thead>
@@ -85,7 +87,7 @@ export default function FavoriteProperties() {
               </table>
             </div>
           ) : (
-            <>{loading ? <Loader /> : <p>No favorite properties</p>}</>
+            <>{loading ? <Loader /> : <p>{t("no_favourite_properties")}</p>}</>
           )}
         </div>
       </div>
