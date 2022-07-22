@@ -287,5 +287,10 @@
     "title": "Dhibcaha add siin lahayd",
     "review": "Ka Faaloo",
     "submit_review": "Ku Dar"
+  },
+  "Login": {
+    "title": "Kudaha U Gal",
+    "login_with_google": "Ku Gal Google",
+    "login_with_facebook": "Ku Gal Facebook"
   }
 }

@@ -1,6 +1,11 @@
+import AppHead from "../components/AppHead";
+
 export default function Terms() {
   return (
     <div className="container-lg py-4">
+      <AppHead>
+        <meta name="robots" content="noindex nofollow" />
+      </AppHead>
       <div className="max-width-680 mx-auto px-3 py-4 shadow-sm rounded-5">
         <h1 className="h3 mb-3">Terms And Conditions</h1>
         <p>
@@ -78,4 +83,12 @@ export default function Terms() {
       </div>
     </div>
   );
+}
+
+export async function getServerSideProps({ locale }) {
+  return {
+    props: {
+      messages: require(`../locales/${locale}.json`),
+    },
+  };
 }

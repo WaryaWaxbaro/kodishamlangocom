@@ -26,3 +26,11 @@ export default function Registration() {
     </div>
   );
 }
+
+export async function getServerSideProps({ locale }) {
+  return {
+    props: {
+      messages: require(`../locales/${locale}.json`),
+    },
+  };
+}

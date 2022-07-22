@@ -1,20 +1,19 @@
 import { useState, useEffect } from "react";
+import { useTranslations } from "next-intl";
 import { auth } from "../firebase/clientApp";
 import {
   signInWithPopup,
   GoogleAuthProvider,
   FacebookAuthProvider,
-  signOut,
 } from "firebase/auth";
 import { increment } from "firebase/firestore";
 import { useRouter } from "next/router";
-import { v4 as uuidv4 } from "uuid";
 import { useUser } from "../context/userContext";
 import Loader from "../components/Loader";
 import { UserModel } from "../models";
-import { randomKeys } from "../utils";
 
 export default function Login() {
+  const t = useTranslations("Login");
   const router = useRouter();
   const gProvider = new GoogleAuthProvider();
   const fProvider = new FacebookAuthProvider();
@@ -115,7 +114,7 @@ export default function Login() {
         <Loader />
       ) : (
         <div className="max-width-350 mx-auto shadow p-2 p-sm-3 rounded-5 my-5">
-          <h1 className="fs-24 text-center mb-3">Login</h1>
+          <h1 className="fs-24 text-center mb-3">{t("title")}</h1>
           <hr className="bg-dark" />
           <div className="d-grid py-4">
             <button
@@ -125,7 +124,7 @@ export default function Login() {
               <span className="d-block me-3">
                 <i className="bi bi-google"></i>
               </span>
-              <span className="d-block">Login with Google</span>
+              <span className="d-block">{t("login_with_google")}</span>
             </button>
             <button
               onClick={handleFacebookAuth}
@@ -134,11 +133,19 @@ export default function Login() {
               <span className="d-block me-3">
                 <i className="bi bi-facebook"></i>
               </span>
-              <span className="d-block">Login with Facebook</span>
+              <span className="d-block">{t("login_with_facebook")}</span>
             </button>
           </div>
         </div>
       )}
     </>
   );
+}
+
+export async function getServerSideProps({ locale }) {
+  return {
+    props: {
+      messages: require(`../locales/${locale}.json`),
+    },
+  };
 }

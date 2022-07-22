@@ -287,5 +287,10 @@
     "title": "Your rating for this listing",
     "review": "Review",
     "submit_review": "Submit Review"
+  },
+  "Login": {
+    "title": "Login",
+    "login_with_google": "Login with Google",
+    "login_with_facebook": "Login with Facebook"
   }
 }

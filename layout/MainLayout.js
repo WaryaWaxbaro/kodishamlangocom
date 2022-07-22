@@ -9,9 +9,10 @@ import somCities from "../data/somCities";
 export default function MainLayout(props) {
   const { children } = props;
   const router = useRouter();
-  const { locale } = router.query;
+  const { locale } = router;
   const t = useTranslations("Layout");
   let description = somCities.join(", ");
+
   return (
     <>
       <Head>

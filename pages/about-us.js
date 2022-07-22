@@ -8,7 +8,7 @@ export default function AboutUs() {
 export async function getServerSideProps({ locale }) {
   return {
     props: {
-      messages: require(`../../locales/${locale}.json`),
+      messages: require(`../locales/${locale}.json`),
     },
   };
 }
