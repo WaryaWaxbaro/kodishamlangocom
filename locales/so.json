@@ -1,7 +1,7 @@
 {
   "Layout": {
-    "title": "Gurikiro.com - Real Estate in the heart of the city",
-    "og_title": "Gurikiro.com - Real Estate in the heart of the city"
+    "title": "Gurikiro.com - Adeega Ku Sahlaayo Guri Raadinta Geeska Afrika oo Dhan",
+    "description": "Adeeg Fudud oo Kuu Sahlaayo Guri Raadinta Geeska Afrika gaar ahaan Somaliya"
   },
   "ListingPage": {
     "rent": {
@@ -220,7 +220,13 @@
     "already_uploaded": "Horay ayaa loogu daray",
     "upladed_max_allowed": "Waa ku dartay sawiraanta la ogalyahay oo dhan",
     "select_at_least_one_status": "Fadlan dooro oogu yaraan hal nooc",
-    "fill_all_required_fields": "Fadlan buuxi meelaha qasabka ah oo dhan"
+    "fill_all_required_fields": "Fadlan buuxi meelaha qasabka ah oo dhan",
+    "gallery": "Sawiro",
+    "description": "Sharaxaad Dheeraad",
+    "reviews": "Faallo",
+    "agent_information": "Warbixinta Wakiilka",
+    "request_inquiry": "Gudbi Codsi",
+    "recent_properties": "Guryaha oogu Dambeyay"
   },
   "PriceDuration": {
     "Month": "Bishii",
@@ -245,5 +251,41 @@
   "Sharing": {
     "share": "La Wadaag",
     "close": "Iska Xidh"
+  },
+  "AboutUs": {},
+  "Contact": {
+    "title": "Nala Soo Xiriir",
+    "our_location": "Xarunteena",
+    "contact_details": "Barta Nalaga soo xiriiri karo",
+    "contact_instruction": "Fadlan ka fiirso hoos habka aad noola soo xiriiri kartid, waxaan diyaar u nahay in aan ku qaabilno waqti kasto",
+    "hours": "Saac"
+  },
+  "ContactForm": {
+    "name": "Magaca",
+    "email": "Emailka",
+    "phone": "Telefoonka",
+    "message": "Fariinta",
+    "submit": "Dir",
+    "loading": "Raadinayaa...",
+    "submit_success": "Mahadsanid. Wax yar kadib ayaan kula soo xiriireenaa.",
+    "request_sent_success": "Fariintaada si sax ayay u baxday",
+    "request_sent_fail": "Cilad farsamo ayaa dhacday",
+    "fill_all_required_fields": "Fadlan buuxi meelaha muhiimka ah oo dhan",
+    "invalid_email": "Fadlan email sax ah isticmaal",
+    "cannot_contact_self": "Yaab! Adiga islama xiriiri kartid",
+    "request_recieved": "Codsigaaga wuu nasoo gaaray",
+    "submit_request": "Dir Codsiga"
+  },
+  "Reviews": {
+    "add_review": "Ka Faaloo",
+    "provide_required_fields": "Fadlan buuxi meelaha muhiimka ah oo dhan",
+    "must_be_logged_in": "Waa in aad gudaha u gashid si aad ooga faalaato",
+    "cannot_add_review_to_yourself": "Yaab! Kama faaloon kartid gurigaaga",
+    "review_added_success": "Faaladaada way diwaan gashay"
+  },
+  "ReviewForm": {
+    "title": "Dhibcaha add siin lahayd",
+    "review": "Ka Faaloo",
+    "submit_review": "Ku Dar"
   }
 }

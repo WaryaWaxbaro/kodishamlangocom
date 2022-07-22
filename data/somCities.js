@@ -1,4 +1,5 @@
 export default [
+  "Muqdisho",
   "Aadan Yabaal",
   "Afurur",
   "Caabudwaaq",
@@ -118,6 +119,7 @@ export default [
   "Miir taqwa",
   "Merca",
   "Mogadishu",
+
   "Qandala",
   "Qardho",
   "Oog",

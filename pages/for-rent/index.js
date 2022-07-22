@@ -69,8 +69,6 @@ export async function getServerSideProps({ locale }) {
       props: {
         listings,
         messages: require(`../../locales/${locale}.json`),
-        title: "For Rent",
-        description: "Find your next apartment",
       },
     };
   } catch (error) {

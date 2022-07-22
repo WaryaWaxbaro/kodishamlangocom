@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import SingleReviewStar from "./SingleReviewStar";
+import { useTranslations } from "next-intl";
 
 const reviewData = {
   rating: 1,
@@ -7,6 +8,8 @@ const reviewData = {
 };
 
 export default function ReviewForm({ addNewReview, resetFields }) {
+  const t = useTranslations("ReviewForm");
+
   const [newReview, setNewReview] = useState(reviewData);
   const [reviewRating, setReviewRating] = useState(1);
   const [tempReviewRating, setTempReviewRating] = useState(1);
@@ -51,7 +54,7 @@ export default function ReviewForm({ addNewReview, resetFields }) {
   };
   return (
     <div className="w-100 mt-3">
-      <p className="mb-1">Your rating for this listing</p>
+      <p className="mb-1">{t("title")}</p>
       <div className="d-flex text-primary fs-28">
         {[1, 2, 3, 4, 5].map((i) => (
           <SingleReviewStar
@@ -76,11 +79,11 @@ export default function ReviewForm({ addNewReview, resetFields }) {
               value={newReview.review}
               onChange={handleChange}
             ></textarea>
-            <label htmlFor="review">Review</label>
+            <label htmlFor="review">{t("review")}</label>
           </div>
           <div>
             <button className="btn btn-primary text-light fs-14">
-              Submit Review
+              {t("submit_review")}
             </button>
           </div>
         </form>

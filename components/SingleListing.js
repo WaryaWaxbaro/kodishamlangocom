@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 import HeadingWithLine from "../components/HeadingWithLine";
 import ImageSlider from "../components/ImageSlider";
@@ -14,6 +15,11 @@ import { currency } from "../utils/staticSetup";
 import AppHead from "./AppHead";
 
 export default function SingleListing({ listing, listingType }) {
+  const t_features = useTranslations("FeaturedPropertyCard");
+  const t_listing_form = useTranslations("NewListingForm");
+  const t_amenities = useTranslations("PropertyFeatures");
+  const t_property_types = useTranslations("PropertyTypes");
+
   const [images, setImages] = useState([]);
   const [agentProfile, setAgentProfile] = useState(null);
   const [profileImageUrl, setProfileImageUrl] = useState(null);
@@ -83,19 +89,19 @@ export default function SingleListing({ listing, listingType }) {
                   {listing.property_status.indexOf("rent") >= 0 &&
                     listingType === "rent" && (
                       <span className="badge bg-primary ms-3 rounded-pill fs-14 fw-normal">
-                        For Rent
+                        {t_features("for_rent")}
                       </span>
                     )}
                   {listing.property_status.indexOf("sale") >= 0 &&
                     listingType === "sale" && (
                       <span className="badge bg-primary ms-3 rounded-pill fs-14 fw-normal">
-                        For Sale
+                        {t_features("for_sale")}
                       </span>
                     )}
                   {listing.property_status.indexOf("short stay") >= 0 &&
                     listingType === "short stay" && (
                       <span className="badge bg-primary ms-3 rounded-pill fs-14 fw-normal">
-                        Short Stay
+                        {t_features("short_stay")}
                       </span>
                     )}
                 </h1>
@@ -116,7 +122,7 @@ export default function SingleListing({ listing, listingType }) {
           {/* Gallery */}
           <div className="w-100 bg-white shadow p-3 mt-3">
             <HeadingWithLine
-              text="Gallery"
+              text={t_listing_form("gallery")}
               classNames="text-dark fs-18 fw-bold ls-6"
             />
             <ImageSlider images={images} />
@@ -124,7 +130,7 @@ export default function SingleListing({ listing, listingType }) {
           {/* Description */}
           <div className="w-100 bg-white shadow p-3 mt-3">
             <HeadingWithLine
-              text="Description"
+              text={t_listing_form("description")}
               classNames="text-dark fs-18 fw-bold ls-6"
             />
             <p>{listing.description}</p>
@@ -132,26 +138,28 @@ export default function SingleListing({ listing, listingType }) {
           {/* Property Details */}
           <div className="w-100 bg-white shadow p-3 mt-3">
             <HeadingWithLine
-              text="Property Details"
+              text={t_listing_form("property_details")}
               classNames="text-dark fs-18 fw-bold ls-6"
             />
             <ul className="list-unstyled d-flex flex-wrap">
               <li className="w-columns-30 mb-3">
-                <span>Property Type: </span>
-                <span>{listing.apartment_type}</span>
+                <span>{t_listing_form("property_type")}: </span>
+                <span>{t_property_types(listing.apartment_type)}</span>
               </li>
               <li className="w-columns-30 mb-3">
-                <span>Property status: </span>
+                <span>{t_listing_form("property_status")}: </span>
                 <span>
-                  {listing.property_status.indexOf("rent") >= 0 && "For Rent, "}{" "}
-                  {listing.property_status.indexOf("sale") >= 0 && "For Sale, "}
+                  {listing.property_status.indexOf("rent") >= 0 &&
+                    `${t_features("for_rent")}, `}{" "}
+                  {listing.property_status.indexOf("sale") >= 0 &&
+                    `${t_features("for_sale")}, `}
                   {listing.property_status.indexOf("short stay") >= 0 &&
-                    "For Holiday"}
+                    `${t_features("for_holiday")}, `}
                 </span>
               </li>
             </ul>
             <HeadingWithLine
-              text="Amenities"
+              text={t_listing_form("property_features")}
               classNames="text-dark fs-18 fw-bold ls-6"
             />
             <ul className="list-unstyled d-flex flex-wrap">
@@ -165,7 +173,7 @@ export default function SingleListing({ listing, listingType }) {
                       <span className="d-inline-block me-2">
                         <i className="bi bi-check-square-fill text-primary"></i>
                       </span>
-                      <span>{feature}</span>
+                      <span>{t_amenities(feature)}</span>
                     </li>
                   )
                 );
@@ -175,7 +183,7 @@ export default function SingleListing({ listing, listingType }) {
           {/* Reviews */}
           <div className="w-100 bg-white shadow p-3 mt-3">
             <HeadingWithLine
-              text={`${reviewCount} Reviews`}
+              text={`${reviewCount} ${t_listing_form("reviews")}`}
               classNames="text-dark fs-18 fw-bold ls-6"
             />
             <Reviews
@@ -190,7 +198,9 @@ export default function SingleListing({ listing, listingType }) {
           <div className="w-100 bg-white shadow p-3 mb-3">
             {agentProfile?.showProfile && (
               <div>
-                <h3 className="fs-18 fw-bold ls-6">Agent Information</h3>
+                <h3 className="fs-18 fw-bold ls-6">
+                  {t_listing_form("agent_information")}
+                </h3>
                 <hr />
                 <ProfileCard
                   profile={agentProfile}
@@ -200,13 +210,17 @@ export default function SingleListing({ listing, listingType }) {
               </div>
             )}
             <div className="w-100">
-              <h5 className="fs-16 fw-bold ls-6">Request Inquiry</h5>
+              <h5 className="fs-16 fw-bold ls-6">
+                {t_listing_form("request_inquiry")}
+              </h5>
               <ContactRequestForm listing={listing} listingType={listingType} />
             </div>
           </div>
           {/* Recent Properties */}
           <div className="w-100 d-none bg-white shadow p-3 mb-3">
-            <h3 className="fs-18 fw-bold ls-6">Recent Properties</h3>
+            <h3 className="fs-18 fw-bold ls-6">
+              {t_listing_form("recent_properties")}
+            </h3>
             <hr />
             <div className="w-100">
               <div className="d-flex">

@@ -1,7 +1,7 @@
 {
   "Layout": {
-    "title": "Gurikiro.com - Real Estate in the heart of the city",
-    "og_title": "Gurikiro.com - Real Estate in the heart of the city"
+    "title": "Gurikiro.com - Your Real Estate partner in the horn of Africa",
+    "description": "Find Real Estate properties anywhere in the Horn of Africa"
   },
   "ListingPage": {
     "rent": {
@@ -220,7 +220,13 @@
     "already_uploaded": "has been already uploaded",
     "upladed_max_allowed": "You have uploaded maximum allowed images",
     "select_at_least_one_status": "Please select at least one property status",
-    "fill_all_required_fields": "Please fill all required fields"
+    "fill_all_required_fields": "Please fill all required fields",
+    "gallery": "Gallery",
+    "description": "Description",
+    "reviews": "Reviews",
+    "agent_information": "Agent Information",
+    "request_inquiry": "Request Inquiry",
+    "recent_properties": "Recent Properties"
   },
   "PriceDuration": {
     "Month": "Month",
@@ -245,5 +251,41 @@
   "Sharing": {
     "share": "Share",
     "close": "Close"
+  },
+  "AboutUs": {},
+  "Contact": {
+    "title": "Contact Us",
+    "our_location": "Our Location",
+    "contact_details": "Contact Details",
+    "contact_instruction": "Please find below our contact details and feel free to contact us anytime!",
+    "hours": "Hours"
+  },
+  "ContactForm": {
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone Number",
+    "message": "Message",
+    "submit": "Submit",
+    "loading": "Loading...",
+    "submit_success": "Thank you for contacting us. We will get back to you shortly.",
+    "request_sent_success": "Your request has been sent successfully",
+    "request_sent_fail": "Something Went Wrong",
+    "fill_all_required_fields": "Please fill all required fields",
+    "invalid_email": "Please enter valid email",
+    "cannot_contact_self": "You cannot contact yourself",
+    "request_recieved": "Your request has been received successfully",
+    "submit_request": "Submit Request"
+  },
+  "Reviews": {
+    "add_review": "Add Review",
+    "provide_required_fields": "Please provide all required fields",
+    "must_be_logged_in": "You must be logged in to add review",
+    "cannot_add_review_to_yourself": "You can't add review for your own property",
+    "review_added_success": "Review Added Successfully"
+  },
+  "ReviewForm": {
+    "title": "Your rating for this listing",
+    "review": "Review",
+    "submit_review": "Submit Review"
   }
 }

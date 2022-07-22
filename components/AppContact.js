@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import { toast } from "react-toastify";
 import { ContactModel } from "../models";
 import { validateEmail } from "../utils";
@@ -11,8 +12,9 @@ const contactRequestData = {
 };
 
 export default function AppContact() {
-  const [contactRequest, setContactRequest] = useState(contactRequestData);
+  const t = useTranslations("ContactForm");
 
+  const [contactRequest, setContactRequest] = useState(contactRequestData);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -22,9 +24,9 @@ export default function AppContact() {
       if (cRequest.id) {
         setIsSubmitted(true);
         setContactRequest(contactRequestData);
-        toast.success("Your request has been sent successfully");
+        toast.success(t("request_sent_success"));
       } else {
-        toast.error("Something went wrong");
+        toast.error(t("request_sent_fail"));
       }
       setIsSubmitting(false);
     };
@@ -46,11 +48,11 @@ export default function AppContact() {
       !contactRequest.phone ||
       !contactRequest.message
     ) {
-      toast.error("Please fill all the fields");
+      toast.error(t("fill_all_required_fields"));
       return;
     }
     if (!validateEmail(contactRequest.email)) {
-      toast.error("Please enter a valid email");
+      toast.error(t("invalid_email"));
       return;
     }
 
@@ -62,16 +64,14 @@ export default function AppContact() {
       {isSubmitting ? (
         <div className="d-flex justify-content-center">
           <div className="spinner-grow" role="status">
-            <span className="visually-hidden">Loading...</span>
+            <span className="visually-hidden">{t("loading")}</span>
           </div>
         </div>
       ) : (
         <>
           {isSubmitted ? (
             <div className="d-flex align-items-center">
-              <p className="text-success">
-                Thank you for contacting us. We will get back to you shortly.
-              </p>
+              <p className="text-success">{t("submit_success")}</p>
             </div>
           ) : (
             <form>
@@ -85,7 +85,7 @@ export default function AppContact() {
                   value={contactRequest.name}
                   onChange={handleChange}
                 />
-                <label htmlFor="name">Name</label>
+                <label htmlFor="name">{t("name")}</label>
               </div>
               <div className="form-floating mb-3">
                 <input
@@ -97,7 +97,7 @@ export default function AppContact() {
                   value={contactRequest.phone}
                   onChange={handleChange}
                 />
-                <label htmlFor="phone">Phone Number</label>
+                <label htmlFor="phone">{t("phone")}</label>
               </div>
               <div className="form-floating mb-3">
                 <input
@@ -109,7 +109,7 @@ export default function AppContact() {
                   value={contactRequest.email}
                   onChange={handleChange}
                 />
-                <label htmlFor="email">Email</label>
+                <label htmlFor="email">{t("email")}</label>
               </div>
               <div className="form-floating mb-3">
                 <textarea
@@ -121,7 +121,7 @@ export default function AppContact() {
                   onChange={handleChange}
                   style={{ height: "120px" }}
                 ></textarea>
-                <label htmlFor="message">Message</label>
+                <label htmlFor="message">{t("message")}</label>
               </div>
               <div className="d-grid">
                 <button
@@ -129,7 +129,7 @@ export default function AppContact() {
                   disabled={isSubmitting}
                   className="btn btn-primary text-light fs-18 rounded-0"
                 >
-                  Submit
+                  {t("submit")}
                 </button>
               </div>
             </form>

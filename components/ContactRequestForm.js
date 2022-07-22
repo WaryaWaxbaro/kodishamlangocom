@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import { toast } from "react-toastify";
 import { ContactRequestModel } from "../models";
 import { validateEmail } from "../utils";
@@ -12,8 +13,8 @@ const contactRequestData = {
 };
 
 export default function ContactRequestForm({ listing, listingType }) {
+  const t = useTranslations("ContactForm");
   const [contactRequest, setContactRequest] = useState(contactRequestData);
-
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { currentUser } = useUser();
@@ -29,9 +30,9 @@ export default function ContactRequestForm({ listing, listingType }) {
       if (cRequest.id) {
         setIsSubmitted(true);
         setContactRequest(contactRequestData);
-        toast.success("Your request has been sent successfully");
+        toast.success(t("request_sent_success"));
       } else {
-        toast.error("Something went wrong");
+        toast.error(t("request_sent_fail"));
       }
       setIsSubmitting(false);
     };
@@ -53,16 +54,16 @@ export default function ContactRequestForm({ listing, listingType }) {
       !contactRequest.phone ||
       !contactRequest.message
     ) {
-      toast.error("Please fill all the fields");
+      toast.error(t("fill_all_required_fields"));
       return;
     }
     if (!validateEmail(contactRequest.email)) {
-      toast.error("Please enter a valid email");
+      toast.error(t("invalid_email"));
       return;
     }
 
     if (currentUser && currentUser.mId === listing.userId) {
-      toast.error("You can't contact yourself");
+      toast.error(t("cannot_contact_self"));
       return;
     }
 
@@ -74,16 +75,14 @@ export default function ContactRequestForm({ listing, listingType }) {
       {isSubmitting ? (
         <div className="d-flex justify-content-center">
           <div className="spinner-grow" role="status">
-            <span className="visually-hidden">Loading...</span>
+            <span className="visually-hidden">{t("loading")}</span>
           </div>
         </div>
       ) : (
         <>
           {isSubmitted ? (
             <div className="d-flex align-items-center justify-content-center">
-              <p className="fs-12 text-success">
-                Your Request has been recieved
-              </p>
+              <p className="fs-12 text-success">{t("request_recieved")}</p>
             </div>
           ) : (
             <form>
@@ -97,7 +96,7 @@ export default function ContactRequestForm({ listing, listingType }) {
                   value={contactRequest.name}
                   onChange={handleChange}
                 />
-                <label htmlFor="name">Name</label>
+                <label htmlFor="name">{t("name")}</label>
               </div>
               <div className="form-floating mb-3">
                 <input
@@ -109,7 +108,7 @@ export default function ContactRequestForm({ listing, listingType }) {
                   value={contactRequest.phone}
                   onChange={handleChange}
                 />
-                <label htmlFor="phone">Phone Number</label>
+                <label htmlFor="phone">{t("phone")}</label>
               </div>
               <div className="form-floating mb-3">
                 <input
@@ -121,7 +120,7 @@ export default function ContactRequestForm({ listing, listingType }) {
                   value={contactRequest.email}
                   onChange={handleChange}
                 />
-                <label htmlFor="email">Email</label>
+                <label htmlFor="email">{t("email")}</label>
               </div>
               <div className="form-floating mb-3">
                 <textarea
@@ -133,7 +132,7 @@ export default function ContactRequestForm({ listing, listingType }) {
                   onChange={handleChange}
                   style={{ height: "120px" }}
                 ></textarea>
-                <label htmlFor="message">Message</label>
+                <label htmlFor="message">{t("message")}</label>
               </div>
               <div className="d-grid">
                 <button
@@ -141,7 +140,7 @@ export default function ContactRequestForm({ listing, listingType }) {
                   disabled={isSubmitting}
                   className="btn btn-primary text-light fs-18 rounded-0"
                 >
-                  Submit Request
+                  {t("submit_request")}
                 </button>
               </div>
             </form>

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
+import { useTranslations } from "next-intl";
 
 import { useUser } from "../context/userContext";
 import { ReviewsModel } from "../models";
@@ -11,6 +12,8 @@ import ReviewStars from "./ReviewStars";
 import { sortByTimestamp } from "../utils/index";
 
 export default function Reviews({ propertyId, setReviewCount, userId }) {
+  const t = useTranslations("Reviews");
+
   const { currentUser } = useUser();
   const [reviews, setReviews] = useState([]);
   const [resetFields, setResetFields] = useState(false);
@@ -37,17 +40,17 @@ export default function Reviews({ propertyId, setReviewCount, userId }) {
 
   const addNewReview = async (data) => {
     if (!data.review) {
-      toast.error("Provide all the required fields");
+      toast.error(t("provide_required_fields"));
       return;
     }
 
     if (!currentUser) {
-      toast.error("You must be logged in to add review");
+      toast.error(t("must_be_logged_in"));
       return;
     }
 
     if (currentUser && currentUser.mId == userId) {
-      toast.error("You can't add review for your own property");
+      toast.error(t("cannot_add_review_to_yourself"));
       return;
     }
 
@@ -64,7 +67,7 @@ export default function Reviews({ propertyId, setReviewCount, userId }) {
     const review = await new ReviewsModel(rev).save();
 
     if (review?.id) {
-      toast.success("Review submitted successfully");
+      toast.success(t("review_added_success"));
       setUpdateReviews(!updateReviews);
     }
   };
@@ -108,7 +111,7 @@ export default function Reviews({ propertyId, setReviewCount, userId }) {
       {/* Review Form */}
       <div className="w-100 mt-3">
         <HeadingWithLine
-          text="Add Review"
+          text={t("add_review")}
           classNames="text-dark fs-18 fw-bold ls-6"
         />
         <ReviewForm addNewReview={addNewReview} resetFields={resetFields} />
