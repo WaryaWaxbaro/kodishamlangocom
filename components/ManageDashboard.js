@@ -1,9 +1,11 @@
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 
 export default function ManageDashboard({ dashboardCount }) {
+  const t = useTranslations("ManageDashboard");
   return (
     <div className="w-100 p-2 p-sm-3 shadow mb-4">
-      <h1 className="fs-22 fw-bold ls-6 mb-4">Manage Dashboard</h1>
+      <h1 className="fs-22 fw-bold ls-6 mb-4">{t("manage_dashboard")}</h1>
       <div className="row">
         <div className="col-md-6 col-lg-4 mb-4">
           <Link href="/admin/my-properties">
@@ -13,7 +15,7 @@ export default function ManageDashboard({ dashboardCount }) {
               </div>
               <div>
                 <p className="fs-32 mb-0">{dashboardCount.properties}</p>
-                <p className="mb-2">Published Property</p>
+                <p className="mb-2">{t("published_properties")}</p>
               </div>
             </div>
           </Link>
@@ -26,7 +28,7 @@ export default function ManageDashboard({ dashboardCount }) {
               </div>
               <div>
                 <p className="fs-32 mb-0">{dashboardCount.reviews}</p>
-                <p>Total Reviews</p>
+                <p>{t("total_reviews")}</p>
               </div>
             </div>
           </Link>
@@ -39,7 +41,7 @@ export default function ManageDashboard({ dashboardCount }) {
               </div>
               <div>
                 <p className="fs-32 mb-0">{dashboardCount.messages}</p>
-                <p>Messages</p>
+                <p>{t("messages")}</p>
               </div>
             </div>
           </Link>

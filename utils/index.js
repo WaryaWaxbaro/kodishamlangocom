@@ -223,3 +223,49 @@ export const sortByTimestamp = (data) => {
 
   return sortedData;
 };
+
+export const timeSince = (date, localization) => {
+  let locale = localization || {
+    years: "years",
+    months: "months",
+    days: "days",
+    hours: "hours",
+    minutes: "minutes",
+    seconds: "seconds",
+    and: "and",
+  };
+  let seconds = Math.floor((new Date() - new Date(date)) / 1000);
+  let interval = seconds / 31536000;
+  let year = seconds / 31536000;
+  let months = seconds / 2592000;
+  let days = seconds / 86400;
+  let hours = seconds / 3600;
+  let minutes = seconds / 60;
+
+  if (year > 1) {
+    return `${Math.floor(year)} ${locale.years}`;
+  }
+
+  if (months > 1) {
+    return `${Math.floor(months)} ${locale.months}`;
+  }
+
+  if (days > 1) {
+    return `${Math.floor(days)} ${locale.days}`;
+  }
+
+  if (hours > 1) {
+    var h = Math.floor(hours);
+    if (h <= 2) {
+      return `${h} ${locale.hours} ${locale.and} ${Math.floor(
+        (hours - h) * 60
+      )} ${locale.minutes}`;
+    }
+    return `${Math.floor(hours)} ${locale.hours}`;
+  }
+
+  if (minutes > 1) {
+    return `${Math.floor(minutes)} ${locale.minutes}`;
+  }
+  return `${Math.floor(seconds)} ${locale.seconds}`;
+};

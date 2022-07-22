@@ -281,7 +281,10 @@
     "provide_required_fields": "Please provide all required fields",
     "must_be_logged_in": "You must be logged in to add review",
     "cannot_add_review_to_yourself": "You can't add review for your own property",
-    "review_added_success": "Review Added Successfully"
+    "review_added_success": "Review Added Successfully",
+    "reviews": "Reviews",
+    "no_reviews": "No Reviews",
+    "more": "More"
   },
   "ReviewForm": {
     "title": "Your rating for this listing",
@@ -292,5 +295,36 @@
     "title": "Login",
     "login_with_google": "Login with Google",
     "login_with_facebook": "Login with Facebook"
+  },
+  "ManageDashboard": {
+    "manage_dashboard": "Manage Dashboard",
+    "published_properties": "Published Properties",
+    "total_reviews": "Total Reviews",
+    "messages": "Messages"
+  },
+  "DashboardListing": {
+    "properties": "Properties",
+    "listing_title": "Listing Title",
+    "price": "Price",
+    "added_date": "Added Date",
+    "status": "Status",
+    "published": "Published",
+    "not_published": "Not Published",
+    "action": "Action",
+    "more": "More"
+  },
+  "DashboardMessage": {
+    "contact_requests": "Contact Requests",
+    "no_contact_result": "No Contact Result Found",
+    "more": "More"
+  },
+  "TimeAgo": {
+    "years": "years ago",
+    "months": "months ago",
+    "days": "days ago",
+    "hours": "hours ago",
+    "minutes": "minutes ago",
+    "seconds": "seconds ago",
+    "and": "and"
   }
 }

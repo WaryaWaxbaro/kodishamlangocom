@@ -281,7 +281,10 @@
     "provide_required_fields": "Fadlan buuxi meelaha muhiimka ah oo dhan",
     "must_be_logged_in": "Waa in aad gudaha u gashid si aad ooga faalaato",
     "cannot_add_review_to_yourself": "Yaab! Kama faaloon kartid gurigaaga",
-    "review_added_success": "Faaladaada way diwaan gashay"
+    "review_added_success": "Faaladaada way diwaan gashay",
+    "reviews": "Faallo",
+    "no_reviews": "No Reviews",
+    "more": "More"
   },
   "ReviewForm": {
     "title": "Dhibcaha add siin lahayd",
@@ -292,5 +295,36 @@
     "title": "Kudaha U Gal",
     "login_with_google": "Ku Gal Google",
     "login_with_facebook": "Ku Gal Facebook"
+  },
+  "ManageDashboard": {
+    "manage_dashboard": "Qeeb Maamulida",
+    "published_properties": "Guryaha Daabacan",
+    "total_reviews": "Tirada Faahfahimaha",
+    "messages": "Fariimo"
+  },
+  "DashboardListing": {
+    "properties": "Guryo",
+    "listing_title": "Cinwaanka Guriga",
+    "price": "Qiimaaha",
+    "added_date": "Malinta Lagu soo Daray",
+    "status": "Ma la daabacay",
+    "published": "Waa daabacanyahay",
+    "not_published": "Ma daabacno",
+    "action": "Tilaabo",
+    "more": "Kuwa Kale"
+  },
+  "DashboardMessage": {
+    "contact_requests": "Codsiyada Xariirka",
+    "no_contact_result": "Wax codsi ah oo jiro malahan",
+    "more": "Kuwa Kale"
+  },
+  "TimeAgo": {
+    "years": "sano kahore",
+    "months": "bil kahore",
+    "days": "maalin kahore",
+    "hours": "saac kahore",
+    "minutes": "daqiiqo kahore",
+    "seconds": "seken kahore",
+    "and": "and"
   }
 }

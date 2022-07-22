@@ -94,3 +94,11 @@ export default function Dashboard() {
     </AdminLayout>
   );
 }
+
+export async function getServerSideProps({ locale }) {
+  return {
+    props: {
+      messages: require(`../../locales/${locale}.json`),
+    },
+  };
+}

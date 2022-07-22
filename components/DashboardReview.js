@@ -1,9 +1,38 @@
+import { useState, useEffect } from "react";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
-import React from "react";
-import ReviewStars from "./ReviewStars";
+import { useRouter } from "next/router";
 import Link from "next/link";
+import { timeSince } from "../utils";
+import ReviewStars from "./ReviewStars";
 
 export default function DashboardReview({ reviews, listings }) {
+  const t = useTranslations("Reviews");
+  const timeago = useTranslations("TimeAgo");
+  const router = useRouter();
+  const { locale } = router;
+  const [updateTimeAgo, setUpdateTimeAgo] = useState({
+    years: timeago("years"),
+    months: timeago("months"),
+    days: timeago("days"),
+    hours: timeago("hours"),
+    minutes: timeago("minutes"),
+    seconds: timeago("seconds"),
+    and: timeago("and"),
+  });
+
+  useEffect(() => {
+    setUpdateTimeAgo({
+      years: timeago("years"),
+      months: timeago("months"),
+      days: timeago("days"),
+      hours: timeago("hours"),
+      minutes: timeago("minutes"),
+      seconds: timeago("seconds"),
+      and: timeago("and"),
+    });
+  }, [locale]);
+
   const firstReviews = reviews.slice(0, 5);
 
   const getPropertyTitle = (propertyId) => {
@@ -13,7 +42,7 @@ export default function DashboardReview({ reviews, listings }) {
 
   return (
     <div className="w-100 p-2 p-sm-3 shadow mb-4">
-      <h2 className="fs-22 fw-bold ls-6 mb-4">Reviews</h2>
+      <h2 className="fs-22 fw-bold ls-6 mb-4">{t("reviews")}</h2>
       {firstReviews.length > 0 ? (
         <div className="w-100">
           {firstReviews.map((review) => (
@@ -33,7 +62,12 @@ export default function DashboardReview({ reviews, listings }) {
                       {getPropertyTitle(review.propertyId)}
                     </h2>
                     <h3 className="fs-18 fw-normal">{review.name}</h3>
-                    <p className="mb-1 fs-14">22 Minutes ago</p>
+                    <p className="mb-1 fs-14">
+                      {timeSince(
+                        new Date(review.createdAt.seconds * 1000),
+                        updateTimeAgo
+                      )}
+                    </p>
                   </div>
                   <div>
                     <button className="btn bg-transparent border-none p-0 fs-20 text-primary">
@@ -48,13 +82,13 @@ export default function DashboardReview({ reviews, listings }) {
           ))}
         </div>
       ) : (
-        <div>No reviews</div>
+        <div>{t("no_reviews")}</div>
       )}
 
       <div className="py-3 text-end">
         <Link href="/admin/reviews">
           <a className="btn btn-primary px-4">
-            <span className="d-inline-block me-4">More </span>
+            <span className="d-inline-block me-4">{t("more")} </span>
             <i className="bi bi-arrow-right-circle-fill"></i>
           </a>
         </Link>
