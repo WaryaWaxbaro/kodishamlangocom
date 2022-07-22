@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useTranslations } from "next-intl";
+import Head from "next/head";
 
 import Search from "./Search";
 import AppDropdown from "./AppDropdown";
@@ -8,6 +9,7 @@ import Pagination from "./Pagination";
 import { sortOrder } from "../utils";
 import SharingModal from "./SharingModal";
 import { useUser } from "../context/userContext";
+import somCities from "../data/somCities";
 
 let PageSize = 25;
 
@@ -15,6 +17,7 @@ export default function Listings({ apartments, setApartments, apartmentType }) {
   const t = useTranslations("Listing");
   const t_sort_order = useTranslations("SortOrder");
   const t_status = useTranslations("PropertyStatus");
+  const t_listing = useTranslations("ListingPage");
 
   const [listedApartments, setListedApartments] = useState([]);
   const [sortBy, setSortBy] = useState("Most Recent");
@@ -76,8 +79,48 @@ export default function Listings({ apartments, setApartments, apartmentType }) {
     sharingModalButton.current.click();
   };
 
+  let description = somCities.join(", ");
+
   return (
     <div className="container-lg">
+      <Head>
+        {apartmentType === "rent" && (
+          <>
+            <title>{t_listing("rent.title")}</title>{" "}
+            <meta
+              property="description"
+              content={`${t_listing("rent.description")}${description}`}
+            />
+          </>
+        )}
+        {apartmentType === "sale" && (
+          <>
+            <title>{t_listing("sale.title")}</title>
+            <meta
+              property="description"
+              content={`${t_listing("sale.description")}${description}`}
+            />
+          </>
+        )}
+        {apartmentType === "short stay" && (
+          <>
+            <title>{t_listing("short_stay.title")}</title>
+            <meta
+              property="description"
+              content={`${t_listing("short_stay.description")}${description}`}
+            />
+          </>
+        )}
+        {apartmentType === "plots" && (
+          <>
+            <title>{t_listing("plots.title")}</title>
+            <meta
+              property="description"
+              content={`${t_listing("plots.description")}${description}`}
+            />
+          </>
+        )}
+      </Head>
       <div className="mt-3 mb-5">
         <h1 className="fs-34 fw-bold ls-6 text-capitalize">
           {apartmentType === "plots"

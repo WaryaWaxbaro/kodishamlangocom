@@ -3,6 +3,28 @@
     "title": "Gurikiro.com - Real Estate in the heart of the city",
     "og_title": "Gurikiro.com - Real Estate in the heart of the city"
   },
+  "ListingPage": {
+    "rent": {
+      "title": "Apartment Kiro Ah, Bungalow Kiro Ah, Guri Kiro Ah, Mansion Kiro Ah, Villa Kiro Ah, Flat Kiro Ah, Flat Yar Kiro Ah, Guri 2 Qol Kiro Ah, Guri 3 Qol Kiro Ah, Guri Quruxsan Kiro Ah, Dugaan Kiro Ah, Xafiis Kiro Ah, Meel Ganacsi Kiro Ah, Xarun Ganacsi Kiro Ah, Dhul Kiro Ah, Boos Kiro Ah, Ganacsi Kiro Ah, Deegaan Kiro Ah",
+      "description": "Ka Raadso Guryo Kiro Ah Magalooyinka "
+    },
+    "sale": {
+      "title": "Apartment Iib Ah, Bungalow Iib Ah, Guri Iib Ah, Mansion Iib Ah, Villa Iib Ah, Flat Iib Ah, Flat Yar Iib Ah, Guri 2 Qol Iib Ah, Guri 3 Qol Iib Ah, Guri Quruxsan Iib Ah, Dugaan Iib Ah, Xafiis Iib Ah, Meel Ganacsi Iib Ah, Xarun Ganacsi Iib Ah, Dhul Iib Ah, Boos Iib Ah, Ganacsi Iib Ah, Deegaan Iib Ah",
+      "description": "Ka Raadso Guryo Iib Ah Magalooyinka "
+    },
+    "short_stay": {
+      "title": "Apartment Kiro Mudo Gaaban, Bungalow Kiro Mudo Gaaban, Guri Kiro Mudo Gaaban, Mansion Kiro Mudo Gaaban, Villa Kiro Mudo Gaaban, Flat Kiro Mudo Gaaban, Flat Yar Kiro Mudo Gaaban, Guri 2 Qol Kiro Mudo Gaaban, Guri 3 Qol Kiro Mudo Gaaban, Guri Quruxsan Kiro Mudo Gaaban, Dugaan Kiro Mudo Gaaban, Xafiis Kiro Mudo Gaaban, Meel Ganacsi Kiro Mudo Gaaban, Xarun Ganacsi Kiro Mudo Gaaban, Dhul Kiro Mudo Gaaban, Boos Kiro Mudo Gaaban, Ganacsi Kiro Mudo Gaaban, Deegaan Kiro Mudo Gaaban",
+      "description": "Ka Raadso Guryo Kiro Mudo Gaaban Magalooyinka in "
+    },
+    "holiday": {
+      "title": "Apartment Lagu Nasto, Bungalow Lagu Nasto, Guri Lagu Nasto, Mansion Lagu Nasto, Villa Lagu Nasto, Flat Lagu Nasto, Flat Yar Lagu Nasto, Guri 2 Qol Lagu Nasto, Guri 3 Qol Lagu Nasto, Guri Quruxsan Lagu Nasto, Dugaan Lagu Nasto, Xafiis Lagu Nasto, Meel Ganacsi Lagu Nasto, Xarun Ganacsi Lagu Nasto, Dhul Lagu Nasto, Boos Lagu Nasto, Ganacsi Lagu Nasto, Deegaan Lagu Nasto",
+      "description": "Ka Raadso Guryo Lagu Nasto Magalooyinka "
+    },
+    "plots": {
+      "title": "Boosas Iib ah",
+      "description": "Raadso Boosas Iib ah Magalooyinka "
+    }
+  },
   "Home": {
     "hello": "Haye"
   },

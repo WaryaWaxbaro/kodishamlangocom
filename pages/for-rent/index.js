@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import Head from "next/head";
 
 import admin from "../../firebase/nodeApp";
 import StorageUploads from "../../models/storageUploads";
@@ -44,16 +43,11 @@ export default function ForRent(props) {
     return <Loader />;
   }
   return (
-    <>
-      <Head>
-        <title>{"For Rent | "}</title>
-      </Head>
-      <Listings
-        apartments={apartments}
-        apartmentType="rent"
-        setApartments={setApartments}
-      />
-    </>
+    <Listings
+      apartments={apartments}
+      apartmentType="rent"
+      setApartments={setApartments}
+    />
   );
 }
 

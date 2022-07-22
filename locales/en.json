@@ -3,6 +3,28 @@
     "title": "Gurikiro.com - Real Estate in the heart of the city",
     "og_title": "Gurikiro.com - Real Estate in the heart of the city"
   },
+  "ListingPage": {
+    "rent": {
+      "title": "Apartment For Rent, Bungalow For Rent, House For Rent, Mansion For Rent, Villa For Rent, Flat For Rent, Mini Flat For Rent, Duplex For Rent, Triplex For Rent, Penthouse For Rent, Shop For Rent, Office For Rent, Business Space For Rent, Business Center For Rent, Land For Rent, Plot For Rent, Commercial For Rent, Residential For Rent",
+      "description": "Find Rental Properties from "
+    },
+    "sale": {
+      "title": "Apartment For Sale, Bungalow For Sale, House For Sale, Mansion For Sale, Villa For Sale, Flat For Sale, Mini Flat For Sale, Duplex For Sale, Triplex For Sale, Penthouse For Sale, Shop For Sale, Office For Sale, Business Space For Sale, Business Center For Sale, Land For Sale, Plot For Sale, Commercial For Sale, Residential For Sale",
+      "description": "Find Properties For Sale in "
+    },
+    "short stay": {
+      "title": "Apartment For Short Stay, Bungalow For Short Stay, House For Short Stay, Mansion For Short Stay, Villa For Short Stay, Flat For Short Stay, Mini Flat For Short Stay, Duplex For Short Stay, Triplex For Short Stay, Penthouse For Short Stay, Shop For Short Stay, Office For Short Stay, Business Space For Short Stay, Business Center For Short Stay, Land For Short Stay, Plot For Short Stay, Commercial For Short Stay, Residential For Short Stay",
+      "description": "Find Properties For Short Stay in "
+    },
+    "holiday": {
+      "title": "Apartment For Holiday, Bungalow For Holiday, House For Holiday, Mansion For Holiday, Villa For Holiday, Flat For Holiday, Mini Flat For Holiday, Duplex For Holiday, Triplex For Holiday, Penthouse For Holiday, Shop For Holiday, Office For Holiday, Business Space For Holiday, Business Center For Holiday, Land For Holiday, Plot For Holiday, Commercial For Holiday, Residential For Holiday",
+      "description": "Find Properties For Holiday in "
+    },
+    "plots": {
+      "title": "Plots For Sale",
+      "description": "Find Plots For Sale in "
+    }
+  },
   "Home": {
     "hello": "hello"
   },
