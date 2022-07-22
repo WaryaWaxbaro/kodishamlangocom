@@ -114,6 +114,7 @@ export default function MainApartments({
                                 apartment.mId
                               ).map((cRequest) => (
                                 <MainApartmentContacts
+                                  key={cRequest.mId}
                                   contactRequest={cRequest}
                                 />
                               ))}

@@ -11,16 +11,17 @@ export default function Privacy() {
         <h1 className="h3 mb-3">Privacy Policy</h1>
         <p>
           Gurikiro.com respects your privacy and we are committed to protect
-          your personal information. This privacy policy (“Policy”) applies to
-          your use of Gurikiro.com. This Policy sets out how we collect, store,
-          share and use user's personal data that we may collect from the you as
-          a user when you use or interact with Gurikiro.com.
+          your personal information. This privacy policy (&ldquo;Policy&rdquo;)
+          applies to your use of Gurikiro.com. This Policy sets out how we
+          collect, store, share and use user&apos;s personal data that we may
+          collect from the you as a user when you use or interact with
+          Gurikiro.com.
         </p>
         <ol>
           <li>
             We do not share or disclose any data that you have provided to us to
             third parties. We may however need to disclose personal information
-            to the Gurikiro.com's employees who require such information to
+            to the Gurikiro.com&apos;s employees who require such information to
             carry out their duties.
           </li>
           <li>
@@ -32,11 +33,11 @@ export default function Privacy() {
           <li>
             We makes use of first-party cookies (Google Analytics) to collect
             Gurikiro.com analytics data, to deliver targeted services to
-            Gurikiro.com's visitors based on their browsing activity.
+            Gurikiro.com&apos;s visitors based on their browsing activity.
           </li>
           <li>
             You may remove your personal data such as your name, email, phone at
-            anytime by unregistering from Gurikiro.com service throught{" "}
+            anytime by unregistering from Gurikiro.com service throught
             <Link href="/">
               <a className="text-dark">Admin section</a>
             </Link>
@@ -67,8 +68,9 @@ export default function Privacy() {
             <li>
               attempting to interfere with service to any user, host or network,
               including, without limitation, via means of submitting a virus to
-              Gurikiro.com, overloading, "flooding", "spamming", "mail bombing"
-              or "crashing";
+              Gurikiro.com, overloading, &lsquo;flooding&rsquo;,
+              &lsquo;spamming&rsquo;, &lsquo;mail bombing&rsquo; or
+              &lsquo;crashing&rsquo;;
             </li>
             <li>
               sending unsolicited email, including promotions and/or advertising

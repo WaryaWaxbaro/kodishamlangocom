@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import AdminLayout from "../../layout/AdminLayout";
 
 import { ApartmentModel, ReviewsModel } from "../../models";
@@ -11,7 +11,7 @@ import DashboardReview from "../../components/DashboardReview";
 import { ContactRequestModel } from "../../models/index";
 import { sortByTimestamp } from "../../utils/index";
 
-export default function dashboard() {
+export default function Dashboard() {
   const [listings, setListings] = useState([]);
   const [dashboardCount, setDashboardCount] = useState({
     properties: 0,

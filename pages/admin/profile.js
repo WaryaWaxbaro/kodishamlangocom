@@ -198,7 +198,8 @@ export default function Profile() {
                 {toggleEdit ? (
                   <div className="w-100">
                     <h3 className="fs-16 fw-bold">
-                      Editing <em>{currentUser.displayName}'s</em> Sales Profile
+                      Editing <em>{currentUser.displayName}&apos;s</em> Sales
+                      Profile
                     </h3>
                     <hr />
                     <div className="w-100 d-flex justify-content-end py-3">

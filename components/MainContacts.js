@@ -18,7 +18,7 @@ export default function MainContacts({ contacts }) {
           </thead>
           <tbody>
             {contacts.map((contact, index) => (
-              <tr>
+              <tr key={contact.mId}>
                 <td>{index + 1}</td>
                 <td>{contact.name}</td>
                 <td>{contact.email}</td>
