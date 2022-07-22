@@ -200,3 +200,11 @@ export default function Home() {
     </SiteOwnerLayout>
   );
 }
+
+export async function getServerSideProps({ locale }) {
+  return {
+    props: {
+      messages: require(`../../../locales/${locale}.json`),
+    },
+  };
+}

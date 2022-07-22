@@ -11,3 +11,11 @@ export default function Payments() {
     </AdminLayout>
   );
 }
+
+export async function getServerSideProps({ locale }) {
+  return {
+    props: {
+      messages: require(`../../locales/${locale}.json`),
+    },
+  };
+}

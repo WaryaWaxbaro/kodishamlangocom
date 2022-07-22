@@ -5,7 +5,7 @@ export default function NavbarLinkItem({ link, isBtn, handleSignOut, name }) {
     <li className="cursor-pointer fs-14">
       {isBtn ? (
         <span onClick={handleSignOut} className="dropdown-item">
-          {link.name}
+          {name}
         </span>
       ) : (
         <Link href={link.url}>

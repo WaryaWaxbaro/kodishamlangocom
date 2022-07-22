@@ -105,3 +105,11 @@ export default function Reviews() {
     </AdminLayout>
   );
 }
+
+export async function getServerSideProps({ locale }) {
+  return {
+    props: {
+      messages: require(`../../locales/${locale}.json`),
+    },
+  };
+}
