@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
+import { useTranslations } from "next-intl";
 import { unixToDate, getYesterdayDate } from "../utils";
 import { ContactRequestModel } from "../models/index";
 import { sortByTimestamp } from "../utils/index";
 
 export default function ContactRequestCard({ listingId }) {
+  const t = useTranslations("ContactRequestCard");
   const [contactRequests, setContactRequests] = useState([]);
   const [todayContactRequests, setTodayContactRequests] = useState([]);
 
@@ -31,7 +33,9 @@ export default function ContactRequestCard({ listingId }) {
 
   if (contactRequests.length === 0) {
     return (
-      <p className="fs-12 text-info">No Contacts ({contactRequests.length})</p>
+      <p className="fs-12 text-info">
+        {t("no_contacts")} ({contactRequests.length})
+      </p>
     );
   }
   return (
@@ -44,7 +48,7 @@ export default function ContactRequestCard({ listingId }) {
           aria-expanded="false"
           aria-controls={`#contactRequest-${listingId}`}
         >
-          View Contact Requests ({contactRequests.length})
+          {t("view_contact_results")} ({contactRequests.length})
           {todayContactRequests.length > 0 && (
             <span className="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
               <span className="visually-hidden">New alerts</span>
@@ -58,23 +62,23 @@ export default function ContactRequestCard({ listingId }) {
             <table>
               <tbody>
                 <tr>
-                  <th className="w-200">Name</th>
+                  <th className="w-200">{t("name")}</th>
                   <td>{contactRequest.name}</td>
                 </tr>
                 <tr>
-                  <th>Phone</th>
+                  <th>{t("phone")}</th>
                   <td>{contactRequest.phone}</td>
                 </tr>
                 <tr>
-                  <th>Email</th>
+                  <th>{t("email")}</th>
                   <td>{contactRequest.email}</td>
                 </tr>
                 <tr>
-                  <th>Message</th>
+                  <th>{t("message")}</th>
                   <td>{contactRequest.message}</td>
                 </tr>
                 <tr>
-                  <th>Sent At</th>
+                  <th>{t("sent_at")}</th>
                   <td>{unixToDate(contactRequest.createdAt.seconds)}</td>
                 </tr>
               </tbody>

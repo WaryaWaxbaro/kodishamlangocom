@@ -352,5 +352,20 @@
     "no_profile": "Profeel Malahan",
     "profile_visible_to_others": "Profeelkaaga waxaad la wadaagtay dadka boogga soo booqda",
     "profile_not_visible_to_others": "Profeelkaaga cidna lama wadaagin"
+  },
+  "ContactRequests": {
+    "contact_requests": "Codsiyada Xiriirka",
+    "no_contact_result": "Wax codsi xiriir ah malahan",
+    "more": "Kuwa Kale",
+    "view_property": "Fiiri Gurigan"
+  },
+  "ContactRequestCard": {
+    "no_contacts": "Malahan codsiyo xiriir",
+    "view_contact_results": "Fiiri codsiyada xiriir ee lasoo diray",
+    "name": "Magaca",
+    "email": "Emailka",
+    "phone": "Telefoonka",
+    "message": "Fariinta",
+    "sent_at": "Lasoo Diray"
   }
 }

@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 import AdminLayout from "../../layout/AdminLayout";
 import { useUser } from "../../context/userContext";
 import { getApartmentPath } from "../../utils";
-import { ApartmentModel, ContactRequestModel } from "../../models/index";
+import { ApartmentModel } from "../../models/index";
 import { formatPrice, sortByTimestamp } from "../../utils/index";
 import ContactRequestCard from "../../components/ContactRequestCard";
 import Pagination from "../../components/Pagination";
@@ -12,6 +13,7 @@ import Pagination from "../../components/Pagination";
 let PageSize = 25;
 
 export default function ContactRequests() {
+  const t = useTranslations("ContactRequests");
   const [listings, setListings] = useState([]);
   const [paginatedListings, setPaginatedListings] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -53,7 +55,7 @@ export default function ContactRequests() {
     <AdminLayout>
       <div className="container-lg">
         <div className="max-width-960 mx-auto shadow rounded-10 my-4 p-2 p-sm-3 p-lg-4">
-          <h2 className="fs-24 fw-bold ls-6 mb-5">Contact Requests</h2>
+          <h2 className="fs-24 fw-bold ls-6 mb-5">{t("contact_requests")}</h2>
           {listings.length > 0 ? (
             <div className="w-100">
               {paginatedListings.map((listing, index) => (
@@ -82,7 +84,7 @@ export default function ContactRequests() {
                           listing.slug
                         )}
                       >
-                        <a className="fs-14">View Property</a>
+                        <a className="fs-14">{t("view_property")}</a>
                       </Link>
                     </p>
                     <ContactRequestCard
@@ -94,7 +96,7 @@ export default function ContactRequests() {
               ))}
             </div>
           ) : (
-            <div className="w-100">No Contact Requests yet</div>
+            <div className="w-100">{t("no_contact_result")}</div>
           )}
           <Pagination
             currentPage={currentPage}
