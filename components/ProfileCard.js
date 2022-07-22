@@ -1,11 +1,13 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { useTranslations } from "next-intl";
 
 export default function ProfileCard({ profile, profileImageUrl }) {
+  const t = useTranslations("ProfileCard");
   const router = useRouter();
   const isProfilePage = router.pathname === "/admin/profile";
   if (!profile) {
-    return <div>No Profile</div>;
+    return <div>{t("no_profile")}</div>;
   }
   return (
     <>
@@ -27,13 +29,13 @@ export default function ProfileCard({ profile, profileImageUrl }) {
             <p className="fs-12">
               {profile.showProfile ? (
                 <span className="text-success">
-                  <i className="bi bi-check-circle-fill"></i> Profile is visible
-                  to others.
+                  <i className="bi bi-check-circle-fill"></i>
+                  {t("profile_visible_to_others")}
                 </span>
               ) : (
                 <span className="text-danger">
-                  <i className="bi bi-x-circle-fill"></i> Profile is not visible
-                  to others.
+                  <i className="bi bi-x-circle-fill"></i>{" "}
+                  {t("profile_not_visible_to_others")}
                 </span>
               )}
             </p>

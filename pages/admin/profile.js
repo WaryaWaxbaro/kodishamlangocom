@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { ToastContainer, toast } from "react-toastify";
+import { useTranslations } from "next-intl";
 
 import ProfileCard from "../../components/ProfileCard";
 import AdminLayout from "../../layout/AdminLayout";
@@ -21,6 +22,7 @@ const formInputs = {
 };
 
 export default function Profile() {
+  const t = useTranslations("Profile");
   const router = useRouter();
   const { loadingUser, currentUser } = useUser();
 
@@ -36,7 +38,7 @@ export default function Profile() {
   const [disableBtn, setDisableBtn] = useState(false);
   const [toastInfo, setToastInfo] = useState({
     status: "success",
-    message: "Profile updated successfully",
+    message: t("profile_update_success"),
   });
 
   useEffect(() => {
@@ -85,7 +87,7 @@ export default function Profile() {
         toast.error(toastInfo.message);
         setToastInfo({
           status: "success",
-          message: "Profile updated successfully",
+          message: t("profile_update_success"),
         });
       }
     }
@@ -148,7 +150,7 @@ export default function Profile() {
         } else {
           setToastInfo({
             status: "error",
-            message: `Profile image upload failed. ${error}`,
+            message: `${t("profile_image_upload_failed")} ${error}`,
           });
         }
 
@@ -176,11 +178,11 @@ export default function Profile() {
   const handleCopyProfile = () => {
     setProfileForm({
       name: currentUser.displayName,
-      title: "Agent of Property",
+      title: t("agent"),
       email: currentUser.email,
       phone: "",
       address: "",
-      intro: "Your partner for excelent deals",
+      intro: t("intro"),
     });
   };
   return (
@@ -198,8 +200,8 @@ export default function Profile() {
                 {toggleEdit ? (
                   <div className="w-100">
                     <h3 className="fs-16 fw-bold">
-                      Editing <em>{currentUser.displayName}&apos;s</em> Sales
-                      Profile
+                      {t("editing")} <em>{currentUser.displayName}&apos;s</em>{" "}
+                      {t("profile")}
                     </h3>
                     <hr />
                     <div className="w-100 d-flex justify-content-end py-3">
@@ -208,7 +210,7 @@ export default function Profile() {
                         className="btn btn-primary btn-sm rounded-0 me-2"
                       >
                         <span className="d-flex align-item-center justify-content-center">
-                          <span className="d-block me-3">Copy</span>
+                          <span className="d-block me-3">{t("copy")}</span>
                           <span className="square-20">
                             <i className="bi bi-clipboard2-fill"></i>
                           </span>
@@ -219,7 +221,7 @@ export default function Profile() {
                         className="btn btn-dark btn-sm rounded-0"
                       >
                         <span className="d-flex align-item-center justify-content-center">
-                          <span className="d-block me-3">Close</span>
+                          <span className="d-block me-3">{t("close")}</span>
                           <span className="square-20">
                             <i className="bi bi-x-circle"></i>
                           </span>
@@ -256,7 +258,7 @@ export default function Profile() {
                       onClick={handleProfileEdit}
                       className="btn btn-primary"
                     >
-                      Edit profile
+                      {t("edit_profile")}
                     </button>
                   )}
                 </div>
@@ -264,7 +266,7 @@ export default function Profile() {
             ) : (
               <div className="w-100">
                 <h3 className="fs-16 fw-bold">
-                  You have not created a profile yet. Please create a profile
+                  {t("profile_not_created_notification")}
                 </h3>
                 <div className="w-100 d-flex justify-content-end py-3">
                   <button
@@ -272,7 +274,7 @@ export default function Profile() {
                     className="btn btn-primary btn-sm rounded-0 me-2"
                   >
                     <span className="d-flex align-item-center justify-content-center">
-                      <span className="d-block me-3">Copy</span>
+                      <span className="d-block me-3">{t("copy")}</span>
                       <span className="square-20">
                         <i className="bi bi-clipboard2-fill"></i>
                       </span>

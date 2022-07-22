@@ -274,7 +274,15 @@
     "invalid_email": "Fadlan email sax ah isticmaal",
     "cannot_contact_self": "Yaab! Adiga islama xiriiri kartid",
     "request_recieved": "Codsigaaga wuu nasoo gaaray",
-    "submit_request": "Dir Codsiga"
+    "submit_request": "Dir Codsiga",
+    "fill_fields_with_star": "Meelaha ku calameesaan * waa muhiim in la buuxiyo",
+    "upload_profile_image": "Ku Dar Sawir",
+    "show_profile_to_others": "La wadaag profeelkaaga dad kale ee bogga soo booqdo",
+    "title": "Magaca Cinwaanka",
+    "address": "Addresska",
+    "intro": "Hordhac",
+    "intro_text": "Hordhac kooban oogu badnaan 60 xaraf",
+    "save": "Daabac"
   },
   "Reviews": {
     "add_review": "Ka Faaloo",
@@ -283,8 +291,8 @@
     "cannot_add_review_to_yourself": "Yaab! Kama faaloon kartid gurigaaga",
     "review_added_success": "Faaladaada way diwaan gashay",
     "reviews": "Faallo",
-    "no_reviews": "No Reviews",
-    "more": "More"
+    "no_reviews": "Faallooyin Malahan",
+    "more": "Kuwa Kale"
   },
   "ReviewForm": {
     "title": "Dhibcaha add siin lahayd",
@@ -326,5 +334,23 @@
     "minutes": "daqiiqo kahore",
     "seconds": "seken kahore",
     "and": "and"
+  },
+  "Profile": {
+    "editing": "Waxaad Badalaysaa",
+    "profile": "Profeel",
+    "your_profile": "Profeelkaaga",
+    "edit_profile": "Badal Profeelka",
+    "copy": "Koopiyee",
+    "close": "Iska Xidh",
+    "profile_not_created_notification": "Waali ma aad sameesan profeel ee hada sameeso",
+    "profile_update_success": "Profeelkaa waad badashay",
+    "profile_image_upload_failed": "Sawirka wuu ka darsami kari waayay profeelka",
+    "agent": "Dalaal",
+    "intro": "Adeeg jaban oo qiimo badan"
+  },
+  "ProfileCard": {
+    "no_profile": "Profeel Malahan",
+    "profile_visible_to_others": "Profeelkaaga waxaad la wadaagtay dadka boogga soo booqda",
+    "profile_not_visible_to_others": "Profeelkaaga cidna lama wadaagin"
   }
 }

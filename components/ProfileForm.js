@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import { toast } from "react-toastify";
+import { useTranslations } from "next-intl";
 
 export default function ProfileForm({
   formAction,
@@ -14,6 +15,7 @@ export default function ProfileForm({
   disableBtn,
   setDisableBtn,
 }) {
+  const t = useTranslations("ContactForm");
   const [charsCounter, setCharsCounter] = useState(0);
 
   const handleProfileFormData = (e) => {
@@ -49,7 +51,7 @@ export default function ProfileForm({
       setSaveProfileData(formAction);
       setDisableBtn(true);
     } else {
-      toast.error("Fields marked with * are required");
+      toast.error(t("fill_fields_with_star"));
     }
   };
 
@@ -70,7 +72,7 @@ export default function ProfileForm({
           )}
           <div className="mb-3">
             <label htmlFor="profileImage" className="form-label">
-              Upload profile photo
+              {t("upload_profile_image")}
             </label>
             <input
               onChange={handleProfileImage}
@@ -92,7 +94,7 @@ export default function ProfileForm({
               onChange={handleProfileFormData}
             />
             <label className="form-check-label" htmlFor="showProfile">
-              Show Profile on announcements
+              {t("show_profile_to_others")}
             </label>
           </div>
         </div>
@@ -106,7 +108,7 @@ export default function ProfileForm({
             value={profileForm.name}
             onChange={handleProfileFormData}
           />
-          <label htmlFor="name">Name *</label>
+          <label htmlFor="name">{t("name")} *</label>
         </div>
         <div className="form-floating mb-3">
           <input
@@ -118,7 +120,7 @@ export default function ProfileForm({
             value={profileForm.title}
             onChange={handleProfileFormData}
           />
-          <label htmlFor="title">Title *</label>
+          <label htmlFor="title">{t("title")} *</label>
         </div>
         <div className="form-floating mb-3">
           <input
@@ -130,7 +132,7 @@ export default function ProfileForm({
             value={profileForm.phone}
             onChange={handleProfileFormData}
           />
-          <label htmlFor="phone">Phone Number *</label>
+          <label htmlFor="phone">{t("phone")} *</label>
         </div>
         <div className="form-floating mb-3">
           <input
@@ -142,7 +144,7 @@ export default function ProfileForm({
             value={profileForm.email}
             onChange={handleProfileFormData}
           />
-          <label htmlFor="email">Email *</label>
+          <label htmlFor="email">{t("email")} *</label>
         </div>
         <div className="form-floating mb-3">
           <input
@@ -154,15 +156,15 @@ export default function ProfileForm({
             value={profileForm.address}
             onChange={handleProfileFormData}
           />
-          <label htmlFor="address">Address *</label>
+          <label htmlFor="address">{t("address")} *</label>
         </div>
         <div className="mb-3">
           <label className="form-label" htmlFor="intro">
-            Intro
+            {t("intro")}
           </label>
           <textarea
             className="form-control"
-            placeholder="Introduction text here. Max 60 characters."
+            placeholder={t("intro_text")}
             id="intro"
             style={{ height: "100px" }}
             name="intro"
@@ -176,7 +178,7 @@ export default function ProfileForm({
             className="btn btn-success text-light rounded-0"
             disabled={disableBtn}
           >
-            Save
+            {t("save")}
           </button>
         </div>
       </form>

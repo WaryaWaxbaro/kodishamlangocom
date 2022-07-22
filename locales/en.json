@@ -274,7 +274,15 @@
     "invalid_email": "Please enter valid email",
     "cannot_contact_self": "You cannot contact yourself",
     "request_recieved": "Your request has been received successfully",
-    "submit_request": "Submit Request"
+    "submit_request": "Submit Request",
+    "fill_fields_with_star": "Fields marked with * are required",
+    "upload_profile_image": "Upload Profile Photo",
+    "show_profile_to_others": "Show Profile to your listings",
+    "title": "Title",
+    "address": "Address",
+    "intro": "Intro",
+    "intro_text": "Introduction text here. Max 60 characters.",
+    "save": "Save"
   },
   "Reviews": {
     "add_review": "Add Review",
@@ -326,5 +334,23 @@
     "minutes": "minutes ago",
     "seconds": "seconds ago",
     "and": "and"
+  },
+  "Profile": {
+    "editing": "Editing",
+    "profile": "Profile",
+    "your_profile": "Your Profile",
+    "edit_profile": "Edit Profile",
+    "copy": "Copy",
+    "close": "Close",
+    "profile_not_created_notification": "You have not created a profile yet. Please create a profile",
+    "profile_update_success": "Profile Updated Successfully",
+    "profile_image_upload_failed": "Profile Image Upload Failed",
+    "agent": "Agent of Property",
+    "intro": "Your partner for excelent deals"
+  },
+  "ProfileCard": {
+    "no_profile": "No Profile Found",
+    "profile_visible_to_others": "Profile Is Visible to others",
+    "profile_not_visible_to_others": "Profile Is Not Visible to others"
   }
 }
