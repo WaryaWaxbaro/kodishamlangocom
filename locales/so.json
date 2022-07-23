@@ -285,7 +285,8 @@
     "address": "Addresska",
     "intro": "Hordhac",
     "intro_text": "Hordhac kooban oogu badnaan 60 xaraf",
-    "save": "Daabac"
+    "save": "Daabac",
+    "sent_at": "Lasoo Diray"
   },
   "Reviews": {
     "add_review": "Ka Faaloo",
@@ -299,7 +300,13 @@
     "view_property": "Fiiri Gurigan",
     "not_show_to_others": "Diid (Ka Qari Dad weenaha)",
     "show_to_others": "U ogolow (Dad weenaha ha arkaan)",
-    "view_reviews": "Fiiri Faallooyinka"
+    "view_reviews": "Fiiri Faallooyinka",
+    "reviewer": "Faaleeyee",
+    "public": "Lala waadagay dad weenaha",
+    "yes": "Haa",
+    "no": "Maya",
+    "rating": "Dhibcaha",
+    "sent_at": "Lasoo Diray"
   },
   "ReviewForm": {
     "title": "Dhibcaha add siin lahayd",
@@ -364,7 +371,12 @@
     "contact_requests": "Codsiyada Xiriirka",
     "no_contact_result": "Wax codsi xiriir ah malahan",
     "more": "Kuwa Kale",
-    "view_property": "Fiiri Gurigan"
+    "view_property": "Fiiri Gurigan",
+    "requested_by": "Soo Gudbiyaha",
+    "phone": "Telefoon",
+    "property_type": "Nooca Sameeska Guriga",
+    "message": "Fariinta",
+    "submitted_at": "Waqtiga la soo diray"
   },
   "ContactRequestCard": {
     "no_contacts": "Malahan codsiyo xiriir",
@@ -400,5 +412,39 @@
     "update_success": "Macluumaadka guriga way badalmeen",
     "editing": "Waxaad Badalaysaa",
     "back": "Dib U Laabo"
+  },
+  "SiteOwner": {
+    "title": "Halkan waa qaybta laga maamulo weebseetka oo dhan",
+    "sub_title": "Halkan waxaad ka maamuli kartaa sida Isticmaalayaasha, Guryaha iyo Fariimaha",
+    "users": "Isticmaalayaasha",
+    "apartments": "Guryaha",
+    "contacts": "Fariimaha",
+    "name": "Magaca",
+    "email": "Emailka",
+    "phone": "Telefoonka",
+    "message": "Fariinta",
+    "sent_at": "Lasoo Diray",
+    "roles": "Darajada",
+    "status": "Xaalada ku suganyahay",
+    "active": "Shaqeenayaa",
+    "blocked": "Shaqo Gabay",
+    "registered": "Diiwan Galay",
+    "last_login": "Kudaha usoo galkii oogu dambeeyay",
+    "action": "Tilaabo",
+    "more_info": "Warbixin Dheeraad",
+    "titlem": "Magaca",
+    "apartment_type": "Nooca Sameeska Guriga",
+    "views": "Aragtida",
+    "likes": "Ka Heshay",
+    "street": "Wadada",
+    "sub_city": "Xaafada",
+    "city": "Magaalada",
+    "contact_info": "Meelaha xiriirka",
+    "property_status": "Nooca Guriga",
+    "published": "Waa daabacanyahay",
+    "added_on": "Lagu soo Daray",
+    "property_owner": "Soo Gudbiyaha",
+    "reviews": "Faallooyinka",
+    "contact_requests": "Codsiyada Xiriirka"
   }
 }

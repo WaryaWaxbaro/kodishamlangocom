@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useTranslations } from "next-intl";
 import SiteOwnerLayout from "../../../layout/SiteOwnerLayout";
 import {
   GeneralSettingsModel,
@@ -36,6 +37,7 @@ const mainSettings = {
 };
 
 export default function Home() {
+  const t = useTranslations("SiteOwner");
   const [generalSettings, setGeneralSettings] = useState({});
   const [users, setUsers] = useState([]);
   const [apartments, setApartments] = useState([]);
@@ -116,11 +118,8 @@ export default function Home() {
   return (
     <SiteOwnerLayout>
       <div className="max-width-460 my-4">
-        <p>This is the management section for the website.</p>
-        <p>
-          This section you can manage Users, Apartments and Contacts for the
-          website.
-        </p>
+        <p>{t("title")}</p>
+        <p>{t("sub_title")}</p>
       </div>
       <nav>
         <div className="nav nav-tabs" id="nav-tab" role="tablist">
@@ -134,7 +133,7 @@ export default function Home() {
             aria-controls="nav-users"
             aria-selected="true"
           >
-            Users
+            {t("users")}
           </button>
           <button
             className="nav-link"
@@ -146,7 +145,7 @@ export default function Home() {
             aria-controls="nav-apartments"
             aria-selected="false"
           >
-            Apartments
+            {t("apartments")}
           </button>
           <button
             className="nav-link"
@@ -158,7 +157,7 @@ export default function Home() {
             aria-controls="nav-contacts"
             aria-selected="false"
           >
-            Contacts
+            {t("contacts")}
           </button>
         </div>
       </nav>

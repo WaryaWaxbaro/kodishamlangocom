@@ -285,7 +285,8 @@
     "address": "Address",
     "intro": "Intro",
     "intro_text": "Introduction text here. Max 60 characters.",
-    "save": "Save"
+    "save": "Save",
+    "sent_at": "Sent At"
   },
   "Reviews": {
     "add_review": "Add Review",
@@ -299,7 +300,13 @@
     "view_property": "View Property",
     "not_show_to_others": "Deny (Hide from public)",
     "show_to_others": "Allow (Show to public)",
-    "view_reviews": "View Reviews"
+    "view_reviews": "View Reviews",
+    "reviewer": "Reviewer",
+    "public": "Public",
+    "yes": "Yes",
+    "no": "No",
+    "rating": "Rating",
+    "sent_at": "Sent At"
   },
   "ReviewForm": {
     "title": "Your rating for this listing",
@@ -364,7 +371,12 @@
     "contact_requests": "Contact Requests",
     "no_contact_result": "No Contact Requests Result Found",
     "more": "More",
-    "view_property": "View Property"
+    "view_property": "View Property",
+    "requested_by": "Requested By",
+    "phone": "Phone",
+    "property_type": "Property Type",
+    "message": "Message",
+    "submitted_at": "Submitted At"
   },
   "ContactRequestCard": {
     "no_contacts": "No Contacts",
@@ -400,5 +412,39 @@
     "update_success": "Listing Updated Successfully",
     "editing": "Editing",
     "back": "Back"
+  },
+  "SiteOwner": {
+    "title": "This is the management section for the website.",
+    "sub_title": "This section you can manage Users, Apartments and Contacts for the website.",
+    "users": "Users",
+    "apartments": "Apartments",
+    "contacts": "Contacts",
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "message": "Message",
+    "sent_at": "Sent At",
+    "roles": "Roles",
+    "status": "Status",
+    "active": "Active",
+    "blocked": "Blocked",
+    "registered": "Registered",
+    "last_login": "Last Login",
+    "action": "Action",
+    "more_info": "More Info",
+    "titlem": "Title",
+    "apartment_type": "Apartment Type",
+    "views": "Views",
+    "likes": "Likes",
+    "street": "Street",
+    "sub_city": "Sub City",
+    "city": "City",
+    "contact_info": "Contact Info",
+    "property_status": "Property Status",
+    "published": "Published",
+    "added_on": "Added On",
+    "property_owner": "Property Owner",
+    "reviews": "Reviews",
+    "contact_requests": "Contact Requests"
   }
 }

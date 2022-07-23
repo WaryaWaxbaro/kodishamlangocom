@@ -1,9 +1,8 @@
-import React from "react";
+import { useTranslations } from "next-intl";
 import { unixToDate } from "../utils";
 import CollapsibleBtn from "./CollapsibleBtn";
 import MainApartmentContacts from "./MainApartmentContacts";
 import MainApartmentReviews from "./MainApartmentReviews";
-import ReviewStars from "./ReviewStars";
 
 export default function MainApartments({
   apartments,
@@ -11,6 +10,7 @@ export default function MainApartments({
   reviews,
   contactRequests,
 }) {
+  const t = useTranslations("SiteOwner");
   const getUserName = (id) => {
     return users.find((user) => user.mId === id).fullName;
   };
@@ -31,19 +31,19 @@ export default function MainApartments({
         <table className="table table-striped table-bordered">
           <thead>
             <tr>
-              <th>More Info</th>
+              <th>{t("more_info")}</th>
               <th></th>
-              <th>Title</th>
-              <th>Apartment Type</th>
-              <th>Views</th>
-              <th>Likes</th>
-              <th>Street</th>
-              <th>Sub City</th>
-              <th>City</th>
-              <th>Contact info</th>
-              <th>Property Status</th>
-              <th>Published</th>
-              <th>Added on</th>
+              <th>{t("titlem")}</th>
+              <th>{t("apartment_type")}</th>
+              <th>{t("views")}</th>
+              <th>{t("likes")}</th>
+              <th>{t("street")}</th>
+              <th>{t("sub_city")}</th>
+              <th>{t("city")}</th>
+              <th>{t("contact_info")}</th>
+              <th>{t("property_status")}</th>
+              <th>{t("published")}</th>
+              <th>{t("added_on")}</th>
             </tr>
           </thead>
           <tbody>
@@ -85,7 +85,9 @@ export default function MainApartments({
                             <table>
                               <tbody>
                                 <tr>
-                                  <td className="pe-3">Propery Owner</td>
+                                  <td className="pe-3">
+                                    {t("property_owner")}
+                                  </td>
                                   <td>{getUserName(apartment.userId)}</td>
                                 </tr>
                               </tbody>
@@ -95,7 +97,7 @@ export default function MainApartments({
                           {getReviewsByApartmentId(apartment.mId).length >
                             0 && (
                             <div className="col-12 col-lg-6">
-                              <h6 className="fw-bold mb-3">Reviews</h6>
+                              <h6 className="fw-bold mb-3">{t("reviews")}</h6>
                               {getReviewsByApartmentId(apartment.mId).map(
                                 (review) => (
                                   <MainApartmentReviews
@@ -109,7 +111,9 @@ export default function MainApartments({
                           {getContactRequestsByApartmentId(apartment.mId)
                             .length > 0 && (
                             <div className="col-12 col-lg-6">
-                              <h6 className="fw-bold mb-3">Contact Requests</h6>
+                              <h6 className="fw-bold mb-3">
+                                {t("contact_requests")}
+                              </h6>
                               {getContactRequestsByApartmentId(
                                 apartment.mId
                               ).map((cRequest) => (

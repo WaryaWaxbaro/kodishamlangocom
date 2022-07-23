@@ -1,8 +1,9 @@
-import { useEffect } from "react";
+import { useTranslations } from "next-intl";
 import { unixToDate } from "../utils";
 import { useUser } from "../context/userContext";
 
 export default function MainUsers({ users, apartments, handleBlockUser }) {
+  const t = useTranslations("SiteOwner");
   const { currentUser } = useUser();
 
   const getUserApartmentsCount = (id) => {
@@ -21,14 +22,14 @@ export default function MainUsers({ users, apartments, handleBlockUser }) {
           <thead>
             <tr>
               <th></th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Roles</th>
-              <th>Status</th>
-              <th>Registered</th>
-              <th>Last login</th>
-              <th>Apartments</th>
-              <th>Actions</th>
+              <th>{t("name")}</th>
+              <th>{t("email")}</th>
+              <th>{t("roles")}</th>
+              <th>{t("status")}</th>
+              <th>{t("registered")}</th>
+              <th>{t("last_login")}</th>
+              <th>{t("apartments")}</th>
+              <th>{t("action")}</th>
             </tr>
           </thead>
           <tbody>
@@ -38,7 +39,7 @@ export default function MainUsers({ users, apartments, handleBlockUser }) {
                 <td>{user.fullName}</td>
                 <td>{user.email}</td>
                 <td>{user.roles.join(", ")}</td>
-                <td>{user.isBlocked ? "Blocked" : "Active"}</td>
+                <td>{user.isBlocked ? t("blocked") : t("active")}</td>
                 <td>{unixToDate(user.createdAt?.seconds)}</td>
                 <td>{unixToDate(user.lastLogin.seconds)}</td>
                 <td>{getUserApartmentsCount(user.mId)}</td>
