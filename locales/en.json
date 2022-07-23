@@ -3,6 +3,9 @@
     "title": "Gurikiro.com - Your Real Estate partner in the horn of Africa",
     "description": "Find Real Estate properties anywhere in the Horn of Africa"
   },
+  "AdminLayout": {
+    "contact_admin": "Please contact the Admin to check your account"
+  },
   "ListingPage": {
     "rent": {
       "title": "Apartment For Rent, Bungalow For Rent, House For Rent, Mansion For Rent, Villa For Rent, Flat For Rent, Mini Flat For Rent, Duplex For Rent, Triplex For Rent, Penthouse For Rent, Shop For Rent, Office For Rent, Business Space For Rent, Business Center For Rent, Land For Rent, Plot For Rent, Commercial For Rent, Residential For Rent",

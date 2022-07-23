@@ -1,8 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useUser } from "../context/userContext";
 import { useRouter } from "next/router";
+import { useTranslations } from "next-intl";
+import AppHead from "../components/AppHead";
 
 export default function AdminLayout({ children }) {
+  const t = useTranslations("AdminLayout");
   const { currentUser, loadingUser } = useUser();
   const router = useRouter();
 
@@ -18,6 +21,10 @@ export default function AdminLayout({ children }) {
 
   return (
     <div className="min-80vh">
+      <AppHead>
+        <title>Admin | Gurikiro.com</title>
+        <meta name="robots" content="noindex nofollow" />
+      </AppHead>
       {currentUser ? (
         <>
           {currentUser.isBlocked ? (
@@ -26,7 +33,7 @@ export default function AdminLayout({ children }) {
               style={{ marginTop: "150px" }}
             >
               <div className="text-center p-4 border border-danger rounded-5">
-                Please contact the Admin to check your account
+                {t("contact_admin")}
               </div>
             </div>
           ) : (

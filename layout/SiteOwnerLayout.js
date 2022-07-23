@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useUser } from "../context/userContext";
 import { useRouter } from "next/router";
+import AppHead from "../components/AppHead";
 
 export default function SiteOwnerLayout({ children }) {
   const { currentUser, loadingUser } = useUser();
@@ -21,6 +22,10 @@ export default function SiteOwnerLayout({ children }) {
 
   return (
     <div className="min-80vh">
+      <AppHead>
+        <title>Site Owner | Gurikiro.com</title>
+        <meta name="robots" content="noindex nofollow" />
+      </AppHead>
       {currentUser && currentUser.roles?.includes("admin") ? (
         <div className="container-xl">{children}</div>
       ) : (
