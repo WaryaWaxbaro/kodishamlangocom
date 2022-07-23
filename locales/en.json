@@ -379,10 +379,23 @@
     "no_invoices": "No Invoices"
   },
   "FavouriteProperties": {
-    "my_properties": "My Properties",
+    "my_properties": "Favourite Properties",
     "date_added": "Date Added",
     "views": "Views",
     "actions": "Actions",
     "no_favourite_properties": "No Favourite Properties"
+  },
+  "MyProperties": {
+    "my_properties": "My Properties",
+    "date_added": "Date Added",
+    "views": "Views",
+    "actions": "Actions",
+    "no_properties": "No Properties",
+    "deleted_successfully": "Listing Deleted Successfully",
+    "uploading_images": "Uploading Images",
+    "deleting_images": "Deleting Images",
+    "update_success": "Listing Updated Successfully",
+    "editing": "Editing",
+    "back": "Back"
   }
 }

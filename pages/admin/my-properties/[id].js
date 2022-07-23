@@ -1,18 +1,17 @@
 import { useEffect, useState } from "react";
-import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/router";
 
 import StorageUploads from "../../../models/storageUploads";
 import { ApartmentModel } from "../../../models";
-import { toUnderscoreKey, property_features } from "../../../utils";
 import Loader from "../../../components/Loader";
 import AdminLayout from "../../../layout/AdminLayout";
-import { useUser } from "../../../context/userContext";
 import NewListingForm from "../../../components/NewListingForm";
 import { toast } from "react-toastify";
 import Link from "next/link";
 
 export default function MyProperty(props) {
+  const t = useTranslations("MyProperties");
   const router = useRouter();
   const { id } = router.query;
   const [listing, setListing] = useState({});
@@ -78,7 +77,7 @@ export default function MyProperty(props) {
     };
     const updateImages = async () => {
       if (formImages.length > 0) {
-        toast.warning("Uploading images...");
+        toast.warning(t("uploading_images"));
         if (thumbnailImage) {
           await new StorageUploads(
             `apartments/thumbnails/${listing.mId}`,
@@ -97,7 +96,7 @@ export default function MyProperty(props) {
         removedCurrentImages.forEach(async (image) => {
           await new StorageUploads(`${image}`, null).deleteObject();
         });
-        toast.warning("Deleting images...");
+        toast.warning(t("deleting_images"));
       }
     };
 
@@ -105,7 +104,7 @@ export default function MyProperty(props) {
       updateListing();
       updateImages();
       removeImages();
-      toast.success("Listing updated successfully");
+      toast.success(t("update_success"));
       router.push("/admin/my-properties");
     }
   }),
@@ -119,10 +118,12 @@ export default function MyProperty(props) {
     <AdminLayout>
       <div className="container-lg py-5">
         <div className="d-flex justify-content-between mb-4">
-          <h1 className="fs-28 mb-3">Editing {listing.title}</h1>
+          <h1 className="fs-28 mb-3">
+            {t("editing")} {listing.title}
+          </h1>
           <div>
             <Link href="/admin/my-properties">
-              <a className="btn btn-sm btn-dark">Back</a>
+              <a className="btn btn-sm btn-dark">{t("back")}</a>
             </Link>
           </div>
         </div>

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import Link from "next/link";
@@ -13,6 +14,7 @@ import {
 import StorageUploads from "../models/storageUploads";
 
 export default function PropertyListItem({ listing, thumbnail }) {
+  const t = useTranslations("MyProperties");
   const router = useRouter();
   const { pathname } = router;
   const [isDeleting, setIsDeleting] = useState(false);
@@ -80,7 +82,7 @@ export default function PropertyListItem({ listing, thumbnail }) {
       },
     });
 
-    toast.success("Listing deleted successfully");
+    toast.success(t("deleted_successfully"));
     router.reload();
   };
 

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useTranslations } from "next-intl";
 
 import { ApartmentModel } from "../../../models";
 import StorageUploads from "../../../models/storageUploads";
@@ -8,6 +9,7 @@ import PropertyListItem from "../../../components/PropertyListItem";
 import { sortByTimestamp } from "../../../utils/index";
 
 export default function MyProperties() {
+  const t = useTranslations("MyProperties");
   const [listings, setListings] = useState([]);
   const [thumnails, setThumnails] = useState([]);
 
@@ -61,11 +63,11 @@ export default function MyProperties() {
             <table className="table">
               <thead className="table">
                 <tr className="table-primary">
-                  <th>My Property</th>
-                  <th className="fw-normal">Date Added</th>
-                  <th className="fw-normal">Views</th>
+                  <th>{t("my_properties")}</th>
+                  <th className="fw-normal">{t("date_added")}</th>
+                  <th className="fw-normal">{t("views")}</th>
                   <th className="fw-normal" colSpan={2}>
-                    Actions
+                    {t("actions")}
                   </th>
                 </tr>
               </thead>

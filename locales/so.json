@@ -379,10 +379,23 @@
     "no_invoices": "Rasiidyo malahan"
   },
   "FavouriteProperties": {
-    "my_properties": "Guryahayga",
+    "my_properties": "Guryaha aad ka heashay",
     "date_added": "Xiliga Lagu soo daray",
     "views": "Inta jeer la arkay",
     "actions": "Tilaabo",
-    "no_favourite_properties": "Gurigaada aad jeceshahay malahan"
+    "no_favourite_properties": "Guryo aad jeceshahay malahan"
+  },
+  "MyProperties": {
+    "my_properties": "Guryahaaga",
+    "date_added": "Xiliga Lagu soo daray",
+    "views": "Inta jeer la arkay",
+    "actions": "Tilaabo",
+    "no_properties": "Guryo add soo gashatay malahan",
+    "deleted_successfully": "Guriga si fiican ayuu u baxay",
+    "uploading_images": "Sawirada ku darsamayaan",
+    "deleting_images": "Sawira way tirmayaan",
+    "update_success": "Macluumaadka guriga way badalmeen",
+    "editing": "Waxaad Badalaysaa",
+    "back": "Dib U Laabo"
   }
 }

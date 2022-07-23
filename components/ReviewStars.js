@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 
 export default function ReviewStars(props) {
+  const t = useTranslations("Reviews");
   let { rating, count } = props;
   let [selectReview, setSelectReview] = useState(false);
   // Check if rating is not a number and null
@@ -26,7 +28,7 @@ export default function ReviewStars(props) {
       ))}
       {count && (
         <span className="d-inline-block ms-3 text-dark fs-14">
-          ({count} reviews)
+          ({count} {t("reviews")})
         </span>
       )}
     </div>
