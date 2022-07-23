@@ -49,7 +49,7 @@ export default function MainUsers({ users, apartments, handleBlockUser }) {
                     disabled={currentUser.mId === user.mId}
                     className="btn btn-danger min-w-100"
                   >
-                    {user.isBlocked ? "Unblock" : "Block"}
+                    {user.isBlocked ? t("unblock") : t("block")}
                   </button>
                 </td>
               </tr>

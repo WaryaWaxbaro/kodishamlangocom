@@ -428,6 +428,8 @@
     "status": "Xaalada ku suganyahay",
     "active": "Shaqeenayaa",
     "blocked": "Shaqo Gabay",
+    "block": "Balook",
+    "unblock": "Ka Qaad Balooga",
     "registered": "Diiwan Galay",
     "last_login": "Kudaha usoo galkii oogu dambeeyay",
     "action": "Tilaabo",

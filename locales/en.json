@@ -428,6 +428,8 @@
     "status": "Status",
     "active": "Active",
     "blocked": "Blocked",
+    "block": "Block",
+    "unblock": "Unblock",
     "registered": "Registered",
     "last_login": "Last Login",
     "action": "Action",
