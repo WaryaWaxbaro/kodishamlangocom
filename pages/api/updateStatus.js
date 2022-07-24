@@ -1,9 +1,16 @@
 import admin from "../../firebase/nodeApp";
 
 export default async function handler(req, res) {
-  try {
-    let { status_data, action } = req.body;
+  let { host, cookie } = req.headers;
+  let { status_data, action } = req.body;
+  let current_host = process.env.CURRENT_HOST;
 
+  if (host !== current_host || !cookie) {
+    res.status(401).json({ error: "Unauthorized" });
+    return;
+  }
+
+  try {
     // Get data from firebase
     let doc = await admin.firestore().collection("statuses").get();
 
@@ -76,4 +83,6 @@ export default async function handler(req, res) {
   } catch (error) {
     res.status(200).json({ message: "file not updated" });
   }
+
+  res.status(400).json({ message: "Unproccessable" });
 }
