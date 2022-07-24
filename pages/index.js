@@ -5,6 +5,7 @@ import Hero from "../components/Hero";
 import PopularPlaces from "../components/PopularPlaces";
 import FeaturedProperties from "../components/FeaturedProperties";
 import WhyChooseUs from "../components/WhyChooseUs";
+import AppHead from "../components/AppHead";
 
 export default function Home({ listings }) {
   const [thumbnails, setThumbnails] = useState([]);
@@ -32,6 +33,26 @@ export default function Home({ listings }) {
 
   return (
     <>
+      <AppHead>
+        {process.env.NODE_ENV === "production" && (
+          <>
+            <script
+              async
+              src="https://www.googletagmanager.com/gtag/js?id=G-W2STP30D1E"
+            ></script>
+            <script
+              async
+              dangerouslySetInnerHTML={{
+                _html: `window.dataLayer = window.dataLayer || [];
+                      function gtag(){dataLayer.push(arguments);}
+                      gtag('js', new Date());
+
+                      gtag('config', 'G-W2STP30D1E');`,
+              }}
+            ></script>
+          </>
+        )}
+      </AppHead>
       <Hero />
       <PopularPlaces />
       <FeaturedProperties
