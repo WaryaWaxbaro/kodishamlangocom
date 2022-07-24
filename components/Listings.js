@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from "react";
 import { useTranslations } from "next-intl";
-import Head from "next/head";
 
 import Search from "./Search";
 import AppDropdown from "./AppDropdown";

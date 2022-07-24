@@ -1,6 +1,6 @@
 import { usePagination, DOTS } from "../hooks/usePagination";
 
-const Pagination = (props) => {
+export default function Pagination(props) {
   const {
     onPageChange,
     totalCount,
@@ -81,6 +81,4 @@ const Pagination = (props) => {
       </nav>
     </div>
   );
-};
-
-export default Pagination;
+}
