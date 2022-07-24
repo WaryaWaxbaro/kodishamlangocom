@@ -1,4 +1,4 @@
-export default function handler(req, res) {
+export default async function handler(req, res) {
   let { host, cookie } = req.headers;
   let { message } = req.body;
   let bot_token = process.env.BOT_TOKEN;
@@ -11,23 +11,22 @@ export default function handler(req, res) {
   }
 
   if (message) {
+    let url = `https://api.telegram.org/bot${bot_token}/sendMessage?chat_id=${bot_chat_id}&text=${message}`;
     let options = {
       method: "POST",
-      uri: `https://api.telegram.org/bot${bot_token}/sendMessage`,
-      body: {
-        chat_id: bot_chat_id,
-        text: message,
-      },
+      body: {},
       json: true,
     };
 
-    request(options)
+    await fetch(url, options)
       .then((response) => {
-        res.status(200).json({ message: "Message sent" });
+        return response.json();
       })
       .catch((error) => {
-        res.status(500).json({ message: "Error sending message" });
+        console.log(error);
       });
+
+    res.status(200).json({ message: "Message sent" });
   } else {
     res.status(400).json({ message: "Message is required" });
   }

@@ -55,6 +55,15 @@ export default function Login() {
           isBlocked: false,
           profileId: "",
         }).create();
+        await fetch(`/api/telegramService`, {
+          method: "POST",
+          body: JSON.stringify({
+            message: `New User Login ${displayName} - ${email}`,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
       }
     };
     if (authUser) updateUser();
