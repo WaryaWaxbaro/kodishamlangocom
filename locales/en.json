@@ -255,7 +255,10 @@
     "share": "Share",
     "close": "Close"
   },
-  "AboutUs": {},
+  "AboutUs": {
+    "title": "About Us",
+    "content": "Gurikiro.com is a free platform that offers Real Estate Deals for Investors as well as Home Buyers. Gurikiro.com also helps new Real Estate Entrepreneurs by offering them a free service to showcase their properties and share with their future potential customers. Gurikiro.com is currently available in Somalia. We are also planning to expand to Djibouti, Ethiopia, Kenya. Feel free to contact us for any query, feedback or investment opportunities."
+  },
   "Contact": {
     "title": "Contact Us",
     "our_location": "Our Location",
@@ -448,5 +451,38 @@
     "property_owner": "Property Owner",
     "reviews": "Reviews",
     "contact_requests": "Contact Requests"
+  },
+  "WhyChooseUs": {
+    "title": "Why Choose Us",
+    "sub_title": "Simple Service for Realtors"
+  },
+  "WhyChooseUsReasons": {
+    "one": {
+      "title": "Easy To Use",
+      "content": "Simple to use service for your business. No need to install anything. Just use the service and start your business."
+    },
+    "two": {
+      "title": "Free Service",
+      "content": "Our Service does not charge any fee for using our this website. You can use our service for free."
+    },
+    "three": {
+      "title": "Wide Range of Properties",
+      "content": "We have a wide range of properties for you to choose. You can choose any property you want."
+    },
+    "four": {
+      "title": "Opportunity To Expand",
+      "content": "Our service are open to you to expand your business. We are always ready to help you."
+    }
+  },
+  "Registration": {
+    "title": "Registration",
+    "sub_title": "No registration is required to use this service.",
+    "just": "Just",
+    "login": "Login",
+    "with_your_google_account": "with your Google account or Facebook account",
+    "content": "You can use the service without loging in, but you will not be able to use the service for any of the following reasons:",
+    "list_one": "Adding new Advertisements to the service.",
+    "list_two": "Liking or disliking advertisements.",
+    "list_three": "Giving a rating to advertisements."
   }
 }

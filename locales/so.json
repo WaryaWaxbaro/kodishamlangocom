@@ -255,7 +255,10 @@
     "share": "La Wadaag",
     "close": "Iska Xidh"
   },
-  "AboutUs": {},
+  "AboutUs": {
+    "title": "Ku Saabsan Gurikiro.com",
+    "content": "Gurikiro.com waa adeeg Teknologiat cusub ku dhisan oo u sahlayso dadka ka ganacsado mise maal gashto Guryaha iyo Hantida Dhulka. Gurikiro.com waxa ay u sahlaysaa Ganacsata ku cusub ganacsiga guryaha xarun bilaash ah ay kusoo bandhigaan guryahooda si ay u la wadaagaan iyo oogu soo bandhigaan macamiishooda. Gurikiro.com hada waxa ay ka shaqeesaa Somalia. Mustaqbalka waxaan rajeneenaa in aan ku balaarino wadama dariska sida Djibouti, Ethiopia iyo Kenya. Waxaad nagula soo xiriir kartaa gacmo furan wixi fariin ah, tusaale, waano iyo fursad ganacsi."
+  },
   "Contact": {
     "title": "Nala Soo Xiriir",
     "our_location": "Xarunteena",
@@ -448,5 +451,38 @@
     "property_owner": "Soo Gudbiyaha",
     "reviews": "Faallooyinka",
     "contact_requests": "Codsiyada Xiriirka"
+  },
+  "WhyChooseUs": {
+    "title": "Waxa Aad Ku Xilanaysid Adeeg geena",
+    "sub_title": "Adeeg kuu fududeenayo Iibida iyo Kiraynta Guryaha."
+  },
+  "WhyChooseUsReasons": {
+    "one": {
+      "title": "Isticmaal Fudud",
+      "content": "Waa adeeg oo isticmaalkiisa fudud yahay. Uma baahnid wax yaabo dheeraad ah, kali ah gudaha u gal kadibna u darso gurigaaga."
+    },
+    "two": {
+      "title": "Adeeg Bilaash Ah",
+      "content": "Adeegan waa lacag la'aan, sida aad doontid na waad u isticmaali kartaa."
+    },
+    "three": {
+      "title": "Guryo Noocyo badan leh",
+      "content": "Halkan waxaad ka heleesaa Guryo badan oo nocyo kala duwan leh, taas oo sahlayso si fudud in aad ku hesho guri ku qanciyo"
+    },
+    "four": {
+      "title": "Fursal Balaaran",
+      "content": "Adeegan wuxuu kuu sahlayaa in aad ku balaariso adeegaa hadi aad tahay Dalaale mise qof guryaha ka ganacsando. Waxaan na diyaar u nahay in aan ku caawino."
+    }
+  },
+  "Registration": {
+    "title": "Is Diiwaan Galinta",
+    "sub_title": "Wax is diwaan galin ah uma baahno adeega Gurikiro.com",
+    "just": "Ku",
+    "login": "Gal un",
+    "with_your_google_account": "G mailkaaga (Google) mise Facebookaaga",
+    "content": "Isticmaalida Gurikiro.com uma baahno in aan gudaha u gashid. Hadii aad gudaha u galin waxa aad samayn karin waxaa kamid ah:",
+    "list_one": "In aad ku darsan karin Guri",
+    "list_two": "In aad loof (Ka helid) u saartid guryaha aad ka heshay",
+    "list_three": "In aad Faallo ka bixisid guryaha dadka ay soo galiyeen."
   }
 }

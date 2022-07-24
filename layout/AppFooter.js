@@ -18,18 +18,6 @@ export default function AppFooter() {
             <div className="mt-4 text-light text-center-md">
               <p className="d-flex align-items-center">
                 <span className="d-block square-25 me-2">
-                  <i className="bi bi-telephone-fill text-light"></i>
-                </span>
-                <a
-                  href="tel:0722670385"
-                  rel="no-referer"
-                  className="text-light d-inline-block"
-                >
-                  0722670385
-                </a>
-              </p>
-              <p className="d-flex align-items-center">
-                <span className="d-block square-25 me-2">
                   <i className="bi bi-envelope-fill text-light"></i>
                 </span>
                 <a
