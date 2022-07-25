@@ -25,13 +25,10 @@ export default function AppContact() {
         setIsSubmitted(true);
         setContactRequest(contactRequestData);
         toast.success(t("request_sent_success"));
-        const savedRequest = await new ContactModel({
-          id: cRequest.id,
-        }).getOne();
         await fetch(`/api/telegramService`, {
           method: "POST",
           body: JSON.stringify({
-            message: `New Contact ${savedRequest.name} - ${savedRequest.email} - ${savedRequest.phone} - ${savedRequest.message}`,
+            message: `New Contact ${contactRequest.name} - ${contactRequest.email} - ${contactRequest.phone} - ${contactRequest.message}`,
           }),
           headers: {
             "Content-Type": "application/json",

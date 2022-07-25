@@ -1,12 +1,18 @@
 export default async function handler(req, res) {
-  let { host, cookie } = req.headers;
+  let { host, cookie, hostname } = req.headers;
   let { message } = req.body;
   let bot_token = process.env.BOT_TOKEN;
   let bot_chat_id = process.env.BOT_CHAT_ID;
   let current_host = process.env.CURRENT_HOST;
 
+  console.log(host, hostname);
+
   if (host !== current_host) {
-    res.status(401).json({ error: "Unauthorized" });
+    res
+      .status(401)
+      .json({
+        error: `host: ${host}, current_host: ${current_host}, hostname: ${hostname}`,
+      });
     return;
   }
 
