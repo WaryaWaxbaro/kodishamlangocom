@@ -5,7 +5,7 @@ export default async function handler(req, res) {
   let bot_chat_id = process.env.BOT_CHAT_ID;
   let current_host = process.env.CURRENT_HOST;
 
-  if (host !== current_host || !cookie) {
+  if (host !== current_host) {
     res.status(401).json({ error: "Unauthorized" });
     return;
   }

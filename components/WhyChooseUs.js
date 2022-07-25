@@ -36,7 +36,7 @@ export default function WhyChooseUs() {
         icon: reasons_icons[4],
       },
     ] || [];
-  console.log("reasons", t_reasons("one.title"));
+
   return (
     <section className="py-5 bg-white">
       <div className="container-lg">

@@ -59,7 +59,7 @@ export default function Contact() {
                   ></div>
                   <div className="w-100 h-100 p-3 position-relative z-to-5">
                     <HeadingWithLine
-                      text="contact details"
+                      text={t("contact_details")}
                       classNames="fw-bold text-light fs-18 mb-4 text-uppercase ls-6 mb-5"
                     />
                     <p className="text-light fs-14 ls-6">
