@@ -1,12 +1,12 @@
 import Link from "next/link";
-import AppHead from "../components/AppHead";
+import Head from "next/head";
 
 export default function Privacy() {
   return (
     <div className="container-lg py-4">
-      <AppHead>
+      <Head>
         <meta name="robots" content="noindex nofollow" />
-      </AppHead>
+      </Head>
       <div className="max-width-680 mx-auto px-3 py-4 shadow-sm rounded-5">
         <h1 className="h3 mb-3">Privacy Policy</h1>
         <p>

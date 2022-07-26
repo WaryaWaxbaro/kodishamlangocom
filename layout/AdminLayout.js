@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useUser } from "../context/userContext";
 import { useRouter } from "next/router";
 import { useTranslations } from "next-intl";
-import AppHead from "../components/AppHead";
+import Head from "next/head";
 
 export default function AdminLayout({ children }) {
   const t = useTranslations("AdminLayout");
@@ -21,10 +21,10 @@ export default function AdminLayout({ children }) {
 
   return (
     <div className="min-80vh">
-      <AppHead>
+      <Head>
         <title>Admin | Gurikiro.com</title>
         <meta name="robots" content="noindex nofollow" />
-      </AppHead>
+      </Head>
       {currentUser ? (
         <>
           {currentUser.isBlocked ? (

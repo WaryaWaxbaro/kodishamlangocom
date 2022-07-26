@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useTranslations } from "next-intl";
+import Head from "next/head";
 
 import Search from "./Search";
 import AppDropdown from "./AppDropdown";
@@ -83,36 +84,38 @@ export default function Listings({ apartments, setApartments, apartmentType }) {
 
   return (
     <div className="container-lg">
-      {apartmentType === "rent" && (
-        <AppHead
-          title={t_listing("rent.title")}
-          description={`${t_listing("rent.description")}${description}`}
-        />
-      )}
-      {apartmentType === "sale" && (
-        <AppHead
-          title={t_listing("sale.title")}
-          description={`${t_listing("sale.description")}${description}`}
-        />
-      )}
-      {apartmentType === "short stay" && (
-        <AppHead
-          title={t_listing("short_stay.title")}
-          description={`${t_listing("short_stay.description")}${description}`}
-        />
-      )}
-      {apartmentType === "holiday" && (
-        <AppHead
-          title={t_listing("holiday.title")}
-          description={`${t_listing("holiday.description")}${description}`}
-        />
-      )}
-      {apartmentType === "plots" && (
-        <AppHead
-          title={t_listing("plots.title")}
-          description={`${t_listing("plots.description")}${description}`}
-        />
-      )}
+      <Head>
+        {apartmentType === "rent" && (
+          <AppHead
+            title={t_listing("rent.title")}
+            description={`${t_listing("rent.description")}${description}`}
+          />
+        )}
+        {apartmentType === "sale" && (
+          <AppHead
+            title={t_listing("sale.title")}
+            description={`${t_listing("sale.description")}${description}`}
+          />
+        )}
+        {apartmentType === "short stay" && (
+          <AppHead
+            title={t_listing("short_stay.title")}
+            description={`${t_listing("short_stay.description")}${description}`}
+          />
+        )}
+        {apartmentType === "holiday" && (
+          <AppHead
+            title={t_listing("holiday.title")}
+            description={`${t_listing("holiday.description")}${description}`}
+          />
+        )}
+        {apartmentType === "plots" && (
+          <AppHead
+            title={t_listing("plots.title")}
+            description={`${t_listing("plots.description")}${description}`}
+          />
+        )}
+      </Head>
       <div className="mt-3 mb-5">
         <h1 className="fs-34 fw-bold ls-6 text-capitalize">
           {apartmentType === "plots"

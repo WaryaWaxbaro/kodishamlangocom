@@ -2,6 +2,7 @@ import { ToastContainer } from "react-toastify";
 import { useRouter } from "next/router";
 import { useTranslations } from "next-intl";
 import Head from "next/head";
+import Script from "next/script";
 import Navbar from "./Navbar";
 import AppFooter from "./AppFooter";
 import somCities from "../data/somCities";
@@ -35,24 +36,23 @@ export default function MainLayout(props) {
         <meta property="og:url" content="/images/gurikiro_logo_dark.png" />
         <meta property="og:site_name" content="Gurikiro.com" />
         <meta property="og:image" content="/images/gurikiro_logo_dark.png" />
-        {process.env.NODE_ENV === "production" && (
-          <>
-            <script
-              async
-              src="https://www.googletagmanager.com/gtag/js?id=G-W2STP30D1E"
-            ></script>
-            <script
-              async
-              dangerouslySetInnerHTML={{
-                _html: `window.dataLayer = window.dataLayer || [];
+      </Head>
+      {process.env.NODE_ENV === "production" && (
+        <>
+          <Script src="https://www.googletagmanager.com/gtag/js?id=G-W2STP30D1E" />
+          <Script
+            strategy="afterInteractive"
+            dangerouslySetInnerHTML={{
+              __html: `
+                      window.dataLayer = window.dataLayer || [];
                       function gtag(){dataLayer.push(arguments);}
                       gtag('js', new Date());
-                      gtag('config', 'G-W2STP30D1E');`,
-              }}
-            ></script>
-          </>
-        )}
-      </Head>
+                      gtag('config', 'G-W2STP30D1E');
+                      `,
+            }}
+          />
+        </>
+      )}
       <Navbar />
       <main className="min-80vh">
         <ToastContainer />

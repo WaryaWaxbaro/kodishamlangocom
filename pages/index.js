@@ -5,7 +5,6 @@ import Hero from "../components/Hero";
 import PopularPlaces from "../components/PopularPlaces";
 import FeaturedProperties from "../components/FeaturedProperties";
 import WhyChooseUs from "../components/WhyChooseUs";
-import AppHead from "../components/AppHead";
 
 export default function Home({ listings }) {
   const [thumbnails, setThumbnails] = useState([]);

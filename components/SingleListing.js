@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
+import Head from "next/head";
 
 import HeadingWithLine from "../components/HeadingWithLine";
 import ImageSlider from "../components/ImageSlider";
@@ -72,12 +73,14 @@ export default function SingleListing({ listing, listingType }) {
 
   return (
     <div className="container-lg py-5">
-      <AppHead
-        title={`${listing.title} - ${listing.sub_city} - ${
-          listing.city
-        } - ${formatPrice(listing.price)} - Gurikiro.com`}
-        description={`${listing.description}`}
-      />
+      <Head>
+        <AppHead
+          title={`${listing.title} - ${listing.sub_city} - ${
+            listing.city
+          } - ${formatPrice(listing.price)} - Gurikiro.com`}
+          description={`${listing.description}`}
+        />
+      </Head>
       <div className="row">
         <div className="col-12 col-md-8 mb-3">
           {/* main heading */}
