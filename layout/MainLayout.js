@@ -35,6 +35,23 @@ export default function MainLayout(props) {
         <meta property="og:url" content="/images/gurikiro_logo_dark.png" />
         <meta property="og:site_name" content="Gurikiro.com" />
         <meta property="og:image" content="/images/gurikiro_logo_dark.png" />
+        {process.env.NODE_ENV === "production" && (
+          <>
+            <script
+              async
+              src="https://www.googletagmanager.com/gtag/js?id=G-W2STP30D1E"
+            ></script>
+            <script
+              async
+              dangerouslySetInnerHTML={{
+                _html: `window.dataLayer = window.dataLayer || [];
+                      function gtag(){dataLayer.push(arguments);}
+                      gtag('js', new Date());
+                      gtag('config', 'G-W2STP30D1E');`,
+              }}
+            ></script>
+          </>
+        )}
       </Head>
       <Navbar />
       <main className="min-80vh">

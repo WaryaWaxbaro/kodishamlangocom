@@ -79,7 +79,7 @@ export default function Login() {
         setAuthUser(user);
         setUser(user);
         sessionStorage.setItem("token", token);
-        router.push("/admin");
+        router.reload();
       })
       .catch((error) => {
         // Handle Errors here.
@@ -103,7 +103,7 @@ export default function Login() {
         const credential = FacebookAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
         sessionStorage.setItem("token", token);
-        router.push("/admin");
+        router.reload();
       })
       .catch((error) => {
         // Handle Errors here.
