@@ -16,9 +16,8 @@ import {
 let dataWithNumbers = ["bedrooms", "bathrooms", "area", "guest", "price"];
 
 const fieldValues = {
-  title: "Luxury Apartment",
-  description:
-    "This is a luxury apartment that is very spacious and has a lot of space for people to live in.",
+  title: "",
+  description: "",
   property_status: ["rent"],
   apartment_type: "House",
   bedrooms: 1,
@@ -30,15 +29,15 @@ const fieldValues = {
   reserved: false,
   published: true,
   featured: false,
-  street: "Jalan Kebun",
-  postcode: "90000",
-  sub_city: "Eastleigh",
-  city: "Nairobi",
-  province: "Nairobi",
-  country: "Kenya",
-  name: "John Doe",
-  email: "john.doe@gmail.com",
-  phone: "0712345678",
+  street: "",
+  postcode: "",
+  sub_city: "",
+  city: "",
+  province: "",
+  country: "Somalia",
+  name: "",
+  email: "",
+  phone: "",
   likes: [],
 };
 const property_features_keys = property_features.map((feature) => {
@@ -291,7 +290,7 @@ export default function NewListingForm(props) {
             name="title"
             value={formFields.title}
             onChange={handleChange}
-            placeholder="Luxury Villa House"
+            placeholder="Guri Villa Wayn"
             ref={titleRef}
           />
         </div>
@@ -306,7 +305,7 @@ export default function NewListingForm(props) {
             value={formFields.description}
             onChange={handleChange}
             rows="4"
-            placeholder="This is a luxury villa house with a pool, a garden, a terrace and a private garden."
+            placeholder="Faadlo kabixi sida. Gurigan waxaa u kuyalaa kasoo horjeeda Suuq weyne, waxa uu leeyahay dabaal, barxad wayn oo lagu fiidsado. Meel fiican na wuu ku yalaa"
             ref={descriptionRef}
           ></textarea>
         </div>
@@ -346,7 +345,7 @@ export default function NewListingForm(props) {
                 name="apartment_type"
                 value={formFields.apartment_type}
                 onChange={handleChange}
-                aria-label="partment Type"
+                aria-label="apartment Type"
               >
                 {property_types.map((property, index) => (
                   <option key={property}>{t_p_types(property)}</option>
@@ -561,7 +560,7 @@ export default function NewListingForm(props) {
                 name="postcode"
                 value={formFields.postcode}
                 onChange={handleChange}
-                placeholder="9400"
+                placeholder="94000"
               />
             </div>
           </div>
@@ -577,7 +576,7 @@ export default function NewListingForm(props) {
                 name="sub_city"
                 value={formFields.sub_city}
                 onChange={handleChange}
-                placeholder="Celasha Biyaha"
+                placeholder="Madino"
                 ref={subCityRef}
               />
             </div>
@@ -594,7 +593,7 @@ export default function NewListingForm(props) {
                 name="city"
                 value={formFields.city}
                 onChange={handleChange}
-                placeholder="Mogadishu"
+                placeholder="Muqdisho"
                 ref={cityRef}
               />
             </div>
@@ -650,7 +649,7 @@ export default function NewListingForm(props) {
                 name="name"
                 value={formFields.name}
                 onChange={handleChange}
-                placeholder="Full Name"
+                placeholder="Magaca qofka soo galiyay"
                 ref={nameRef}
               />
             </div>
@@ -667,7 +666,7 @@ export default function NewListingForm(props) {
                 name="email"
                 value={formFields.email}
                 onChange={handleChange}
-                placeholder="firstname.lastname@example.com"
+                placeholder="magaca.kankale@example.com"
                 ref={emailRef}
               />
             </div>
@@ -684,7 +683,7 @@ export default function NewListingForm(props) {
                 name="phone"
                 value={formFields.phone}
                 onChange={handleChange}
-                placeholder="016242387"
+                placeholder="01624238734"
                 ref={phoneRef}
               />
             </div>
