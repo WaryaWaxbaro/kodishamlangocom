@@ -1,18 +1,18 @@
 {
   "Layout": {
-    "title": "Gurikiro.com - Guri Kiro Adeega Ku Sahlaayo Guri Raadinta Geeska Afrika oo Dhan",
+    "title": "Gurikiro.com - Guri Kiro Waa Adeega Ku Sahlaayo Guri Raadinta Somalia iyo Geeska Afrika oo Dhan",
     "description": "Guri Kiro waa Adeeg Fudud oo Kuu Sahlaayo Guri Raadinta Geeska Afrika gaar ahaan Somaliya"
   },
   "AdminLayout": {
-    "contact_admin": "Fadlan la xiriir maamulaha is loo fiiriyo akoonkaaga."
+    "contact_admin": "Fadlan la xiriir maamulaha si loo fiiriyo akoonkaaga."
   },
   "ListingPage": {
     "rent": {
-      "title": "Apartment Kiro Ah, Bungalow Kiro Ah, Guri Kiro Ah, Mansion Kiro Ah, Villa Kiro Ah, Flat Kiro Ah, Flat Yar Kiro Ah, Guri 2 Qol Kiro Ah, Guri 3 Qol Kiro Ah, Guri Quruxsan Kiro Ah, Dugaan Kiro Ah, Xafiis Kiro Ah, Meel Ganacsi Kiro Ah, Xarun Ganacsi Kiro Ah, Dhul Kiro Ah, Boos Kiro Ah, Ganacsi Kiro Ah, Deegaan Kiro Ah",
+      "title": "Apartment Kiro Ah, Bangalow Kiro Ah, Guri Kiro Ah, Mansion Kiro Ah, Villa Kiro Ah, Flat Kiro Ah, Flat Yar Kiro Ah, Guri 2 Qol Kiro Ah, Guri 3 Qol Kiro Ah, Guri Quruxsan Kiro Ah, Dugaan Kiro Ah, Xafiis Kiro Ah, Meel Ganacsi Kiro Ah, Xarun Ganacsi Kiro Ah, Dhul Kiro Ah, Boos Kiro Ah, Ganacsi Kiro Ah, Deegaan Kiro Ah",
       "description": "Ka Raadso Guryo Kiro Ah Magalooyinka "
     },
     "sale": {
-      "title": "Apartment Iib Ah, Bungalow Iib Ah, Guri Iib Ah, Mansion Iib Ah, Villa Iib Ah, Flat Iib Ah, Flat Yar Iib Ah, Guri 2 Qol Iib Ah, Guri 3 Qol Iib Ah, Guri Quruxsan Iib Ah, Dugaan Iib Ah, Xafiis Iib Ah, Meel Ganacsi Iib Ah, Xarun Ganacsi Iib Ah, Dhul Iib Ah, Boos Iib Ah, Ganacsi Iib Ah, Deegaan Iib Ah",
+      "title": "Apartment Iib Ah, Bangalow Iib Ah, Guri Iib Ah, Mansion Iib Ah, Villa Iib Ah, Flat Iib Ah, Flat Yar Iib Ah, Guri 2 Qol Iib Ah, Guri 3 Qol Iib Ah, Guri Quruxsan Iib Ah, Dugaan Iib Ah, Xafiis Iib Ah, Meel Ganacsi Iib Ah, Xarun Ganacsi Iib Ah, Dhul Iib Ah, Boos Iib Ah, Ganacsi Iib Ah, Deegaan Iib Ah",
       "description": "Ka Raadso Guryo Iib Ah Magalooyinka "
     },
     "short_stay": {
@@ -57,14 +57,14 @@
     "invoices": "Rasiidyada",
     "site_owner": "Bogga Milkiilaha",
     "site_settings": "Bogga Maamulida",
-    "login": "Kudaha U Gal",
+    "login": "Gudaha U Gal",
     "logout": "Kabax",
     "add_listing": "Kudar Guri",
     "new_advertisement": "Xayaysiis cusub",
     "terms_and_conditions": "Shuruudaha",
     "privacy": "Xuquuqda Kali ahaashada",
     "how_to_register": "Isdiiwan galinta",
-    "footer_paragraph": "Bogan waxa uu kuu sahlayaa iibsashada iyo kireenta Guryaha.",
+    "footer_paragraph": "Bogan waxa uu kuu sahlayaa iibsashada iyo kireenta Guryaha. Adeegga waxa uu ufuranyahay dad weenaha oo dhan.",
     "copy_right": "Xuquuqda daabacaada",
     "all_rights_reserved": "Xuquuqda Bogan way dhoorantahay"
   },
@@ -98,7 +98,7 @@
     "Property Type": "Sameenta Guriga",
     "Sameenta Guriga": "Sameenta Guriga",
     "Apartment": "Apartment",
-    "Bungalow": "Bungalow",
+    "Bungalow": "Bangalow",
     "House": "Guri",
     "Mansion": "Mansion",
     "Villa": "Villa",
@@ -174,18 +174,18 @@
     "furnished": "Qalabaysan",
     "bathrooms": "Musqul/Qobees",
     "bedrooms": "Qol Jiif",
-    "error_like ": "Fadlan gudaha u gal si add u saartid Ka helid"
+    "error_like ": "Fadlan gudaha u gal si add u saartid Ka helid (like)"
   },
   "NewListing": {
     "title": "Diwaan Gali Guri Cusub",
     "sub_title": "Faahfaahin fiican kabixi guri add diiwaan galineesid",
-    "fields_compulsory_info": "Meelaha ku calameesaan * waa qasab in aad buuxisid",
+    "fields_compulsory_info": "Meelaha ku calameesaan * waa muhiim in aad buuxisid",
     "uploading_images": "Ku dar sawiro",
     "image_upload_success": "Sawirka wuu ku darsamay",
     "image_upload_fail": "Sawirka waa u ku darsamiwaayay",
-    "listing_added_success": "Gari wuu diwaan galay",
+    "listing_added_success": "Guriga wuu diwaan galay",
     "login_to_add_listing": "Fadlan gudaha u gal si add u diwaan galisid guriga cusub",
-    "listing_added_fail": "Listing Added Failed"
+    "listing_added_fail": "Guriga wuu diwaan gali waayay"
   },
   "NewListingForm": {
     "property_details": "War Bixinta Guriga",
@@ -210,7 +210,7 @@
     "city": "Magaalada",
     "provice": "Gobolka",
     "country": "Wadanka",
-    "contact_information": "Maclumaadka Xariirka",
+    "contact_information": "Maclumaadka Xiriirka",
     "full_name": "Magaca Oo Dhameestiran",
     "email": "Iimeelka",
     "phone": "Telefoonka",
@@ -257,7 +257,7 @@
   },
   "AboutUs": {
     "title": "Ku Saabsan Gurikiro.com",
-    "content": "Gurikiro.com waa adeeg Teknologiat cusub ku dhisan oo u sahlayso dadka ka ganacsado mise maal gashto Guryaha iyo Hantida Dhulka. Gurikiro.com waxa ay u sahlaysaa Ganacsata ku cusub ganacsiga guryaha xarun bilaash ah ay kusoo bandhigaan guryahooda si ay u la wadaagaan iyo oogu soo bandhigaan macamiishooda. Gurikiro.com hada waxa ay ka shaqeesaa Somalia. Mustaqbalka waxaan rajeneenaa in aan ku balaarino wadama dariska sida Djibouti, Ethiopia iyo Kenya. Waxaad nagula soo xiriir kartaa gacmo furan wixi fariin ah, tusaale, waano iyo fursad ganacsi."
+    "content": "Gurikiro.com waa adeeg Teknologiat cusub ku dhisan oo u sahlaayo dadka ka ganacsado mise maal gashto Guryaha iyo Hantida Dhulka. Gurikiro.com waxa ay u sahlaysaa Ganacsata ku cusub ganacsiga guryaha xarun bilaash ah ay kusoo bandhigaan guryahooda si ay u la wadaagaan iyo oogu soo bandhigaan macamiishooda. Gurikiro.com hada waxa ay ka shaqeesaa Somalia. Mustaqbalka waxaan rajeneenaa in aan ku balaarino wadama dariska sida Djibouti, Ethiopia iyo Kenya. Waxaad nagula soo xiriir kartaa gacmo furan wixi fariin ah, tusaale, waano iyo fursad ganacsi."
   },
   "Contact": {
     "title": "Nala Soo Xiriir",
@@ -317,7 +317,7 @@
     "submit_review": "Ku Dar"
   },
   "Login": {
-    "title": "Kudaha U Gal",
+    "title": "Gudaha U Gal",
     "login_with_google": "Ku Gal Google",
     "login_with_facebook": "Ku Gal Facebook"
   },
@@ -350,7 +350,7 @@
     "hours": "saac kahore",
     "minutes": "daqiiqo kahore",
     "seconds": "seken kahore",
-    "and": "and"
+    "and": "iyo"
   },
   "Profile": {
     "editing": "Waxaad Badalaysaa",
@@ -359,9 +359,9 @@
     "edit_profile": "Badal Profeelka",
     "copy": "Koopiyee",
     "close": "Iska Xidh",
-    "profile_not_created_notification": "Waali ma aad sameesan profeel ee hada sameeso",
+    "profile_not_created_notification": "Waali ma aad sameesan profeel, ee hada sameeso",
     "profile_update_success": "Profeelkaa waad badashay",
-    "profile_image_upload_failed": "Sawirka wuu ka darsami kari waayay profeelka",
+    "profile_image_upload_failed": "Sawirka wuu ku darsami kari waayay profeelka",
     "agent": "Dalaal",
     "intro": "Adeeg jaban oo qiimo badan"
   },
@@ -401,7 +401,7 @@
     "date_added": "Xiliga Lagu soo daray",
     "views": "Inta jeer la arkay",
     "actions": "Tilaabo",
-    "no_favourite_properties": "Guryo aad jeceshahay malahan"
+    "no_favourite_properties": "Guryo aad ka heshay malahan"
   },
   "MyProperties": {
     "my_properties": "Guryahaaga",
@@ -411,7 +411,7 @@
     "no_properties": "Guryo add soo gashatay malahan",
     "deleted_successfully": "Guriga si fiican ayuu u baxay",
     "uploading_images": "Sawirada ku darsamayaan",
-    "deleting_images": "Sawira way tirmayaan",
+    "deleting_images": "Sawirada way tirmayaan",
     "update_success": "Macluumaadka guriga way badalmeen",
     "editing": "Waxaad Badalaysaa",
     "back": "Dib U Laabo"
@@ -434,7 +434,7 @@
     "block": "Balook",
     "unblock": "Ka Qaad Balooga",
     "registered": "Diiwan Galay",
-    "last_login": "Kudaha usoo galkii oogu dambeeyay",
+    "last_login": "Gudaha usoo galkii oogu dambeeyay",
     "action": "Tilaabo",
     "more_info": "Warbixin Dheeraad",
     "titlem": "Magaca",
