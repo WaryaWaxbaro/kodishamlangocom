@@ -49,6 +49,6 @@ export const getStaticProps = async ({ params, locale }) => {
       listing: JSON.stringify(data[0]),
       messages: require(`../../locales/${locale}.json`),
     },
-    //revalidate: 10, // In seconds
+    revalidate: 10, // In seconds
   };
 };

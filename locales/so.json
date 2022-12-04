@@ -26,6 +26,14 @@
     "plots": {
       "title": "Boosas Iib ah",
       "description": "Raadso Boosas Iib ah Magalooyinka "
+    },
+    "cities": {
+      "title": "Guri Kiro Ah Muqdisho, Guri Iib Ah Hargeisa, Guri Kiro Mudo Gaaban Garoowe, Guri Lagu Nasto Kismayo, Guri Kiro Ah Hargeisa, Guri Iib Ah Muqdisho",
+      "description": "Ka Raadso Guryo Kiro Ah, Iib Ah, Kiro Mudo Gaaban, Lagu Nasto Magalooyinka Muqdisho, Hargeisa, Garoowe, Kismayo"
+    },
+    "apartments": {
+      "title": "Guri Casri Kiro Ah Muqdisho, Guri Casri Iib Ah Hargeisa, Guri Casri Kiro Mudo Gaaban Garoowe, Guri Casri Lagu Nasto Kismayo, Guri Casri Kiro Ah Hargeisa, Guri Casri Iib Ah Muqdisho",
+      "description": "Ka Raadso Guryo Casri Kiro Ah, Iib Ah, Kiro Mudo Gaaban, Lagu Nasto Magalooyinka Muqdisho, Hargeisa, Garoowe, Kismayo iyo Somalia oo dhan."
     }
   },
   "Home": {
@@ -484,5 +492,11 @@
     "list_one": "In aad ku darsan karin Guri",
     "list_two": "In aad loof (Ka helid) u saartid guryaha aad ka heshay",
     "list_three": "In aad Faallo ka bixisid guryaha dadka ay soo galiyeen."
+  },
+  "Cities": {
+    "title": "Guryo Casri Ah"
+  },
+  "AllApartments": {
+    "title": "Guryo Iib iyo Kiro ah"
   }
 }

@@ -19,6 +19,8 @@ export default function Listings({ apartments, setApartments, apartmentType }) {
   const t_sort_order = useTranslations("SortOrder");
   const t_status = useTranslations("PropertyStatus");
   const t_listing = useTranslations("ListingPage");
+  const t_cities = useTranslations("Cities");
+  const t_all_apartments = useTranslations("AllApartments");
 
   const [listedApartments, setListedApartments] = useState([]);
   const [sortBy, setSortBy] = useState("Most Recent");
@@ -115,11 +117,27 @@ export default function Listings({ apartments, setApartments, apartmentType }) {
             description={`${t_listing("plots.description")}${description}`}
           />
         )}
+        {apartmentType === "cities" && (
+          <AppHead
+            title={t_listing("cities.title")}
+            description={`${t_listing("cities.description")}${description}`}
+          />
+        )}
+        {apartmentType === "apartments" && (
+          <AppHead
+            title={t_listing("apartments.title")}
+            description={`${t_listing("apartments.description")}${description}`}
+          />
+        )}
       </Head>
       <div className="mt-3 mb-5">
         <h1 className="fs-34 fw-bold ls-6 text-capitalize">
           {apartmentType === "plots"
             ? t_status("Plots")
+            : apartmentType === "cities"
+            ? t_cities("title")
+            : apartmentType === "apartments"
+            ? t_all_apartments("title")
             : `${t("property_for")} ${t_status(apartmentType)}`}
         </h1>
       </div>

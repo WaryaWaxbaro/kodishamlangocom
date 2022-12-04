@@ -36,6 +36,10 @@ export default function SmallCard({
       ? `/for-sale/${apartment.slug}`
       : apartmentType === "holiday"
       ? `/holiday/${apartment.slug}`
+      : apartmentType === "cities"
+      ? `/cities/${apartment.slug}`
+      : apartmentType === "apartments"
+      ? `/apartments/${apartment.slug}`
       : `/`;
 
   useEffect(() => {

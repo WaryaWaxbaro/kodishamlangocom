@@ -26,6 +26,14 @@
     "plots": {
       "title": "Plots For Sale",
       "description": "Find Plots For Sale in "
+    },
+    "cities": {
+      "title": "Apartment For Rent, Sale, Holiday in Mogadishu, Hargeisa, Garowe, Kismayo, Bungalow For Rent, Sale, Holiday, House For Holiday For Rent, Sale, Holiday, Mansion For Holiday For Rent, Sale, Holiday, Villa For Holiday For Rent, Sale, Holiday, Flat For Holiday For Rent, Sale, Holiday, Mini Flat For Holiday, Duplex For Holiday, Triplex For Holiday, Penthouse For Holiday, Shop For Holiday, Office For Holiday, Business Space For Holiday, Business Center For Holiday, Land For Holiday, Plot For Holiday, Commercial For Holiday, Residential For Holiday",
+      "description": "Find Properties From Major cities in Somalia Mogadishu, Hargeisa, Garowe, Kismayo, Baidoa"
+    },
+    "apartments": {
+      "title": "Cheap Apartment For Rent, Sale, Holiday in Mogadishu, Hargeisa, Garowe, Kismayo, Cheap Bungalow For Rent, Sale, Holiday, House For Holiday For Rent, Sale, Holiday, Mansion For Holiday For Rent, Sale, Holiday, Villa For Holiday For Rent, Sale, Holiday, Flat For Holiday For Rent, Sale, Holiday, Mini Flat For Holiday, Duplex For Holiday, Triplex For Holiday, Penthouse For Holiday, Shop For Holiday, Office For Holiday, Business Space For Holiday, Business Center For Holiday, Land For Holiday, Plot For Holiday, Commercial For Holiday, Residential For Holiday",
+      "description": "Find Apartments From Major cities in Somalia Mogadishu, Hargeisa, Garowe, Kismayo, Baidoa"
     }
   },
   "Home": {
@@ -484,5 +492,11 @@
     "list_one": "Adding new Advertisements to the service.",
     "list_two": "Liking or disliking advertisements.",
     "list_three": "Giving a rating to advertisements."
+  },
+  "Cities": {
+    "title": "Modern Apartments"
+  },
+  "AllApartments": {
+    "title": "Apartments For Sale and Rent"
   }
 }

@@ -74,12 +74,17 @@ export default function SingleListing({ listing, listingType }) {
   return (
     <div className="container-lg py-5">
       <Head>
-        <AppHead
-          title={`${listing.title} - ${listing.sub_city} - ${
+        <title>{`${listing.title} - ${listing.sub_city} - ${
+          listing.city
+        } - ${formatPrice(listing.price)} - Gurikiro.com`}</title>
+        <meta property="description" content={`${listing.description}`} />
+        <meta
+          property="og:title"
+          content={`${listing.title} - ${listing.sub_city} - ${
             listing.city
           } - ${formatPrice(listing.price)} - Gurikiro.com`}
-          description={`${listing.description}`}
         />
+        <meta property="og:description" content={`${listing.description}`} />
       </Head>
       <div className="row">
         <div className="col-12 col-md-8 mb-3">

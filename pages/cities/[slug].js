@@ -12,11 +12,7 @@ export default function SingleListingForRent(props) {
 }
 
 export const getStaticPaths = async () => {
-  const querySnapshot = await admin
-    .firestore()
-    .collection("apartments")
-    .where("property_status", "array-contains", "rent")
-    .get();
+  const querySnapshot = await admin.firestore().collection("apartments").get();
 
   const data = querySnapshot.docs.map((doc) => {
     return {
