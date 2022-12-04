@@ -19,7 +19,7 @@ const apartmentPages = [
 const apt = {
   "for-rent": "rent",
   "for-sale": "sale",
-  "short-stay": "short-stay",
+  "short-stay": "short_stay",
   holiday: "holiday",
   plots: "plots",
   cities: "cities",
