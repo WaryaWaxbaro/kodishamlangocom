@@ -6,6 +6,7 @@ import Script from "next/script";
 import Navbar from "./Navbar";
 import AppFooter from "./AppFooter";
 import somCities from "../data/somCities";
+import Announcement from "../components/Announcement";
 
 const apartmentPages = [
   "for-rent",
@@ -33,6 +34,7 @@ export default function MainLayout(props) {
   const { locale } = router;
   const t = useTranslations("Layout");
   const t_listing = useTranslations("ListingPage");
+  const t_announcement = useTranslations("Announcement");
   let description = somCities.join(", ");
 
   let translationPage = apartmentPages.indexOf(pathname.substring(1));
@@ -115,6 +117,7 @@ export default function MainLayout(props) {
         {children}
       </main>
       <AppFooter />
+      <Announcement t={t_announcement} locale={locale} />
     </>
   );
 }
