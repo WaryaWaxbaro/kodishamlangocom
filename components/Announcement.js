@@ -45,13 +45,26 @@ export default function Announcement(props) {
           onClick={closeDialog}
           className="position-fixed start-0 end-0 top-0 bottom-0 bg-dark bg-opacity-50 z-to-1400 pt-3 cursor-pointer"
         >
-          <div className="max-width-680 mx-auto bg-primary p-3 p-sm-2 font-monospace position-relative">
+          <div className="max-width-680 mx-auto bg-primary p-3 p-sm-2 position-relative">
             <button className="btn btn-transparent p-1 text-light rounded-circle position-absolute top-0 end-0">
               <i className="bi bi-x-circle-fill"></i>
             </button>
             <div>
               <h2 className="fs-18 fw-bold text-center">{t("title")}</h2>
-              <p className="lh-sm fw-s">{t("sub_title")}</p>
+              <h3 className="fw-bold fs-16 mb-1">{t("about_ai")}</h3>
+              <p className="mb-1">
+                {t("ai_info_1")}{" "}
+                <a
+                  href="https://ebarasho.com/"
+                  target="_blank"
+                  rel="no-referer"
+                  className="text-dark fw-bold"
+                >
+                  {t("ai_info_2")}
+                </a>
+              </p>
+              <hr />
+              <p className="lh-sm fw-s mb-1">{t("sub_title")}</p>
               <p>
                 {t("sub_title_2")}
                 <a
