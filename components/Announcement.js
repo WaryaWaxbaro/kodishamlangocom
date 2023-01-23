@@ -57,7 +57,7 @@ export default function Announcement(props) {
                 <a
                   href="https://ebarasho.com/"
                   target="_blank"
-                  rel="no-referer"
+                  rel="noreferrer"
                   className="text-dark fw-bold"
                 >
                   {t("ai_info_2")}
