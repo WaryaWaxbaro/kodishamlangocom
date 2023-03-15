@@ -185,7 +185,7 @@ export default function Listings({ apartments, setApartments, apartmentType }) {
                   <a
                     href="https://ebarasho.com/chat"
                     target="_blank"
-                    rel="no-referer"
+                    rel="noreferrer"
                   >
                     <Image
                       src={`/ebarasho_square_ad_${locale}.png`}
