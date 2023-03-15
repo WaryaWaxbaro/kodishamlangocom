@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { useTranslations } from "next-intl";
 import Head from "next/head";
+import Image from "next/image";
+import { useRouter } from "next/router";
 
 import Search from "./Search";
 import AppDropdown from "./AppDropdown";
@@ -11,6 +13,11 @@ import SharingModal from "./SharingModal";
 import { useUser } from "../context/userContext";
 import somCities from "../data/somCities";
 import AppHead from "./AppHead";
+
+/* import recAdSom from "/ebarasho_rec_ad_so.png";
+import recAdEn from "/ebarasho_rec_ad_en.png";
+import squareAdSo from "/ebarasho_square_ad_so.png";
+import squareAdEn from "/ebarasho_square_ad_en.png"; */
 
 let PageSize = 25;
 
@@ -30,6 +37,9 @@ export default function Listings({ apartments, setApartments, apartmentType }) {
   const { currentUser, user } = useUser();
 
   const sharingModalButton = useRef(null);
+
+  const router = useRouter();
+  const { locale } = router;
 
   useEffect(() => {
     const firstPageIndex = (currentPage - 1) * PageSize;
@@ -170,6 +180,20 @@ export default function Listings({ apartments, setApartments, apartmentType }) {
           </div>
           <div className="w-100 my-5">
             <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+              <div className="col">
+                <div className="w-100 h-100 position-relative cover-img-img rounded overflow-hidden">
+                  <a
+                    href="https://ebarasho.com/chat"
+                    target="_blank"
+                    rel="no-referer"
+                  >
+                    <Image
+                      src={`/ebarasho_square_ad_${locale}.png`}
+                      layout="fill"
+                    />
+                  </a>
+                </div>
+              </div>
               {listedApartments.map((apartment) => (
                 <div className="col" key={apartment.mId}>
                   <SmallCard
