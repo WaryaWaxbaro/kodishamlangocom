@@ -6,6 +6,7 @@ const nextConfig = {
       "lh3.googleusercontent.com",
       "graph.facebook.com",
       "firebasestorage.googleapis.com",
+      "c200.travelpayouts.com",
     ],
   },
   i18n: {

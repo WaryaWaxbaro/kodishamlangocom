@@ -183,12 +183,12 @@ export default function Listings({ apartments, setApartments, apartmentType }) {
               <div className="col">
                 <div className="w-100 h-100 position-relative cover-img-img rounded overflow-hidden">
                   <a
-                    href="https://ebarasho.com/chat"
+                    href="https://tp.media/click?shmarker=373506&promo_id=7760&source_type=banner&type=click&campaign_id=200&trs=179005"
                     target="_blank"
                     rel="noreferrer"
                   >
                     <Image
-                      src={`/ebarasho_square_ad_${locale}.png`}
+                      src={`https://c200.travelpayouts.com/content?promo_id=7760&shmarker=373506&type=init&trs=179005`}
                       layout="fill"
                     />
                   </a>

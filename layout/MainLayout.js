@@ -117,7 +117,7 @@ export default function MainLayout(props) {
         {children}
       </main>
       <AppFooter />
-      <Announcement t={t_announcement} locale={locale} />
+      {/* <Announcement t={t_announcement} locale={locale} /> */}
     </>
   );
 }

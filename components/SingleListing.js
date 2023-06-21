@@ -87,6 +87,23 @@ export default function SingleListing({ listing, listingType }) {
         <meta property="og:description" content={`${listing.description}`} />
       </Head>
       <div className="row">
+        <div className="col-12 mb-4">
+          <div className="w-100 d-flex justify-content-center">
+            <div className="d-inline-block position-relative">
+              <a
+                href="https://tp.media/click?shmarker=373506&promo_id=7786&source_type=banner&type=click&campaign_id=200&trs=179005"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <Image
+                  src={`https://c200.travelpayouts.com/content?promo_id=7786&shmarker=373506&type=init&trs=179005`}
+                  width={728}
+                  height={90}
+                />
+              </a>
+            </div>
+          </div>
+        </div>
         <div className="col-12 col-md-8 mb-3">
           {/* main heading */}
           <div className="w-100 d-flex flex-column flex-sm-row justify-content-sm-between">
