@@ -37,16 +37,8 @@ export default function Home({ listings }) {
       <Hero />
       <div className="container d-flex justify-content-center">
         <div className="d-inline-block mx-auto my-4">
-          <a
-            href="https://tp.media/click?shmarker=373506&promo_id=7786&source_type=banner&type=click&campaign_id=200&trs=179005"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <Image
-              src={`https://c200.travelpayouts.com/content?promo_id=7786&shmarker=373506&type=init&trs=179005`}
-              width={728}
-              height={90}
-            />
+          <a href="https://flyiisi.com/" target="_blank" rel="noreferrer">
+            <Image src="/flyiisi_banner.png" width={728} height={120} />
           </a>
         </div>
       </div>
