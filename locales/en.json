@@ -272,7 +272,8 @@
     "our_location": "Our Location",
     "contact_details": "Contact Details",
     "contact_instruction": "Please find below our contact details and feel free to contact us anytime!",
-    "hours": "Hours"
+    "hours": "Hours",
+    "click_here": "Click Here"
   },
   "ContactForm": {
     "name": "Name",

@@ -79,6 +79,21 @@ export default function Contact() {
                         <span className="d-block">+252 90 1231 234</span>
                       </p>
                       <p className="mb-2 d-flex">
+                        <span className="d-block me-3 whatsapp-icon">
+                          <i className="bi bi-whatsapp"></i>
+                        </span>
+                        <a
+                          href="https://wa.me/358465409585?text=Hello%20Gurikiro"
+                          rel="no-referer"
+                          className="text-light d-inline-block text-decoration-none"
+                        >
+                          <span>Whatsapp </span>
+                          <span className="fs-12 text-lowercase">
+                            ({t("click_here")})
+                          </span>
+                        </a>
+                      </p>
+                      <p className="mb-2 d-flex">
                         <span className="d-block me-3">
                           <i className="bi bi-envelope-fill"></i>
                         </span>

@@ -29,6 +29,20 @@ export default function AppFooter() {
                 </a>
               </p>
             </div>
+            <div className="mt-2 text-light text-center-md">
+              <p className="d-flex align-items-center">
+                <span className="d-block square-25 me-2">
+                  <i className="bi bi-whatsapp"></i>
+                </span>
+                <a
+                  href="https://wa.me/358465409585?text=Hello%20Gurikiro"
+                  rel="no-referer"
+                  className="text-light d-inline-block"
+                >
+                  Whatsapp
+                </a>
+              </p>
+            </div>
           </div>
           <div className="col-12 col-md-6">
             <div className="row">
@@ -79,7 +93,7 @@ export default function AppFooter() {
                 <ul className="list-unstyled d-flex">
                   <li className="me-3">
                     <a
-                      href="mailto: info@gurikiro.com"
+                      href="https://wa.me/358465409585?text=Hello%20Gurikiro"
                       rel="no-referer"
                       className="whatsapp-icon d-inline-block text-decoration-none"
                     >
